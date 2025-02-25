@@ -5,7 +5,6 @@
   text-align: center;
   font-family: 'Arial', sans-serif; /* Default font for consistency */
   color: #333; /* Default text color for better readability */
-  background: linear-gradient(to bottom, #ffffff, #e6f0ff); /* Gradient from white to light blue */
 }
 
 .logo {
@@ -38,7 +37,7 @@
 
 .card {
   padding: 2em;
-  background: #ffffff; /* White background for cards */
+  background: #fff; /* White background for cards */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin: 1em 0; /* Spacing between cards */
@@ -60,8 +59,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff; /* White background for navbar */
-  padding: 20px 30px;
+  background: white;
+  padding: 15px 30px;
   position: fixed;
   width: 100%;
   top: 0;
@@ -97,7 +96,7 @@
   justify-content: center;
   flex: 1;
   margin: 1;
-  padding: 1;
+  padding: 0;
 }
 
 .nav-links li {
@@ -106,27 +105,27 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #333; /* Dark text for contrast */
+  color: black;
   font-size: 18px;
   font-weight: 500;
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
-  color: #0073e6; /* Blue hover color */
+  color: orange;
   transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
 /* Buttons */
 .nav-buttons {
   display: flex;
-  gap: 5px;
+  gap: 10px;
 }
 
 .login-btn {
-  background: #ffffff; /* White background */
-  color: #0073e6; /* Blue text */
-  border: 1px solid #0073e6; /* Blue border */
+  background: white;
+  color: black;
+  border: 1px solid black;
   padding: 8px 16px;
   border-radius: 5px;
   font-size: 16px;
@@ -135,13 +134,13 @@
 }
 
 .login-btn:hover {
-  background: #0073e6; /* Blue background on hover */
-  color: #ffffff; /* White text on hover */
+  background: #ddd;
+  color: #333;
 }
 
 .signup-btn {
-  background: #0073e6; /* Blue background */
-  color: #ffffff; /* White text */
+  background: orange;
+  color: white;
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
@@ -151,7 +150,7 @@
 }
 
 .signup-btn:hover {
-  background: #005bb5; /* Darker blue on hover */
+  background: darkorange;
 }
 
 /* Responsive Design */
