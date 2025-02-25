@@ -1,17 +1,12 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import "./index.css"; // Keep styling in index.css
 
 function App() {
-
   return (
     <Router>
-      <Navbar /> {/* Place Navbar outside Routes if it's always visible */}
-      <Routes>
-        <Route path="/navbar" element={<Navbar />} />
-      </Routes>
-      <p>Hello Sharon</p>
+      <Navbar />
     </Router>
   );
 }

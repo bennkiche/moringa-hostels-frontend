@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "/src/index.css"; 
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar-container">
+      <div className="nav-container">
         {/* Logo */}
         <div className="logo">
-          <img src="/src/assets/Images/logo.png" alt="Moringa Hostels" />
+          <img src="src/assets/Images/logo.png" alt="Moringa Hostels" />
         </div>
 
         {/* Navigation Links */}
