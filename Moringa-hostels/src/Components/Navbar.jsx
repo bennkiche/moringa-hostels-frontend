@@ -8,7 +8,7 @@ const Navbar = () => {
       <div>
         {/* Logo */}
         <div className="logo">
-          <img src="/logo.png" alt="Moringa Hostels" />
+          <img src="src/assets/Images/logo.png" alt="Moringa Hostels" />
         </div>
 
         {/* Navigation Links */}
