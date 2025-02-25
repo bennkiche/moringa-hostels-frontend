@@ -1,3 +1,122 @@
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.home-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-section {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  background: #ff5a5f;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #ff3b3f;
+}
+
+.featured-accommodations,
+.popular-destinations {
+  margin-bottom: 40px;
+}
+
+.featured-accommodations h2,
+.popular-destinations h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.accommodation-list,
+.destination-list {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.accommodation-item,
+.destination-item {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1 1 calc(33.333% - 40px);
+  transition: transform 0.3s ease;
+}
+
+.accommodation-item:hover,
+.destination-item:hover {
+  transform: translateY(-5px);
+}
+
+.accommodation-image,
+.destination-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.accommodation-item h3,
+.destination-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #4e54c8;
+}
+
+.accommodation-item p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.view-details {
+  background: #4e54c8;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.view-details:hover {
+  background: #8f94fb;
+}
+
+
 .navbar {
   position: fixed;
   top: 0;
@@ -33,33 +152,7 @@
 }
 
 body {
-  padding-top: 60px; /* Prevent content from being hidden behind navbar */
+  padding-top: 60px; 
   margin: 0;
   font-family: Arial, sans-serif;
-}
-.home-container {
-  text-align: center;
-  padding: 20px;
-}
-
-.hero-section {
-  background: url("hero-image.jpg") center/cover no-repeat;
-  color: white;
-  padding: 50px;
-}
-
-.featured-accommodations, .popular-destinations {
-  margin-top: 30px;
-}
-
-.accommodation-list, .destination-list {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.accommodation-item, .destination-item {
-  background: #f4f4f4;
-  padding: 10px;
-  border-radius: 5px;
 }
