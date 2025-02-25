@@ -66,13 +66,12 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-/* Navbar Container */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; 
   align-items: center;
   padding: 15px 30px;
-  background: rgba(51, 51, 51, 0.9); /* Dark semi-transparent background */
+  background: rgba(51, 51, 51, 0.9);
   position: fixed;
   width: 100%;
   top: 0;
@@ -80,16 +79,21 @@ button:focus-visible {
   z-index: 1000;
 }
 
-/* Logo */
-.logo img {
-  height: 50px;
+
+.navbar > div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Limits navbar width for better alignment */
+  justify-content: space-between;
 }
 
-/* Navigation Links */
+/* Centering Navigation Links */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  justify-content: center;
 }
 
 .nav-links li {
@@ -108,38 +112,13 @@ button:focus-visible {
   color: orange;
 }
 
+/* Logo */
+.logo img {
+  height: 50px;
+}
+
 /* Buttons */
 .nav-buttons {
   display: flex;
   gap: 10px;
-}
-
-.login-btn {
-  background: white;
-  color: black;
-  border: 1px solid black;
-  padding: 8px 16px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.login-btn:hover {
-  background: #ddd;
-}
-
-.signup-btn {
-  background: orange;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.signup-btn:hover {
-  background: darkorange;
 }
