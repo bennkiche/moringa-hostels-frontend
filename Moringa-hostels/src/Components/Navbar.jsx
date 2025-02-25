@@ -5,7 +5,7 @@ import "/src/index.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div>
+      <div className="navbar-container">
         {/* Logo */}
         <div className="logo">
           <img src="/src/assets/Images/logo.png" alt="Moringa Hostels" />

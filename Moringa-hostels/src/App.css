@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: 'Arial', sans-serif; /* Default font for consistency */
+  color: #333; /* Default text color for better readability */
+  background: linear-gradient(to bottom, #ffffff, #e6f0ff); /* Gradient from white to light blue */
 }
 
 .logo {
@@ -35,24 +38,36 @@
 
 .card {
   padding: 2em;
+  background: #ffffff; /* White background for cards */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin: 1em 0; /* Spacing between cards */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
 .read-the-docs {
   color: #888;
+  font-size: 0.9em;
 }
+
 /* Navbar Container */
 .navbar {
   display: flex;
-  justify-content: center; /* Centers all navbar content */
+  justify-content: center;
   align-items: center;
-  background: white; /* Changed background color to white */
-  padding: 15px 30px;
+  background: #ffffff; /* White background for navbar */
+  padding: 20px 30px;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for better visibility */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Flex container to keep items aligned */
@@ -61,12 +76,17 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1200px; /* Controls navbar width */
+  max-width: 1200px;
 }
 
 /* Logo */
 .logo img {
   height: 50px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo img:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 /* Centering Navigation Links */
@@ -75,7 +95,9 @@
   display: flex;
   gap: 30px;
   justify-content: center;
-  flex: 1; /* Allows links to expand and center properly */
+  flex: 1;
+  margin: 1;
+  padding: 1;
 }
 
 .nav-links li {
@@ -84,40 +106,42 @@
 
 .nav-links a {
   text-decoration: none;
-  color: black; /* Changed color for visibility */
+  color: #333; /* Dark text for contrast */
   font-size: 18px;
   font-weight: 500;
-  transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .nav-links a:hover {
-  color: orange;
+  color: #0073e6; /* Blue hover color */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
 /* Buttons */
 .nav-buttons {
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 
 .login-btn {
-  background: white;
-  color: black;
-  border: 1px solid black;
+  background: #ffffff; /* White background */
+  color: #0073e6; /* Blue text */
+  border: 1px solid #0073e6; /* Blue border */
   padding: 8px 16px;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .login-btn:hover {
-  background: #ddd;
+  background: #0073e6; /* Blue background on hover */
+  color: #ffffff; /* White text on hover */
 }
 
 .signup-btn {
-  background: orange;
-  color: white;
+  background: #0073e6; /* Blue background */
+  color: #ffffff; /* White text */
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
@@ -127,5 +151,27 @@
 }
 
 .signup-btn:hover {
-  background: darkorange;
+  background: #005bb5; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar > div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  .nav-buttons {
+    margin-top: 10px;
+  }
+
+  .logo img {
+    height: 40px;
+  }
 }
