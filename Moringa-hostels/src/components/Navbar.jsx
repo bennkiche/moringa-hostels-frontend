@@ -21,10 +21,10 @@ const Navbar = () => {
         {/* Buttons */}
         <div className="hidden md:flex space-x-4">
           <button className="border-2 border-blue-500 text-blue-500 px-4 py-2 rounded-full hover:bg-blue-500 hover:text-white transition">
-            Log In
+            Sign Up
           </button>
           <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
-            Sign Up
+            Log In
           </button>
         </div>
 
