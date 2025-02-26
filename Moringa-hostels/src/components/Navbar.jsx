@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-6">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="/assets/Images/logo.png" alt="Moringa Hostels" className="h-12" />
+          <img src="src/assets/Images/logo.png" alt="Moringa Hostels" className="h-12" />
         </div>
 
         {/* Navigation Links */}
