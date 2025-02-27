@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom"
+import PasswordReset from './ResetEmail'
+import LoginReset from './LoginForm'
+
 
 const url = "http://127.0.0.1:5000"
 
@@ -55,7 +58,7 @@ function Signup() {
                 }
             })
             .then((data) => {
-                console.log("Fetched users:", data); 
+                console.log("Fetched users:", data) 
                 setUsers(data)
             })
             .catch((error) => {
@@ -71,7 +74,7 @@ function Signup() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                name: formData.get('name'),  // Use 'name' as expected by the backend
+                name: formData.get('name'), 
                 email: formData.get('email'),
                 password: formData.get('password')
             }),
@@ -90,9 +93,9 @@ function Signup() {
                 localStorage.setItem("access_token", data.create_token)
 
                 if (data.role) {
-                    alert(`Welcome ${data.user.name}, your account has been logged in as a ${data.role}.`);
+                    alert(`Welcome ${data.user.name}, your account has been logged in as a ${data.role}.`)
                 } else {
-                    alert(`Welcome ${data.user.name}, your account has been logged in.`);
+                    alert(`Welcome ${data.user.name}, your account has been logged in.`)
                 }
             })
             .catch((error) => {
@@ -128,9 +131,9 @@ function Signup() {
                 localStorage.setItem("access_token", data.create_token)
 
                 if (data.role) {
-                    alert(`Welcome ${data.user.name}, your account has been created as a ${data.role}.`);
+                    alert(`Welcome ${data.user.name}, your account has been created as a ${data.role}.`)
                 } else {
-                    alert(`Welcome ${data.user.name}, your account has been created.`);
+                    alert(`Welcome ${data.user.name}, your account has been created.`)
                 }
             })
             .catch((error) => {
@@ -163,6 +166,8 @@ function Signup() {
                 <Route path="/users" element={user?.role === 'admin' ? <Users users={users} /> : <Navigate to="/accommodations" />} />
                 <Route path="/login" element={user ? <Navigate to="/accommodations" /> : <LoginForm handleLogin={handleLogin} />} />
                 <Route path="/signup" element={user ? <Navigate to="/accommodations" /> : <SignupForm handleSignup={handleSignup} />} />
+                <Route path="/reset-password" element={<PasswordReset />} />
+                <Route path="/login-reset" element={<LoginReset />} />
             </Routes>
         </Router>
     )
@@ -210,6 +215,12 @@ function LoginForm({ handleLogin }) {
             <input type="text" name="name" placeholder="Enter name..." required /> {/* Change to 'name' */}
             <input type="email" name="email" placeholder="Enter email..." required />
             <input type="password" name="password" placeholder="Enter password..." required />
+             {/* Forgot Password Button */}
+             <div>
+                <Link to="/reset-password">
+                    <button type="button">Forgot Password?</button>
+                </Link>
+            </div>
             <button type="submit">Login</button>
         </form>
     )
@@ -221,7 +232,6 @@ function SignupForm({ handleSignup }) {
             <input type="text" name="name" placeholder="Enter name..." required /> {/* Change to 'name' */}
             <input type="email" name="email" placeholder="Enter email..." required />
             <input type="password" name="password" placeholder="Enter password..." required />
-            <input type="text" name="role" placeholder="Enter role (optional)" />
             <button type="submit">Sign Up</button>
         </form>
     )
