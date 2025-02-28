@@ -32,7 +32,7 @@ const Home = () => {
         {/* Card 1 */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           <img
-            src="src/assets/images/double rooms.jpeg"
+            src="src/assets/images/Spacious rooms.avif"
             alt="Hostel Room"
             className="w-full h-48 object-cover"
           />
