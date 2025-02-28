@@ -4,33 +4,37 @@ const Footer = () => {
   return (
     <footer
       style={{
-        width: '100%',
+        width: '100vw',
         background: 'linear-gradient(to right, #00093c, #2d0b00)',
-        padding: '10px 0 20px', 
+        padding: ' 20px', 
         color: '#fff',
         fontSize: '14px', 
         lineHeight: '1.6',
         position: 'relative',
-        marginTop: '70px', 
+        marginTop: '120px', 
         height: 'auto',
+        left:'0',
       }}
     >
       <div
         className="row"
         style={{
-          width: '90%', 
+          width: '100%', 
+          maxWidth:'1200px',
           margin: 'auto',
           display: 'flex',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           alignItems: 'flex-start',
+          gap:'20px'
         }}
       >
         <div
           className="col"
           style={{
             padding: '10px',
-            flexBasis: '22%', 
+            flexBasis:'22%',
+            minWidth:'250px'
           }}
         >
           <img
@@ -38,8 +42,9 @@ const Footer = () => {
             className="logo"
             alt="Moringa School logo"
             style={{
-              width: '60px',
-              marginBottom: '20px',
+              width: '150px',
+              height: '150px',
+              marginBottom: '10px',
             }}
           />
           <p>
@@ -52,33 +57,33 @@ const Footer = () => {
           style={{
             padding: '10px',
             flexBasis: '22%',
+            minWidth: '250px'
           }}
         >
           <h3
             style={{
-              width: 'fit-content',
-              position: 'relative',
-              marginBottom: '20px',
+              textAlign:'centre',
+              marginBottom: '10px',
             }}
           >
             Moringa School
             <div
               className="underline"
               style={{
-                width: '100%',
+                width: '50%',
                 height: '3px',
                 background: '#767676',
                 borderRadius: '3px',
-                position: 'absolute',
-                top: '20px',
-                left: '0',
+                position: 'relative',
+                top:'5px',
+                margin:'0 auto'
               }}
             >
               <span
                 style={{
                   position: 'absolute',
                   top: '0',
-                  left: '10px',
+                  left: '0px',
                   width: '12px',
                   height: '100%',
                   background: '#fff',
@@ -91,6 +96,8 @@ const Footer = () => {
           <p>Ngong Lane Plaza</p>
           <p>Ngong Road, Nairobi</p>
           <p>P.O Box 28860 - 00100, Nairobi</p>
+           admissions@moringaschool.com
+          <p className="contact-number">+254711082146</p>
           <p
             className="email-id"
             style={{
@@ -98,10 +105,8 @@ const Footer = () => {
               borderBottom: '1px solid #ccc',
               margin: '10px 0',
             }}
-          >
-            admissions@moringaschool.com
+          > 
           </p>
-          <p className="contact-number">+254711082146</p>
         </div>
 
         <div
@@ -113,30 +118,29 @@ const Footer = () => {
         >
           <h3
             style={{
-              width: 'fit-content',
-              position: 'relative',
               marginBottom: '20px',
+              position:'relative',
             }}
           >
             Links
             <div
               className="underline"
               style={{
-                width: '100%',
+                width: '30%',
                 height: '3px',
                 background: '#767676',
                 borderRadius: '3px',
-                position: 'absolute',
-                top: '20px',
-                left: '0',
+                position: 'relative',
+                top:'5px',
+                margin:'0 auto'
               }}
             >
               <span
                 style={{
                   position: 'absolute',
                   top: '0',
-                  left: '10px',
-                  width: '12px',
+                  left: '0px',
+                  width: '5px',
                   height: '100%',
                   background: '#fff',
                   borderRadius: '3px',
@@ -149,6 +153,7 @@ const Footer = () => {
             style={{
               listStyle: 'none',
               padding: '0',
+              margin: '0',
             }}
           >
             <li>
@@ -172,6 +177,21 @@ const Footer = () => {
               </a>
             </li>
           </ul>
+          <style>
+  {`
+    @keyframes moving {
+      0% {
+        left: 0;
+      }
+      50% {
+        left: 95%;
+      }
+      100% {
+        left: 0;
+      }
+    }
+  `}
+</style>
         </div>
 
         <div

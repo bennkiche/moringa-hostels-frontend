@@ -11,7 +11,7 @@ function NewAccommodate({accommodate,setAccommodate}){
         let name = e.target.name
         let value = e.target.value
 
-        setNewPlane({
+        setNewAccommodate({
             ...NewAccommodate,
             [name]:value
         })
@@ -49,4 +49,4 @@ function NewAccommodate({accommodate,setAccommodate}){
     )
 }
 
-export default NewAccommodate
+export default NewAccommodate;

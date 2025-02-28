@@ -1,10 +1,11 @@
-import RoomItem from "./RoomItem";
+import RoomUserItem from "./RoomUserItem";
 
-function RoomList({room,setRoom}){
+
+function RoomUserList({rooms,setRooms}){
     return(
        <div id="container">
-          {room.length >0? room.map(accommodates => (
-            <RoomItem
+          {rooms.length >0? rooms.map(accommodates => (
+            <RoomUserItem 
             key={accommodates.id}
             id={accommodates.id}
             room_type ={accommodates.room_type}
@@ -14,12 +15,12 @@ function RoomList({room,setRoom}){
             image={accommodates.image}
             accommodation_id={accommodates.accommodation_id}
             description={accommodates.description}
-            room={room} 
-            setRoom={setRoom}
+            rooms={rooms} 
+            setRooms={setRooms}
             />
           )):null}
        </div>
     )
 }
 
-export default RoomList;
+export default RoomUserList;

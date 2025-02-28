@@ -6,8 +6,9 @@ function NewRoom({room,setRoom}){
         room_no:0,
         availability:"",
         accommodation_id:0,
-        price:"",
-        description:""
+        price:0,
+        description:"",
+        image:"",
     })
     function handleChange(e){
         e.preventDefault()
@@ -35,8 +36,9 @@ function NewRoom({room,setRoom}){
             room_no:0,
             availability:"",
             accommodation_id:0,
-            price:"",
-            description:""
+            price:0,
+            description:"",
+            image:"",
         })
         alert(`Poof ${newRoom.name} created with success`)
        })
@@ -52,6 +54,7 @@ function NewRoom({room,setRoom}){
                 <input className="new" type="text" name="availability" placeholder="availability" value={newRoom.availability} required onChange={handleChange}/>
                 <input className="new" type="text" name="accommodation_id" placeholder="accommodation_id" value={newRoom.accommodation_id} required onChange={handleChange}/>
                 <input className="new" type="text" name="price" placeholder="price" value={newRoom.price} required onChange={handleChange}/>
+                <input className="new" type="text" name="image" placeholder="image" value={newRoom.image} required onChange={handleChange}/>
                 <button className="add" type="submit">Add</button>
             </form> 
         </div> 

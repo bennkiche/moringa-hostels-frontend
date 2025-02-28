@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: none;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -40,14 +40,7 @@
 .read-the-docs {
   color: #888;
 }
-
- /* :root {
-  --primary-color: #6369f5;
-  --secondary-color: #f5f4fa;
-  --text-color: #444444;
-  --white-color: #fff;
-} */
-
+/* Contact */
 * {
   margin: 0;
   padding: 0;
@@ -60,7 +53,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--secondary-color);
+  background-color: none;
 }
 
 .contact {
@@ -70,7 +63,7 @@ body {
   display: flex;
   border-radius: 10px;
   padding: 40px;
-  background-color: var(--white-color);
+  background-color: wheat;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   gap: 30px;
   margin: auto;
@@ -85,12 +78,12 @@ body {
   font-size: 35px;
   font-weight: 600;
   line-height: 1.2;
-  color: var(--primary-color);
+  color: blue;
 }
 
 .text {
   font-size: 14px;
-  color: var(--text-color);
+  color: black;
   margin-top: 10px;
 }
 
@@ -109,15 +102,15 @@ form {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: lightblue;
-  color: var(--text-color);
+  background-color: lightcoral;
+  color: black;
   font-size: 16px;
   outline: none;
 }
 
 .inputBox input::placeholder,
 .inputBox textarea::placeholder {
-  color: var(--text-color);
+  color: black;
   opacity: 0.5;
   font-size: 14px;
 }
@@ -163,14 +156,14 @@ form {
 
 .infoBox .icon {
   font-size: 20px;
-  color: var(--primary-color);
+  color: black;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 1px solid var(--primary-color);
+  border: red;
 }
 
 .infoBox .text {
@@ -179,7 +172,7 @@ form {
 
 .infoBox .text a {
   text-decoration: none;
-  color: var(--primary-color);
+  color: red;
 }
 @media (max-width: 768px) {
   .contact {
