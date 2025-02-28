@@ -7,6 +7,7 @@ import Accommodations from "./components/Accommodations";
 import Contact from "./components/Contact";
 import "./index.css";
 
+
 function App() {
   return (
     <Router>
