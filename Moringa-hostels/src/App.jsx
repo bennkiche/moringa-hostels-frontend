@@ -8,9 +8,8 @@ import Accommodations from "./components/Accommodations";
 import Contact from "./components/Contact";
 import Footer from './Components/Footer'
 import Contact from './Components/Contact'
+import Authentication from './authentications/Authentication'
 import "./index.css";
-
-
 
 function App() {
   return (
@@ -21,6 +20,7 @@ function App() {
         <Route path="/accommodations" element={<Accommodations/>} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Authentication />
         <Contact />
         <Footer />
       </Routes>
