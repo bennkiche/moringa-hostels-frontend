@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -23,9 +24,25 @@ function App() {
         <Authentication />
         <Contact />
         <Footer />
+=======
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import AccommodationDetails from "./components/AccommodationDetails";
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/accommodation/:id" element={<AccommodationDetails />} />
+>>>>>>> ft-odhis
       </Routes>
     </Router>
   );
 }
 
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+>>>>>>> ft-odhis
