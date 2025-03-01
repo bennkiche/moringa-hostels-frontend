@@ -12,12 +12,13 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <ul className="hidden md:flex space-x-6 text-gray-800 font-semibold">
+        <ul className="hidden md:flex gap-x-10 text-gray-800 font-semibold">
           <li><Link to="/home" className="hover:text-blue-500 transition">Home</Link></li>
           <li><Link to="/accommodationUsers" className="hover:text-blue-500 transition">Accommodations</Link></li>
           <li><Link to="/about" className="hover:text-blue-500 transition">About</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500 transition">Contact</Link></li>
         </ul>
+
 
         <div className="hidden md:flex items-center space-x-4">
           <Link to="/signup">

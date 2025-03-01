@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import AccommodationList from "./AccomodationList";
 import Navbar from "../components/Navbar";
+import NavbarUser from "../components/NavbarUser";
  
 function AccommodationDetails(){ 
   const [accommodation,setAccommodation] = useState([])
@@ -16,6 +17,7 @@ function AccommodationDetails(){
   
   return(
     <>
+    <NavbarUser />
     <h1 className="mainH">Accommodations</h1>
      <AccommodationList accommodation={accommodation} setAccommodation={setAccommodation}/>
     </>

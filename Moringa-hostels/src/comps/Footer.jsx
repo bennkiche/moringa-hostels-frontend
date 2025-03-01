@@ -11,7 +11,7 @@ const Footer = () => {
         fontSize: '14px', 
         lineHeight: '1.6',
         position: 'relative',
-        marginTop: '120px', 
+        marginTop: '25px', 
         height: 'auto',
         left:'0',
       }}

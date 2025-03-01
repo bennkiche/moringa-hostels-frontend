@@ -6,7 +6,7 @@ const LandingPage = () => {
     <div className="landing-container">
       <div className="overlay"></div>
       <div className="content">
-        <h1>Welcome to Moringa Hostels</h1>
+        <h1>Moringa Hostels</h1>
         <p>Your comfort is our priority. Book a room today!</p>
         <div className="button-container">
           <Link to="/login">
