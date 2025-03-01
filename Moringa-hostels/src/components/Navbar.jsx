@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -13,8 +14,8 @@ const Navbar = () => {
         {/* Navigation Links */}
         <ul className="hidden md:flex space-x-6 text-gray-800 font-semibold">
           <li><Link to="/" className="hover:text-blue-500 transition">Home</Link></li>
-          <li><Link to="/about" className="hover:text-blue-500 transition">About</Link></li>
           <li><Link to="/accommodations" className="hover:text-blue-500 transition">Accommodations</Link></li>
+          <li><Link to="/about" className="hover:text-blue-500 transition">About</Link></li>
           <li><Link to="/contact" className="hover:text-blue-500 transition">Contact</Link></li>
         </ul>
 
@@ -27,7 +28,6 @@ const Navbar = () => {
             Log In
           </button>
         </div>
-
         {/* Mobile Menu Icon */}
         <div className="md:hidden">
           <button className="text-gray-700 text-2xl focus:outline-none">☰</button>
