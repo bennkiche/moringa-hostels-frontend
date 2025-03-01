@@ -11,6 +11,13 @@ import About from "./components/About"
 import Contact from './comps/Contact'
 import Home from "./components/Home" 
 import Room from './AdminRoom/Room'
+import BookingList from "./bookings/BookingList";
+import BookingDetails from "./bookings/BookingDetails";
+import AvailableRooms from "./bookings/Rooms";
+import BookingForm from "./bookings/BookingForm";
+
+
+
 import './App.css'
 import "./index.css"
 
@@ -29,9 +36,15 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path='/home' element={<Home />} />
+        <Route path="/bookings" element={<BookingList />} />
+        <Route path="/bookings/:id" element={<BookingDetails />} />
+        <Route path="/newbooking" element={<BookingForm />} />
+        <Route path="/bookings/" element={<AvailableRooms />} />
+        
       </Routes>
     </Router>
   )
 }
 
-export default App
+
+export default App;
