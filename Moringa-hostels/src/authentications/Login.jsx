@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navigate } from "react-router-dom";
 import NavbarUser from '../components/NavbarUser';
 
 const url = "http://127.0.0.1:5000";
@@ -44,8 +45,13 @@ function LoginForm() {
             });
     };
 
+    // Redirect based on user role after login
     if (token) {
-        return <Navigate to="/accommodations" />;
+        if (user?.role === "admin") {
+            return <Navigate to="/accommodationAdmin" />;
+        } else if (user?.role === "user") {
+            return <Navigate to="/accommodationUser" />;
+        }
     }
 
     return (

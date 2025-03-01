@@ -6,7 +6,7 @@ const AvailableRooms = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [error, setError] = useState(""); // <-- Added error state
+  const [error, setError] = useState("");
 
   const fetchAvailableRooms = () => {
     if (!startDate || !endDate) {
@@ -18,7 +18,7 @@ const AvailableRooms = () => {
       .then((response) => response.json())
       .then((data) => {
         setRooms(data);
-        setError(""); // Clear error on success
+        setError("");
       })
       .catch((err) => {
         console.error("Error fetching rooms:", err);
@@ -40,7 +40,6 @@ const AvailableRooms = () => {
         <button onClick={fetchAvailableRooms}>Search</button>
       </div>
 
-      {/* Show error message if there's an error */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
@@ -56,9 +55,8 @@ const AvailableRooms = () => {
               textAlign: "center",
             }}
           >
-            {/* Room Image */}
             <img
-              src={room.image_url || "https://via.placeholder.com/300"} // Default image if missing
+              src={room.image_url || "https://via.placeholder.com/300"}
               alt={`Room ${room.room_number}`}
               style={{
                 width: "100%",

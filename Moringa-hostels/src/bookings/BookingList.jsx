@@ -10,7 +10,6 @@ const BookingList = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Add Authorization header if needed:
         'Authorization': `Bearer ${token}`,
       },
     })
@@ -33,8 +32,7 @@ const BookingList = () => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        // Add Authorization header if needed:
-        // 'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     })
       .then((response) => {

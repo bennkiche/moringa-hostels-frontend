@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const BookingForm = ({ roomId, closeForm }) => {
+const BookingForm = ({ closeForm }) => {
+  const location = useLocation();
+  const { room_no, room_type, accommodation_id, price, description, image } = location.state || {};
+  
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (room_type) {
+      console.log("Room Type:", room_type);
+    }
+  }, [room_type]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,8 +23,9 @@ const BookingForm = ({ roomId, closeForm }) => {
     }
 
     const bookingData = {
-      room_id: roomId,
-      user_id: user.id, // Change this to the actual logged-in user
+      room_no,
+      room_type,
+      accommodation_id,
       start_date: startDate.replace("T", " "),
       end_date: endDate.replace("T", " "),
       status: "confirmed"
@@ -44,25 +55,31 @@ const BookingForm = ({ roomId, closeForm }) => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
+          <label>Room Type</label>
+          <input type="text" value={room_type || ""} readOnly />
+        </div>
+        <div>
+          <label>Room Number</label>
+          <input type="text" value={room_no || ""} readOnly />
+        </div>
+        <div>
+          <label>Accommodation ID</label>
+          <input type="text" value={accommodation_id || ""} readOnly />
+        </div>
+        <div>
+          <label>Price (KSH)</label>
+          <input type="text" value={price || ""} readOnly />
+        </div>
+        <div>
           <label>Start Date</label>
-          <input
-            type="datetime-local"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
+          <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
         </div>
         <div>
           <label>End Date</label>
-          <input
-            type="datetime-local"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+          <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </div>
         <button type="submit">Confirm Booking</button>
-        <button type="button" onClick={closeForm}>
-          Cancel
-        </button>
+        <button type="button" onClick={closeForm}>Cancel</button>
       </form>
     </div>
   );
