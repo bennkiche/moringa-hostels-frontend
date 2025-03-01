@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-// import Footer from "./Footer";
+import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -149,7 +150,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      {/* <Footer/> */}
+      {/* <Footer /> */}
     </div>
   );
 };

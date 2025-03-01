@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "../comps/Footer";
 
 const About = () => {
   return (
@@ -14,6 +16,7 @@ const About = () => {
           affordable, and vibrant living environment.
         </p>
       </div>
+      <Footer />
     </div>
   );
 };

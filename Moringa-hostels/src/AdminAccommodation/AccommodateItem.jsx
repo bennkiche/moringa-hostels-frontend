@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
 function AccommodateItem({name,image, id, description,setAccommodate,accommodate}){
   const [update,setUpdate] =useState({
@@ -77,6 +78,12 @@ function AccommodateItem({name,image, id, description,setAccommodate,accommodate
                 <button className="update" type="submit">Update</button>
               </form>
               <button className="delete" onClick={handleDelete}>Delete</button>
+
+             <Link to='/roomAdmins'>
+              <button className="mini">
+                Rooms
+              </button>
+             </Link> 
         </div>
     )
 }

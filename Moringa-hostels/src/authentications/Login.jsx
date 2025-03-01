@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavbarUser from '../components/NavbarUser';
 
 const url = "http://127.0.0.1:5000";
 
@@ -49,15 +50,15 @@ function LoginForm() {
 
     return (
         <div className="signupContainer">
+            <NavbarUser />
             <div className="signupCard">
                 <div className="signupLeft">
-                    {/* You can replace this with your dynamic image */}
                     <div className="signupImagePlaceholder">
                         <img src="https://cdn.create.vista.com/api/media/small/426382906/stock-photo-hostel-dormitory-beds-arranged-in-room" alt="signup" />
                     </div>
                 </div>
                 <div className="signupRight">
-                    <h2>Create an Account</h2>
+                    <h2>Log in to your account</h2>
                     <form className="signupForm" onSubmit={handleLogin}>
                         <input className="signupInput" type="text" name="name" placeholder="Enter name..." required />
                         <input className="signupInput" type="email" name="email" placeholder="Enter email..." required />

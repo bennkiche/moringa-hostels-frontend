@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import AccommodationList from "./AccomodationList";
+import Navbar from "../components/Navbar";
  
 function AccommodationDetails(){ 
   const [accommodation,setAccommodation] = useState([])

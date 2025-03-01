@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "../comps/Footer";
 
 const Contact = () => {
   return (
@@ -63,6 +65,7 @@ const Contact = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

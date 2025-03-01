@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../comps/Footer";
-import Navbar from "./Navbar";
+import NavbarUser from "./NavbarUser";
 
-const Home = () => {
+const HomeAuth = () => {
   return (
     <div className="relative w-full min-h-screen bg-gray-100">
-      <Navbar />
-      {/* Hero Section */}
+        <NavbarUser />
       <div
         className="relative w-full h-[500px] bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4"
         style={{
@@ -21,7 +20,6 @@ const Home = () => {
         <p className="text-lg md:text-xl mb-6">Your home away from home.</p>
       </div>
 
-      {/* Information Section */}
       <div className="max-w-5xl mx-auto mt-8 px-4 text-center">
         <h2 className="text-2xl md:text-4xl font-bold mb-4">Why Choose Us?</h2>
         <p className="text-lg text-gray-700">
@@ -31,7 +29,6 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Image Cards Section */}
       <div className="max-w-6xl mx-auto py-12 grid gap-6 md:grid-cols-3 px-4">
         {/* Card 1 */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
@@ -79,13 +76,9 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <Footer />
-      {/* <footer className="bg-gray-800 text-white text-center py-4 mt-8">
-        <p>&copy; {new Date().getFullYear()} Moringa Hostel. All Rights Reserved.</p>
-      </footer > */}
     </div>
   )
 };
 
-export default Home;
+export default HomeAuth;
