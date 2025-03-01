@@ -7,21 +7,19 @@ import Accommodations from "./components/Accommodations";
 import Contact from "./components/Contact";
 import "./index.css";
 
+import { useState } from 'react'
+import './App.css'
+import Footer from './Components/Footer'
+import Contact from './Components/Contact'
+
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/accommodations" element={<Accommodations/>} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        
 
-      </Routes>
-    </Router>
-  );
+  return (
+    <>
+      
+    </>
+  )
 }
 
 export default App;
