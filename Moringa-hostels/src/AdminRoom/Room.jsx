@@ -34,7 +34,7 @@ function Room() {
     <>
     <NavbarUser />
     <h1 className="mainH">Rooms</h1>
-     <NewRoom room={room} setRoom={setRoom}/>
+     <NewRoom room={room} setRoom={setRoom} token={token}/>
      <RoomList room={room} setRoom={setRoom}/>
     </>
   )

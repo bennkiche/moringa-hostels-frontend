@@ -37,10 +37,10 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
       },
       body: JSON.stringify({
         room_type: update.room_type,
-        room_no: Number(update.room_no),  // Ensure it's a number
+        room_no: Number(update.room_no), 
         availability: update.availability,
-        accommodation_id: Number(update.accommodation_id),  // Ensure it's a number
-        price: Number(update.price),  // Ensure it's a number
+        accommodation_id: Number(update.accommodation_id), 
+        price: Number(update.price), 
         description: update.description,
         image: update.image
       })

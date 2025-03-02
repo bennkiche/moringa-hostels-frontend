@@ -3,10 +3,10 @@ import { useState } from "react";
 function NewRoom({ room, setRoom, token }) {
     const [newRoom, setNewRoom] = useState({
         room_type: "",
-        room_no: "",
+        room_no: 0,
         availability: "",
         accommodation_id: "",
-        price: "",
+        price: 0,
         description: "", 
         image: "",
     });
@@ -14,7 +14,10 @@ function NewRoom({ room, setRoom, token }) {
     function handleChange(e) {
         let name = e.target.name;
         let value = e.target.value;
-        setNewRoom({ ...newRoom, [name]: value });
+        setNewRoom({ 
+            ...newRoom, 
+           [name]: value
+         });
     }
 
     function handleSubmit(e) {
@@ -25,13 +28,15 @@ function NewRoom({ room, setRoom, token }) {
             return;
         }
 
+        console.log(token)
+
         fetch("http://127.0.0.1:5000/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(newRoom),
+            body: JSON.stringify(newRoom)
         })
         .then(resp => {
             if (!resp.ok) throw new Error("Unauthorized - Invalid token");
@@ -41,10 +46,10 @@ function NewRoom({ room, setRoom, token }) {
             setRoom([...room, newRoomData]);
             setNewRoom({
                 room_type: "",
-                room_no: "",
+                room_no: 0,
                 availability: "",
                 accommodation_id: "",
-                price: "",
+                price: 0,
                 description: "",
                 image: "",
             });
