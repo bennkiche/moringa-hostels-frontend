@@ -1,64 +1,73 @@
-import { useState } from "react"
+import { useState } from "react";
 
-function NewRoom({room,setRoom}){
-    const [newRoom,setNewRoom] = useState({
-        room_type:"",
-        room_no:0,
-        availability:"",
-        accommodation_id:0,
-        price:0,
-        description:"",
-        image:"",
-    })
-    function handleChange(e){
-        e.preventDefault()
-        let name = e.target.name
-        let value = e.target.value
+function NewRoom({ room, setRoom, token }) {
+    const [newRoom, setNewRoom] = useState({
+        room_type: "",
+        room_no: "",
+        availability: "",
+        accommodation_id: "",
+        price: "",
+        description: "", 
+        image: "",
+    });
 
-        setNewRoom({
-            ...newRoom,
-            [name]:value
-        })
+    function handleChange(e) {
+        let name = e.target.name;
+        let value = e.target.value;
+        setNewRoom({ ...newRoom, [name]: value });
     }
-    function handleSubmit(e){
-       e.preventDefault()
-       fetch("http://127.0.0.1:5000/rooms", {
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify(newRoom)
-       })
-       .then(resp => resp.json())
-       .then(poisson => {setRoom([...room,poisson])
-        setNewRoom({
-            room_type:"",
-            room_no:0,
-            availability:"",
-            accommodation_id:0,
-            price:0,
-            description:"",
-            image:"",
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        if (!token) {
+            alert("You must be logged in to add a room!");
+            return;
+        }
+
+        fetch("http://127.0.0.1:5000/rooms", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newRoom),
         })
-        alert(`Poof ${newRoom.name} created with success`)
-       })
-       .catch(error => console.log(error)) 
+        .then(resp => {
+            if (!resp.ok) throw new Error("Unauthorized - Invalid token");
+            return resp.json();
+        })
+        .then(newRoomData => {
+            setRoom([...room, newRoomData]);
+            setNewRoom({
+                room_type: "",
+                room_no: "",
+                availability: "",
+                accommodation_id: "",
+                price: "",
+                description: "",
+                image: "",
+            });
+            alert(`Room "${newRoomData.room_type}" created successfully!`);
+        })
+        .catch(error => console.error("Error:", error));
     }
-    return(
+
+    return (
         <div className="newness">
-          <h2 className="newer">New Room</h2>
+            <h2 className="newer">New Room</h2>
             <form id="new" onSubmit={handleSubmit}>
-                <input className="new" type="text" name="room_type" placeholder="room_type" value={newRoom.name} required onChange={handleChange}/>
-                <input className="new" type="text" name="room_no" placeholder="room_no" value={newRoom.image} required onChange={handleChange}/>
-                <input className="new" type="text" name="description" placeholder="description" value={newRoom.description} required onChange={handleChange}/>
-                <input className="new" type="text" name="availability" placeholder="availability" value={newRoom.availability} required onChange={handleChange}/>
-                <input className="new" type="text" name="accommodation_id" placeholder="accommodation_id" value={newRoom.accommodation_id} required onChange={handleChange}/>
-                <input className="new" type="text" name="price" placeholder="price" value={newRoom.price} required onChange={handleChange}/>
-                <input className="new" type="text" name="image" placeholder="image" value={newRoom.image} required onChange={handleChange}/>
-                <button className="add" type="submit">Add</button>
+                <input className="new" type="text" name="room_type" placeholder="Room Type" value={newRoom.room_type} required onChange={handleChange}/>
+                <input className="new" type="number" name="room_no" placeholder="Room Number" value={newRoom.room_no} required onChange={handleChange}/>
+                <input className="new" type="text" name="description" placeholder="Description" value={newRoom.description} required onChange={handleChange}/>
+                <input className="new" type="text" name="availability" placeholder="Availability" value={newRoom.availability} required onChange={handleChange}/>
+                <input className="new" type="number" name="accommodation_id" placeholder="Accommodation ID" value={newRoom.accommodation_id} required onChange={handleChange}/>
+                <input className="new" type="number" name="price" placeholder="Price" value={newRoom.price} required onChange={handleChange}/>
+                <input className="new" type="text" name="image" placeholder="Image URL" value={newRoom.image} required onChange={handleChange}/>
+                <button className="add" type="submit">Add Room</button>
             </form> 
         </div> 
-    )
+    );
 }
 
-export default NewRoom;
+export default NewRoom

@@ -1,12 +1,12 @@
 import { useState } from "react"
 
-function RoomItem({room_type,room_no, availability, accommodation_id, description,image,price,room,setRoom}){
+function RoomItem({room_type,room_no, availability, accommodation_id, description,id,image,price,room,setRoom}){
   const [update,setUpdate] =useState({
         room_type:"",
-        room_no:0,
+        room_no:"",
         availability:"",
-        accommodation_id:0,
-        price:0,
+        accommodation_id:"",
+        price:"",
         description:"",
         image:""
   })
@@ -20,59 +20,85 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
         [name]:value
       }) 
   } 
-  function handleUpdate(e){
-    e.preventDefault()
-    fetch(` http://127.0.0.1:5000/rooms/${id}`, {
-       method:"PATCH",
-       headers:{
-        "Content-Type":"application/json"
-       },
-       body:JSON.stringify(update)
+  function handleUpdate(e) {
+    e.preventDefault();
+    const token = localStorage.getItem("access_token");
+  
+    if (!token) {
+      alert("You must be logged in to update a room.");
+      return;
+    }
+  
+    fetch(`http://127.0.0.1:5000/rooms/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        room_type: update.room_type,
+        room_no: Number(update.room_no),  // Ensure it's a number
+        availability: update.availability,
+        accommodation_id: Number(update.accommodation_id),  // Ensure it's a number
+        price: Number(update.price),  // Ensure it's a number
+        description: update.description,
+        image: update.image
+      })
     })
-    .then(resp => resp.json())
+    .then(resp => {
+      if (!resp.ok) {
+        throw new Error(`Error: ${resp.status} ${resp.statusText}`);
+      }
+      return resp.json();
+    })
     .then((updated) => {
-      let updatedPlane = room.map(craft => {
-        if(craft.id === id){
-          craft.room_type = updated.room_type
-          craft.room_no = updated.room_no
-          craft.availability = updated.availability
-          craft.accommodation_id = updated.accommodation_id
-          craft.description = updated.description
-          craft.price = updated.price
-          craft.image = updated.image
-        } 
-        return craft
-      })
-      setRoom(updatedPlane)
+      let updatedRooms = room.map(craft => 
+        craft.id === id ? { ...craft, ...updated } : craft
+      );
+      setRoom(updatedRooms);
       setUpdate({
-        'room_type':"",
-        'room_no':0,
-        'availability':"",
-        'accommodation_id':0,
-        'price':0,
-        'description':"",
-        'image':"",
-      })
-      alert('poof room updated successfully!!')
+        room_type: "",
+        room_no: "",
+        availability: "",
+        accommodation_id: "",
+        price: "",
+        description: "",
+        image: "",
+      });
+      alert("Room updated successfully!");
     })
-    .catch(err => console.log(err))
+    .catch(err => console.error("Error updating room:", err));
   }
+  
 
   function handleDelete(){
+    const token = localStorage.getItem("access_token")
+
+    if (!token) {
+      alert("You must be logged in to delete a room.");
+      return;
+    }
+
     fetch(`http://127.0.0.1:5000/rooms/${id}`, {
       method:"DELETE",
       headers:{
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization": `Bearer ${token}`
       }
     })
-    .then(res => res.json())
-    .then(() => {
-      let remainder = room.filter(fins => fins.id !== id)
-      setRoom(remainder)
-      alert('The room has been deleted successfully')
-    })
-    .catch(err => console.log(err))
-  }  
+    .then(res => {
+    if (!res.ok) {
+      throw new Error("Unauthorized: You don't have permission to delete this room.");
+    }
+    return res.json();
+  })
+  .then(() => {
+    let remainder = room.filter(fins => fins.id !== id);
+    setRoom(remainder);
+    alert('The room has been deleted successfully');
+  })
+  .catch(err => console.error("Error deleting room:", err));
+}
     return(
         <div id="content">
             <h2 className="cont"><strong>{room_type}</strong></h2>

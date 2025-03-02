@@ -50,7 +50,7 @@ function LoginForm() {
         if (user?.role === "admin") {
             return <Navigate to="/accommodationAdmin" />;
         } else if (user?.role === "user") {
-            return <Navigate to="/accommodationUser" />;
+            return <Navigate to="/accommodationUsers" />;
         }
     }
 

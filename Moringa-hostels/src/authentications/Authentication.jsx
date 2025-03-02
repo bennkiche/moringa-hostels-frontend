@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-ro
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './Login';
 import SignupForm from './Signup';
+import Accommodate from '../AdminAccommodation/Accommodate';
+import AccommodationDetails from '../UserAccommodation/AccommodationDetails';
+import NavbarUser from '../components/NavbarUser';
 
 const url = "http://127.0.0.1:5000";
 
@@ -66,9 +69,11 @@ function Authentication() {
     };
 
     const handleLogout = () => {
+        console.log("Logout button clicked")
         setToken(null);
         setUser(null);
         localStorage.removeItem("access_token");
+        navigate('/login')
     };
 
     return (
@@ -77,7 +82,7 @@ function Authentication() {
                 <Link to="/accommodationUsers">Accommodations</Link>
                 {user?.role === 'admin' && <Link to="/users">Users</Link>}
                 {user ? (
-                    <button onClick={handleLogout}>Logout</button>
+                    <NavbarUser handleLogout={handleLogout} />
                 ) : (
                     <>
                         <Link to="/login">Login</Link>
@@ -89,14 +94,11 @@ function Authentication() {
                 <Route path="/login" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <LoginForm setUser={setUser} />} />
                 <Route path="/signup" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <SignupForm />} />
 
-                {/* Redirect to the appropriate route based on user role */}
-                <Route path="/accommodationAdmin" element={token ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <Navigate to="/login" />} />
+                <Route path="/accommodationUsers" element={token ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <Navigate to="/login" />} />
 
-                {/* Admin's accommodations route */}
-                <Route path="/accommodationAdmin" element={user?.role === 'admin' ? <Accommodations accommodations={accommodations} /> : <Navigate to="/login" />} />
+                <Route path="/accommodationAdmin" element={user?.role === 'admin' ? <Accommodate /> : <Navigate to="/login" />} />
 
-                {/* User's accommodations route */}
-                <Route path="/accommodationUsers" element={user?.role === 'user' ? <Accommodations accommodations={accommodations} /> : <Navigate to="/login" />} />
+                <Route path="/accommodationUsers" element={user?.role === 'user' ? <AccommodationDetails /> : <Navigate to="/login" />} />
 
                 <Route path="/users" element={user?.role === 'admin' ? <Users users={users} /> : <Navigate to="/accommodationUsers" />} />
             </Routes>

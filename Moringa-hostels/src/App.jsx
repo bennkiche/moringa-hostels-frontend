@@ -15,11 +15,9 @@ import BookingList from "./bookings/BookingList";
 import BookingDetails from "./bookings/BookingDetails";
 import AvailableRooms from "./bookings/Rooms";
 import BookingForm from "./bookings/BookingForm";
-
-
-
 import './App.css'
 import "./index.css"
+import Navbar from './components/Navbar'
 
 function App() {
   return (
@@ -40,7 +38,6 @@ function App() {
         <Route path="/bookings/:id" element={<BookingDetails />} />
         <Route path="/book-room" element={<BookingForm />} />
         <Route path="/bookings/" element={<AvailableRooms />} />
-        
       </Routes>
     </Router>
   )

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import Navbar from "../components/Navbar";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -61,6 +62,7 @@ const Contact = () => {
 
   return (
     <div className="contact">
+      {/* <Navbar /> */}
       <div className="left">
         <h3 className="heading">Contact Us</h3>
         <p className="text">We are here for you! How can we help?</p>

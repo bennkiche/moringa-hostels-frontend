@@ -17,51 +17,70 @@ function AccommodateItem({name,image, id, description,setAccommodate,accommodate
         [name]:value
       }) 
   } 
-  function handleUpdate(e){
-    e.preventDefault()
-    fetch(` http://127.0.0.1:5000/accommodations/${id}`, {
-       method:"PATCH",
-       headers:{
-        "Content-Type":"application/json"
-       },
-       body:JSON.stringify(update)
-    })
-    .then(resp => resp.json())
-    .then((updated) => {
-      let updatedPlane = accommodate.map(craft => {
-        if(craft.id === id){
-          craft.name = updated.name
-          craft.image = updated.image
-          craft.description = updated.description
-        } 
-        return craft
-      })
-      setAccommodate(updatedPlane)
-      setUpdate({
-        'name':"",
-        "image":"",
-        "description":""
-      })
-      alert(`poof ${name} updated successfully!!`)
-    })
-    .catch(err => console.log(err))
-  }
+  function handleUpdate(e) {
+    e.preventDefault();
+    const token = localStorage.getItem("access_token"); 
 
-  function handleDelete(){
+    if (!token) {
+        alert("You must be logged in to update accommodations.");
+        return;
+    }
+
     fetch(`http://127.0.0.1:5000/accommodations/${id}`, {
-      method:"DELETE",
-      headers:{
-        "Content-Type":"application/json"
-      }
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(update)
     })
-    .then(res => res.json())
+    .then(resp => {
+        if (!resp.ok) {
+            throw new Error("Failed to update. Unauthorized or invalid request.");
+        }
+        return resp.json();
+    })
+    .then((updated) => {
+        let updatedAccommodations = accommodate.map(craft => 
+            craft.id === id ? { ...craft, ...updated } : craft
+        );
+        setAccommodate(updatedAccommodations);
+        setUpdate({ name: "", image: "", description: "" });
+        alert(`${updated.name} has been updated successfully!`);
+    })
+    .catch(err => console.error("Error updating accommodation:", err));
+}
+
+
+  function handleDelete() {
+    const token = localStorage.getItem("access_token"); 
+
+    if (!token) {
+        alert("You must be logged in to delete accommodations.");
+        return;
+    }
+
+    fetch(`http://127.0.0.1:5000/accommodations/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Failed to delete. Unauthorized or invalid request.");
+        }
+        return res.json();
+    })
     .then(() => {
-      let remainder = accommodate.filter(fins => fins.id !== id)
-      setAccommodate(remainder)
-      alert(`Poof! ${name} is gone!👋🏽`)
+        let remainder = accommodate.filter(fins => fins.id !== id);
+        setAccommodate(remainder);
+        alert(`${name} has been deleted successfully! 👋🏽`);
     })
-    .catch(err => console.log(err))
-  }  
+    .catch(err => console.error("Error deleting accommodation:", err));
+}
+ 
     return(
         <div id="content">
             <h2 className="mini">Name</h2>
@@ -77,11 +96,11 @@ function AccommodateItem({name,image, id, description,setAccommodate,accommodate
                 
                 <button className="update" type="submit">Update</button>
               </form>
-              <button className="delete" onClick={handleDelete}>Delete</button>
+              <button className="delete" onClick={handleDelete}>Delete</button><br />
 
              <Link to='/roomAdmins'>
               <button className="mini">
-                Rooms
+                View rooms
               </button>
              </Link> 
         </div>

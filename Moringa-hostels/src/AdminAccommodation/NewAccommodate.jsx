@@ -18,10 +18,12 @@ function NewAccommodate({accommodate,setAccommodate}){
     }
     function handleSubmit(e){
        e.preventDefault()
+       const token = localStorage.getItem("access_token")
        fetch("http://127.0.0.1:5000/accommodations", {
         method:"POST",
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body:JSON.stringify(NewAccommodate)
        })
