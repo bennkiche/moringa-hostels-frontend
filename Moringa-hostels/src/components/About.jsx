@@ -1,12 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../comps/Footer";
-import NavbarUser from "./NavbarUser";
 
 const About = () => {
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col items-center py-16 px-6">
-      <NavbarUser/>  
       {/* Main Container */}
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Image Section */}
@@ -20,11 +18,11 @@ const About = () => {
 
         {/* Text Section */}
         <div className="flex flex-col justify-center text-center lg:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-green-400">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-400">
             About Moringa Hostels
           </h1>
           <p className="text-lg text-gray-300 mb-4 leading-relaxed">
-            Welcome to <strong className="text-white">Moringa Hostels</strong>, a place where <span className="text-green-300">comfort meets convenience</span>.
+            Welcome to <strong className="text-white">Moringa Hostels</strong>, a place where <span className="text-blue-300">comfort meets convenience</span>.
             Our hostel is designed to provide students and professionals with a secure, 
             affordable, and vibrant living environment.
           </p>
@@ -35,7 +33,7 @@ const About = () => {
           {/* Call-to-Action Button */}
           <Link
             to="/contact"
-            className="bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
+            className="bg-blue-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
           >
             Get in Touch
           </Link>
@@ -50,4 +48,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default About;

@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-lg py-4 fixed w-full top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center px-6">
+    <nav className="bg-white shadow-lg py-4 fixed w-full top-0 z-50 ">
+      <div className="w-full flex justify-between items-center px-6">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="src/assets/images/logo.png" alt="Moringa Hostels" className="h-12" />
+          <img src="https://pbs.twimg.com/profile_images/1489569110040141826/ZzZgytR8_400x400.png" alt="Moringa Hostels" className="h-20 w-auto" />
         </div>
 
         {/* Navigation Links */}
@@ -20,7 +20,7 @@ const Navbar = () => {
         </ul>
 
 
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="flex items-center gap-4">
           <Link to="/signup">
             <button className="border-2 border-blue-500 text-blue-500 px-5 py-2 rounded-full hover:bg-blue-500 hover:text-white transition duration-300 ease-in-out">
               Sign Up
@@ -42,4 +42,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar;

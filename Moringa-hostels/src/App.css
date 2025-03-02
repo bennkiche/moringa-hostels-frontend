@@ -405,3 +405,61 @@ form {
   font-size: 0.9rem;
 }
 
+.hostel-card {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
+
+.hostel-image {
+  width: 30%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.hostel-info {
+  flex: 1;
+  padding-left: 16px;
+}
+
+.hostel-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hostel-description {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
+}
+
+.hostel-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.price-btn {
+  background-color: orange;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.book-btn {
+  background-color: blue;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}

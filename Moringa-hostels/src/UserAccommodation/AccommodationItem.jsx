@@ -1,22 +1,21 @@
 import { useState } from "react"
 import { Link } from "react-router-dom";
 
-function AccommodationItem({name,image, id, description,setAccommodation,accommodation}){
+function AccommodationItem({name, image,  description, id, setAccommodation, accommodation}){
     return(
-        <div id="content">
-            <h2 className="mini">Name</h2>
-            <h2 className="cont"><strong>{name}</strong></h2>
-            <h3 className="mini">Image_URL</h3>
-            <img className="cont" src={image} alt={name} />
-            <h3 className="mini">Description</h3>
-            <h2 className="cont"><strong>{description}</strong></h2>
-            
-            <Link to='/roomUsers'>
-                <button className="mini">
-                    View Rooms
-                </button>
+        <div className="hostel-card">
+    <img className="hostel-image" src={image} alt={name} />
+    <div className="hostel-info">
+        <h2 className="hostel-name">{name}</h2>
+        <p className="hostel-description">{description}</p>
+        <div className="hostel-buttons">
+            <Link to="/roomUsers">
+                <button className="book-btn">View Rooms</button>
             </Link>
         </div>
+    </div>
+</div>
+
     )
 }
 

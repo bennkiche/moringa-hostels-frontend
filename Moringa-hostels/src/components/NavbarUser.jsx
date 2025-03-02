@@ -1,78 +1,60 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 const NavbarUser = () => {
-  // State to handle mobile menu toggle
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const [token, setToken] = useState(localStorage.getItem("access_token"));
+    const [user, setUser] = useState(null);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+    useEffect(() => {
+        // Fetch user data from localStorage or API if needed
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (storedUser) {
+            setUser(storedUser);
+        }
+    }, []);
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+    const handleLogout = () => {
+        setToken(null);
+        setUser(null);
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
+        navigate("/login"); 
+    };
 
-  return (
-    <nav className="bg-white shadow-md py-4 fixed w-full top-0 z-50 border-b">
-      <div className="container mx-auto flex justify-between items-center px-6">
-        {/* Logo */}
-        <div className="flex items-center py-2">
-          <Link to="/home">
-            <img
-              src="/src/assets/images/logo.png"
-              alt="Moringa Hostels"
-              className="h-8 sm:h-10"
-            />
-          </Link>
-        </div>
+    return (
+        <nav className="bg-white shadow-lg py-4 fixed w-full top-0 z-50">
+            <div className="container mx-auto flex justify-between items-center px-6">
+                {/* Logo */}
+                <div className="flex items-center">
+                    <img src="https://pbs.twimg.com/profile_images/1489569110040141826/ZzZgytR8_400x400.png" alt="Moringa Hostels" className="h-12 w-auto" />
+                </div>
 
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex gap-x-8 text-gray-800 font-medium">
-          <li>
-            <Link to="/home" className="hover:text-blue-500 transition">Home</Link>
-          </li>
-          <li>
-            <Link to="/accommodationUsers" className="hover:text-blue-500 transition">Accommodations</Link>
-          </li>
-          <li>
-            <Link to="/about" className="hover:text-blue-500 transition">About</Link>
-          </li>
-          <li>
-            <Link to="/contact" className="hover:text-blue-500 transition">Contact</Link>
-          </li>
-        </ul>
+                {/* Navigation Links */}
+                <ul className="hidden md:flex gap-x-10 text-gray-800 font-semibold">
+                    <li><Link to="/home" className="hover:text-blue-500 transition">Home</Link></li>
+                    <li><Link to="/accommodationUsers" className="hover:text-blue-500 transition">Accommodations</Link></li>
+                    <li><Link to="/about" className="hover:text-blue-500 transition">About</Link></li>
+                    <li><Link to="/contact" className="hover:text-blue-500 transition">Contact</Link></li>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            className="text-gray-700 text-2xl focus:outline-none"
-            onClick={toggleMobileMenu}
-          >
-            ☰
-          </button>
-        </div>
-      </div>
+                    {token && (
+                      <li>
+                          <button 
+                              onClick={handleLogout} 
+                              className="hover:text-red-500 transition font-semibold"
+                          >
+                              Log Out
+                          </button>
+                      </li>
+                      )}
+                </ul>
 
-      {/* Mobile Menu (Dropdown) */}
-      <div className={`absolute top-16 left-0 w-full bg-white shadow-lg transition-transform duration-300 ${isMobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0 pointer-events-none"} md:hidden`}>
-        <ul className="flex flex-col text-gray-800 text-center py-4">
-          <li className="py-2">
-            <Link to="/home" onClick={closeMobileMenu} className="hover:text-blue-500 transition">Home</Link>
-          </li>
-          <li className="py-2">
-            <Link to="/accommodationUsers" onClick={closeMobileMenu} className="hover:text-blue-500 transition">Accommodations</Link>
-          </li>
-          <li className="py-2">
-            <Link to="/about" onClick={closeMobileMenu} className="hover:text-blue-500 transition">About</Link>
-          </li>
-          <li className="py-2">
-            <Link to="/contact" onClick={closeMobileMenu} className="hover:text-blue-500 transition">Contact</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
+                <div className="md:hidden">
+                    <button className="text-gray-700 text-2xl focus:outline-none">☰</button>
+                </div>
+            </div>
+        </nav>
+    );
 };
 
-export default NavbarUser;
+export default NavbarUser;
