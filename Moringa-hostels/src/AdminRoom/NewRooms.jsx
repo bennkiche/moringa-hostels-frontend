@@ -12,12 +12,21 @@ function NewRoom({ room, setRoom, token }) {
     });
 
     function handleChange(e) {
-        let name = e.target.name;
-        let value = e.target.value;
-        setNewRoom({ 
-            ...newRoom, 
-           [name]: value
-         });
+        let { name, value } = e.target;
+
+        // Ensure correct data types
+        if (name === "room_no" || name === "accommodation_id" || name === "price") {
+            value = parseInt(value, 10) || 0; 
+        }
+        
+        if (name === "availability") {
+            value = value === "true"; // Convert string to boolean
+        }
+
+        setNewRoom((prev) => ({
+            ...prev,
+            [name]: value
+        }));
     }
 
     function handleSubmit(e) {
@@ -27,8 +36,6 @@ function NewRoom({ room, setRoom, token }) {
             alert("You must be logged in to add a room!");
             return;
         }
-
-        console.log(token)
 
         fetch("http://127.0.0.1:5000/rooms", {
             method: "POST",
@@ -62,13 +69,21 @@ function NewRoom({ room, setRoom, token }) {
         <div className="newness">
             <h2 className="newer">New Room</h2>
             <form id="new" onSubmit={handleSubmit}>
-                <input className="new" type="text" name="room_type" placeholder="Room Type" value={newRoom.room_type} required onChange={handleChange}/>
-                <input className="new" type="number" name="room_no" placeholder="Room Number" value={newRoom.room_no} required onChange={handleChange}/>
-                <input className="new" type="text" name="description" placeholder="Description" value={newRoom.description} required onChange={handleChange}/>
-                <input className="new" type="text" name="availability" placeholder="Availability" value={newRoom.availability} required onChange={handleChange}/>
-                <input className="new" type="number" name="accommodation_id" placeholder="Accommodation ID" value={newRoom.accommodation_id} required onChange={handleChange}/>
-                <input className="new" type="number" name="price" placeholder="Price" value={newRoom.price} required onChange={handleChange}/>
-                <input className="new" type="text" name="image" placeholder="Image URL" value={newRoom.image} required onChange={handleChange}/>
+                <label >room_type: </label>
+                <input className="new" type="text" name="room_type" placeholder="Room Type" value={newRoom.room_type} required onChange={handleChange}/><br />
+                <label >room_no: </label>
+                <input className="new" type="number" name="room_no" placeholder="Room Number" value={newRoom.room_no} required onChange={handleChange}/><br />
+                <label >Description: </label>
+                <input className="new" type="text" name="description" placeholder="Description" value={newRoom.description} required onChange={handleChange}/><br />
+                <label >Availability: </label>
+                <input className="new" type="text" name="availability" placeholder="Availability" value={newRoom.availability} required onChange={handleChange}/><br />
+                <label >Accommodation_id: </label>
+                <input className="new" type="number" name="accommodation_id" placeholder="Accommodation ID" value={newRoom.accommodation_id} required onChange={handleChange}/><br />
+                <label >Price: </label>
+                <input className="new" type="number" name="price" placeholder="Price" value={newRoom.price} required onChange={handleChange}/><br />
+                <label >Image_URL: </label>
+                <input className="new" type="text" name="image" placeholder="Image URL" value={newRoom.image} required onChange={handleChange}/><br />
+        
                 <button className="add" type="submit">Add Room</button>
             </form> 
         </div> 
