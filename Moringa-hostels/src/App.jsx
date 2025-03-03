@@ -11,6 +11,7 @@ import About from "./components/About"
 import Contact from './comps/Contact'
 import Home from "./components/Home" 
 import Room from './AdminRoom/Room'
+import HomeAuth from './components/HomeAuth'
 import BookingList from "./bookings/BookingList";
 import BookingDetails from "./bookings/BookingDetails";
 import AvailableRooms from "./bookings/Rooms";
@@ -18,10 +19,12 @@ import BookingForm from "./bookings/BookingForm";
 import './App.css'
 import "./index.css"
 import Navbar from './components/Navbar'
+import NavbarUser from './components/NavbarUser'
 
 function App() {
   return (
      <Router>
+      {/* <Navbar /> */}
       <Routes>
         <Route path='/accommodationUsers' element={<AccommodationDetails />} />
         <Route path='/accommodationAdmin' element={<Accommodate />} />
@@ -33,6 +36,8 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
+        <Route path='/homeAuth' element={<HomeAuth />} />
+      {/* <Navbar /> */}
         <Route path='/home' element={<Home />} />
         <Route path="/bookings" element={<BookingList />} />
         <Route path="/bookings/:id" element={<BookingDetails />} />

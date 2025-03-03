@@ -57,4 +57,4 @@ const NavbarUser = () => {
     );
 };
 
-export default NavbarUser;
+export default NavbarUser

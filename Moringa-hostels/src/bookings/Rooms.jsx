@@ -77,7 +77,7 @@ const AvailableRooms = () => {
       </div>
 
       {selectedRoom && (
-        <BookingForm
+        <BookingForm 
           roomId={selectedRoom.id}
           closeForm={() => setSelectedRoom(null)}
         />

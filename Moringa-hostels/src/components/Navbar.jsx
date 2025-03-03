@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="w-full flex justify-between items-center px-6">
         {/* Logo */}
         <div className="flex items-center">
-          <img src="https://pbs.twimg.com/profile_images/1489569110040141826/ZzZgytR8_400x400.png" alt="Moringa Hostels" className="h-20 w-auto" />
+          <img src="https://pbs.twimg.com/profile_images/1489569110040141826/ZzZgytR8_400x400.png" alt="Moringa Hostels" className="h-12 w-auto" />
         </div>
 
         {/* Navigation Links */}

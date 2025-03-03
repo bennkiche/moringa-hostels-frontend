@@ -1,18 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Footer from "../comps/Footer";
 import Navbar from "./Navbar";
+import Footer from "../comps/Footer";
 
 const Home = () => {
   return (
-    <div className="relative w-full min-h-screen bg-gray-100">
+    <div className="relative w-full bg-sky-100">
       <Navbar />
       {/* Hero Section */}
       <div
-        className="relative w-full h-[500px] bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4"
+        className="relative w-full bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4 min-h-screen"
         style={{
           backgroundImage:
-            "url('src/assets/images/4ca6542a9905400ef5bed7ee8a87a427.jpg')",
+            "url('https://plus.unsplash.com/premium_photo-1733266939892-d27b5370c4c3?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         }}
       >
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
@@ -80,12 +79,12 @@ const Home = () => {
       </div>
 
       {/* Footer */}
-      <Footer />
-      {/* <footer className="bg-gray-800 text-white text-center py-4 mt-8">
+      <footer className="bg-gray-800 text-white text-center py-4 mt-8">
         <p>&copy; {new Date().getFullYear()} Moringa Hostel. All Rights Reserved.</p>
-      </footer > */}
+      </footer>
+      {/* <Footer /> */}
     </div>
-  )
+  );
 };
 
 export default Home;

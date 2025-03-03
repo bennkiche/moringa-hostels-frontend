@@ -101,14 +101,14 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
 }
     return(
         <div id="content">
+            <img src={image} alt={room_type} />
             <h2 className="cont"><strong>{room_type}</strong></h2>
             <h2 className="cont"><strong>{room_no}</strong></h2>
+            <h2 className="cont"><strong>{description}</strong></h2> 
             <h2 className="cont"><strong>{availability}</strong></h2>
             <h2 className="mini">accommodation_id</h2>
             <h2 className="cont"><strong>{accommodation_id}</strong></h2>
-            <h2 className="cont"><strong>{description}</strong></h2> 
             <h2 className="cont"><strong>ksh: {price}</strong></h2>
-            <img src={image} alt={room_type} />
               <form id="new" onSubmit={handleUpdate}>
                 <input className="input" type="text" name="room_type" placeholder="room_type" value={update.room_type} required onChange={handleChange}/><br />
                 <input className="input" type="number" name="room_no" placeholder="room_no" value={update.room_no} required onChange={handleChange}/><br />

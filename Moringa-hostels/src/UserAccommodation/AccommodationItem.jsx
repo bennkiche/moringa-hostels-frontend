@@ -10,7 +10,7 @@ function AccommodationItem({name, image,  description, id, setAccommodation, acc
         <p className="hostel-description">{description}</p>
         <div className="hostel-buttons">
             <Link to="/roomUsers">
-                <button className="book-btn">View Rooms</button>
+                <button className="roomView-btn">View Rooms</button>
             </Link>
         </div>
     </div>
