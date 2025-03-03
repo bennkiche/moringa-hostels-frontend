@@ -20,6 +20,7 @@ import './App.css'
 import "./index.css"
 import Navbar from './components/Navbar'
 import NavbarUser from './components/NavbarUser'
+import Profile from './components/Profile'
 
 function App() {
   return (
@@ -37,12 +38,12 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path='/homeAuth' element={<HomeAuth />} />
-      {/* <Navbar /> */}
         <Route path='/home' element={<Home />} />
         <Route path="/bookings" element={<BookingList />} />
         <Route path="/bookings/:id" element={<BookingDetails />} />
         <Route path="/book-room" element={<BookingForm />} />
         <Route path="/bookings/" element={<AvailableRooms />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </Router>
   )

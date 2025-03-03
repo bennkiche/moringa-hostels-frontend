@@ -1,60 +1,67 @@
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { Menu } from "lucide-react";
+import "./Navbar.css";
 
-const NavbarUser = () => {
-    const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem("access_token"));
-    const [user, setUser] = useState(null);
+function NavbarUser() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // Fetch user data from localStorage or API if needed
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-            setUser(storedUser);
-        }
-    }, []);
+  useEffect(() => {
+    // Fetch user data from local storage or API
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedInUser) {
+      setUser(loggedInUser);
+    }
+  }, []);
 
-    const handleLogout = () => {
-        setToken(null);
-        setUser(null);
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("user");
-        navigate("/login"); 
-    };
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
 
-    return (
-        <nav className="bg-white shadow-lg py-4 fixed w-full top-0 z-50">
-            <div className="container mx-auto flex justify-between items-center px-6">
-                {/* Logo */}
-                <div className="flex items-center">
-                    <img src="https://pbs.twimg.com/profile_images/1489569110040141826/ZzZgytR8_400x400.png" alt="Moringa Hostels" className="h-12 w-auto" />
+  return (
+    <nav className="navbar">
+      {/* Hamburger Menu */}
+      <div className="menu-container">
+        <button onClick={() => setIsOpen(!isOpen)} className="menu-button">
+          <Menu size={28} />
+        </button>
+        {isOpen && (
+          <div className="menu-dropdown">
+            <div className="menu-item user-info">
+              {user ? (
+                <div>
+                  <p><strong>{user.name}</strong></p>
+                  <p>{user.email}</p>
                 </div>
-
-                {/* Navigation Links */}
-                <ul className="hidden md:flex gap-x-10 text-gray-800 font-semibold">
-                    <li><Link to="/home" className="hover:text-blue-500 transition">Home</Link></li>
-                    <li><Link to="/accommodationUsers" className="hover:text-blue-500 transition">Accommodations</Link></li>
-                    <li><Link to="/about" className="hover:text-blue-500 transition">About</Link></li>
-                    <li><Link to="/contact" className="hover:text-blue-500 transition">Contact</Link></li>
-
-                    {token && (
-                      <li>
-                          <button 
-                              onClick={handleLogout} 
-                              className="hover:text-red-500 transition font-semibold"
-                          >
-                              Log Out
-                          </button>
-                      </li>
-                      )}
-                </ul>
-
-                <div className="md:hidden">
-                    <button className="text-gray-700 text-2xl focus:outline-none">☰</button>
-                </div>
+              ) : (
+                <p>Not logged in</p>
+              )}
             </div>
-        </nav>
-    );
-};
+            <Link to="/profile" className="menu-item">Profile</Link>
+            <Link to="/bookings" className="menu-item">My Bookings</Link>
+            <Link to="/reviews" className="menu-item">My Reviews</Link>
+          </div>
+        )}
+      </div>
+      
+      {/* Center Navigation Links */}
+      <div className="nav-links">
+        <Link to="/homeAuth" className="nav-item">Home</Link>
+        <Link to="/accommodationUsers" className="nav-item">Accommodations</Link>
+        <Link to="/about" className="nav-item">About</Link>
+        <Link to="/contacts" className="nav-item">Contacts</Link>
+      </div>
+      
+      {/* Logout Button */}
+      <div className="auth-buttons">
+        <button onClick={handleLogout} className="logout-button">Log Out</button>
+      </div>
+    </nav>
+  );
+}
 
 export default NavbarUser
