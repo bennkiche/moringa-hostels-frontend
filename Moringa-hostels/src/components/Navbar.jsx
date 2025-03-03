@@ -36,7 +36,7 @@ export default function Navbar() {
             </div>
             <Link to="/profile" className="menu-item">Profile</Link>
             <Link to="/bookings" className="menu-item">My Bookings</Link>
-            <Link to="/reviews" className="menu-item">My Reviews</Link>
+            <Link to="/my-reviews" className="menu-item">My Reviews</Link>
           </div>
         )}
       </div>
@@ -45,6 +45,7 @@ export default function Navbar() {
       <div className="nav-links">
         <Link to="/home" className="nav-item">Home</Link>
         <Link to="/accommodationUsers" className="nav-item">Accommodations</Link>
+        <Link to="/reviews" className="nav-item">Reviews</Link>
         <Link to="/about" className="nav-item">About</Link>
         <Link to="/contacts" className="nav-item">Contacts</Link>
       </div>

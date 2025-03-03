@@ -21,6 +21,8 @@ import "./index.css"
 import Navbar from './components/Navbar'
 import NavbarUser from './components/NavbarUser'
 import Profile from './components/Profile'
+import Reviews from './reviews/Reviews'
+import MyReviews from './reviews/MyReviews'
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path="/signup" element={<SignupForm />} />
         <Route path='/roomAdmins' element={<Room />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/my-reviews" element={<MyReviews />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />

@@ -33,6 +33,12 @@ function LoginForm() {
                 setToken(data.create_token);
                 setUser({ name: data.user.name, role: data.role });
                 localStorage.setItem("access_token", data.create_token);
+                localStorage.setItem("user", JSON.stringify({
+                    id: data.user.id,
+                    name: data.user.name,
+                    email: data.user.email,
+                    role: data.role
+                }));
 
                 if (data.role) {
                     alert(`Welcome ${data.user.name}, your account has been logged in as a ${data.role}.`);

@@ -1,0 +1,131 @@
+/* Fixed position at the bottom */
+.review-form {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 2px solid #3498db; /* Blue border */
+    padding: 15px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Form group styles */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Label styles */
+.form-label {
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Input and Textarea styles */
+.form-input,
+.form-textarea {
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+/* Focus effect */
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #e67e22; /* Orange border on focus */
+    outline: none;
+}
+
+/* Submit button styles */
+.submit-button {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #2980b9;
+    border: 2px solid #e67e22; /* Orange border on hover */
+}
+
+/* reviews css */
+
+/* Container for each review */
+.review-container {
+    background-color: white;
+    border: 2px solid #3498db; /* Blue border */
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Review Header */
+.review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Username Styling */
+.review-username {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+/* Review Content */
+.review-content {
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Review Footer */
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Rating Styling */
+.review-rating {
+    font-size: 14px;
+    font-weight: bold;
+    color: #e67e22; /* Orange Tint */
+}
+
+/* Delete Button */
+.delete-button {
+    background-color: #e74c3c; /* Red for delete */
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
