@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./Reviews.css";
+import './reviews.css'
 import ReviewList from "./ReviewList";
-import NewReview from "./NewReviews";
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
 
-function Reviews() { 
-    const [review, setReview] = useState([]);
-    const [userId, setUserId] = useState(null); // ✅ State for user ID
+function Reviews() {
+    const [reviews, setReviews] = useState([]);  
     const token = localStorage.getItem("access_token");
 
     useEffect(() => {
@@ -15,37 +13,28 @@ function Reviews() {
             return;
         }
 
-        // ✅ Fetch user details to get the `userId`
-        fetch("http://127.0.0.1:5000/users", { // Assuming an endpoint to get user details
+        fetch("http://127.0.0.1:5000/my-reviews", {
             headers: { Authorization: `Bearer ${token}` }
         })
-        .then(res => {
-            if (!res.ok) throw new Error("Failed to fetch user details");
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error("Unauthorized or no reviews found");
+            }
             return res.json();
         })
-        .then(userData => setUserId(userData.id)) // ✅ Set userId
-        .catch(err => console.error("Error fetching user:", err));
-
-        // ✅ Fetch reviews
-        fetch("http://127.0.0.1:5000/reviews", {
-            headers: { Authorization: `Bearer ${token}` }
+        .then((data) => {
+            setReviews(Array.isArray(data) ? data : []);  
         })
-        .then(res => {
-            if (!res.ok) throw new Error("Unauthorized or failed to fetch reviews");
-            return res.json();
-        })
-        .then(data => {
-            setReview(Array.isArray(data) ? data : []); // ✅ Fix `setRoom` → `setReview`
-        })
-        .catch(err => console.error("Error fetching reviews:", err));
+        .catch((err) => console.error("Error fetching user reviews:", err));
     }, [token]);
 
     return (
         <>
             <Navbar />
-            <h1 className="roomH">Rooms</h1>
-            {userId && <NewReview review={review} setReview={setReview} token={token} userId={userId} />} 
-            <ReviewList reviews={review} setReview={setReview} />
+            <div>
+                <h1>My Reviews</h1>
+                <ReviewList reviews={reviews} setReview={setReviews} />
+            </div>
         </>
     );
 }

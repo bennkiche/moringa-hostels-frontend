@@ -1,14 +1,38 @@
 import ReviewItem from "./ReviewItem";
 
 function ReviewList({ reviews, setReview }) {
+    const token = localStorage.getItem("access_token");
+
+    const handleDelete = (reviewId) => {
+        if (!window.confirm("Are you sure you want to delete this review?")) return;
+
+        fetch(`http://127.0.0.1:5000/reviews/${reviewId}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to delete review");
+            return res.json();
+        })
+        .then(() => {
+            alert("Review deleted successfully!");
+            setReview(reviews.filter((review) => review.id !== reviewId));
+        })
+        .catch((err) => {
+            alert("Error deleting review. Please try again.");
+            console.error("Error deleting review:", err);
+        });
+    };
+
     return (
         <div id="container">
             {reviews.length > 0 ? (
                 reviews.map((review, index) => (
-                    <ReviewItem
-                        key={review.id || `review-${index}`} // Ensure unique keys
-                        review={review} // Pass entire review object
-                        setReview={setReview}
+                    <ReviewItem 
+                        key={review.id || `review-${index}`} 
+                        review={review} 
+                        setReview={setReview} 
+                        onDelete={handleDelete} 
                     />
                 ))
             ) : (

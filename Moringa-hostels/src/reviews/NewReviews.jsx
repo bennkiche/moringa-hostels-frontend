@@ -13,7 +13,7 @@ function NewReview({ review, setReview, token, userId }) {
             setNewReview({
                 ...newReview,
                 [name]: name === "rating" 
-                    ? Math.min(5, Math.max(1, parseInt(value) || 1))  // Ensures rating is between 1-5
+                    ? Math.min(5, Math.max(1, parseInt(value) || 1))
                     : value
             });
         }
@@ -26,14 +26,14 @@ function NewReview({ review, setReview, token, userId }) {
             return;
         }
 
-        fetch("http://127.0.0.1:5000/reviews", {  // Updated endpoint
+        fetch("http://127.0.0.1:5000/reviews", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-                user_id: userId,  // Using userId from props
+                user_id: userId,
                 ...newReview
             })
         })
@@ -42,8 +42,8 @@ function NewReview({ review, setReview, token, userId }) {
             return resp.json();
         })
         .then(newReviewData => {
-            setReview([...review, newReviewData]); // Append new review
-            setNewReview({ rating: 0, content: "" }); // Reset form
+            setReview([...review, newReviewData]);
+            setNewReview({ rating: 0, content: "" }); 
             alert("Review added successfully!");
         })
         .catch(error => console.error("Error:", error));
