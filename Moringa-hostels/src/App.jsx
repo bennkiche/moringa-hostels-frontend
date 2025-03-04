@@ -35,7 +35,7 @@ function App() {
         <Route path='/roomUsers' element={<RoomUser />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path='/roomAdmins' element={<Room />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contacts" element={<Contact />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/my-reviews" element={<MyReviews />} />
         <Route path="/login" element={<LoginForm />} />
