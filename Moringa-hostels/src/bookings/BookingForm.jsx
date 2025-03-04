@@ -5,7 +5,7 @@ import NavbarUser from "../components/NavbarUser";
 const BookingForm = ({ closeForm }) => {
   const location = useLocation();
   const { room_no, room_type, accommodation_id, price } = location.state || {};
-  
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState("");
@@ -16,33 +16,52 @@ const BookingForm = ({ closeForm }) => {
     }
   }, [room_type]);
 
+  const validateDates = (start, end) => {
+    if (!start || !end) return false;
+
+    const startObj = new Date(start);
+    const endObj = new Date(end);
+
+    
+    const timeDiff = endObj - startObj;
+    const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+    return dayDiff >= 30; 
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submit button clicked");
-  
+
     if (!startDate || !endDate) {
       setError("Start and End dates are required");
       console.log("Validation failed: Missing start or end date");
       return;
     }
-  
+
+    if (!validateDates(startDate, endDate)) {
+      setError("Booking must be exactly 30 days.");
+      console.log("Validation failed: Dates must be 30 days apart");
+      return;
+    }
+
     const token = localStorage.getItem("access_token");
     if (!token) {
       setError("You must be logged in to book a room.");
       console.log("Authorization failed: No token found");
       return;
     }
-  
+
     const bookingData = {
       accommodation_id,
       room_id: room_no,
       start_date: startDate.replace("T", " "),
       end_date: endDate.replace("T", " "),
     };
-  
+
     try {
       console.log("Sending booking request to API:", bookingData);
-  
+
       const response = await fetch("http://127.0.0.1:5000/bookings", {
         method: "POST",
         headers: {
@@ -51,15 +70,15 @@ const BookingForm = ({ closeForm }) => {
         },
         body: JSON.stringify(bookingData),
       });
-  
+
       console.log("Response received:", response);
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         console.log("Server error response:", errorData);
         throw new Error(errorData.error || "Error booking room");
       }
-  
+
       console.log("Booking successful!");
       alert("Booking successful!");
       closeForm();
@@ -68,7 +87,6 @@ const BookingForm = ({ closeForm }) => {
       setError(err.message);
     }
   };
-  
 
   return (
     <div>
@@ -94,11 +112,19 @@ const BookingForm = ({ closeForm }) => {
         </div>
         <div>
           <label className="bookingLabel">Start Date</label><br />
-          <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </div>
         <div>
           <label className="bookingLabel">End Date</label><br />
-          <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </div>
         <button type="submit">Confirm Booking</button>
         <button type="button" onClick={closeForm}>Cancel</button>
