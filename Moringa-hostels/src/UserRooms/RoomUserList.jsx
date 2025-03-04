@@ -1,7 +1,7 @@
 import RoomUserItem from "./RoomUserItem";
 
 
-function RoomUserList({rooms = [],setRooms}){
+function RoomUserList({rooms,setRooms}){
     return(
        <div id="container">
           {rooms.length >0? rooms.map(accommodates => (

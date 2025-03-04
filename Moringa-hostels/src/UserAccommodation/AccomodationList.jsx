@@ -10,7 +10,7 @@ function AccommodationList({accommodation,setAccommodation}){
             name={accommodates.name}
             image={accommodates.image}
             description={accommodates.description}
-            accommodation={accommodates.id} 
+            accommodation={accommodation} 
             setAccommodation={setAccommodation}
             />
           )):null}
