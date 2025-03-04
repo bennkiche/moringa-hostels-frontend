@@ -26,7 +26,7 @@ const BookingForm = ({ closeForm }) => {
       return;
     }
   
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     if (!token) {
       setError("You must be logged in to book a room.");
       console.log("Authorization failed: No token found");
