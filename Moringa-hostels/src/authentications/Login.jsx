@@ -1,68 +1,61 @@
 import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
-import NavbarUser from '../components/NavbarUser';
 
 const url = "http://127.0.0.1:5000";
 
 function LoginForm() {
     const [token, setToken] = useState(localStorage.getItem('access_token'));
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        fetch(`${url}/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: formData.get('name'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            }),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    alert("Invalid credentials");
-                    throw new Error('Invalid credentials');
-                }
-            })
-            .then((data) => {
-                setToken(data.create_token);
-                setUser({ name: data.user.name, role: data.role });
-                localStorage.setItem("access_token", data.create_token);
-                localStorage.setItem("user", JSON.stringify({
-                    id: data.user.id,
-                    name: data.user.name,
-                    email: data.user.email,
-                    role: data.role
-                }));
-
-                if (data.role) {
-                    alert(`Welcome ${data.user.name}, your account has been logged in as a ${data.role}.`);
-                } else {
-                    alert(`Welcome ${data.user.name}, your account has been logged in.`);
-                }
-            })
-            .catch((error) => {
-                console.error("Login error:", error);
+        try {
+            const response = await fetch(`${url}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    password: formData.get('password')
+                }),
             });
+
+            if (!response.ok) {
+                alert("Invalid credentials");
+                throw new Error('Invalid credentials');
+            }
+
+            const data = await response.json();
+
+            // Store in localStorage first
+            localStorage.setItem("access_token", data.create_token);
+            localStorage.setItem("user", JSON.stringify({
+                id: data.user.id,
+                name: data.user.name,
+                email: data.user.email,
+                role: data.role
+            }));
+
+            // Update state
+            setToken(data.create_token);
+            setUser({ name: data.user.name, role: data.role });
+
+            alert(`Welcome ${data.user.name}, you are logged in as a ${data.role}.`);
+
+        } catch (error) {
+            console.error("Login error:", error);
+        }
     };
 
-    // Redirect based on user role after login
-    if (token) {
-        if (user?.role === "admin") {
-            return <Navigate to="/accommodationAdmin" />;
-        } else if (user?.role === "user") {
-            return <Navigate to="/accommodationUsers" />;
-        }
+    // Redirect after login based on role
+    if (token && user) {
+        return user.role === "admin" ? <Navigate to="/accommodationAdmin" /> : <Navigate to="/accommodationUsers" />;
     }
 
     return (
         <div className="signupContainer">
-            <NavbarUser />
             <div className="signupCard">
                 <div className="signupLeft">
                     <div className="signupImagePlaceholder">

@@ -17,7 +17,7 @@ function AccommodationDetails(){
   
   return(
     <>
-    <NavbarUser />
+    {/* <NavbarUser /> */}
     <h1 className="mainH">Accommodations</h1>
      <AccommodationList accommodation={accommodation} setAccommodation={setAccommodation}/>
     </>

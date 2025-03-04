@@ -18,34 +18,23 @@ const BookingForm = ({ closeForm }) => {
     }
   }, [navigate]);
 
-  useEffect(() => {
-    if (room_type) {
-      console.log("Room Type:", room_type);
-    }
-  }, [room_type]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit button clicked");
-  
     if (!startDate || !endDate) {
       setError("Start and End dates are required");
-      console.log("Validation failed: Missing start or end date");
       return;
     }
   
     const token = localStorage.getItem("access_token");
-  
+
     const bookingData = {
       accommodation_id,
       room_id: room_no,
       start_date: startDate.replace("T", " "),
       end_date: endDate.replace("T", " "),
     };
-  
+
     try {
-      console.log("Sending booking request to API:", bookingData);
-  
       const response = await fetch("http://127.0.0.1:5000/bookings", {
         method: "POST",
         headers: {
@@ -54,24 +43,19 @@ const BookingForm = ({ closeForm }) => {
         },
         body: JSON.stringify(bookingData),
       });
-  
-      console.log("Response received:", response);
-  
+
       if (!response.ok) {
         const errorData = await response.json();
-        console.log("Server error response:", errorData);
         throw new Error(errorData.error || "Error booking room");
       }
-  
-      console.log("Booking successful!");
-      alert("Booking successful!");
-      closeForm();
+
+      // Redirect user to Mpesa page with booking price
+      navigate("/mpesa", { state: { amount: price } });
+
     } catch (err) {
-      console.error("Booking error:", err.message);
       setError(err.message);
     }
   };
-  
 
   return (
     <div>
