@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../App.css";
+import "./accommodations.css";
 import NavbarUser from "../components/NavbarUser";
 import AccommodationList from "./AccommodationList";
 
@@ -17,7 +17,7 @@ function AccommodationDetails() {
 
   return (
     <>
-      <NavbarUser />
+      {/* <NavbarUser /> */}
       <h1 className="mainH">Accommodations</h1>
       <AccommodationList accommodation={accommodation} setAccommodation={setAccommodation} />
     </>

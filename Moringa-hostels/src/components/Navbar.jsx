@@ -8,22 +8,22 @@ function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Check for user on component load & whenever localStorage updates
+  
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     if (loggedInUser) {
       setUser(loggedInUser);
     }
-  }, []); // Runs when user changes
+  }, []); 
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
     setUser(null);
-    navigate("/home"); // Redirect to home page after logout
+    navigate("/home"); 
   };
 
-  // Determine the correct accommodation route based on user role
+  
   const accommodationRoute = user?.role === "admin" ? "/accommodationAdmin" : "/accommodationUsers";
 
   return (
@@ -61,7 +61,6 @@ function Navbar() {
         <Link to="/home" className="nav-item">Home</Link>
         <Link to={accommodationRoute} className="nav-item">Accommodations</Link> {/* Dynamic accommodation route */}
         <Link to="/reviews" className="nav-item">Reviews</Link>
-        <Link to="/available" className="nav-item">Available Rooms</Link>
         <Link to="/about" className="nav-item">About</Link>
         <Link to="/contacts" className="nav-item">Contacts</Link>
       </div>

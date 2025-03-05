@@ -2,7 +2,7 @@ import AccommodationItem from "./AccommodationItem";
 
 function AccommodationList({ accommodation, setAccommodation }) {
     return (
-        <div id="container">
+        <div id="acc-container">
             {accommodation.length > 0 ? accommodation.map(acc => (
                 <AccommodationItem 
                     key={acc.id}

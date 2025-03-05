@@ -22,7 +22,7 @@ function Reviews() {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <div>
                 <h1>All Reviews</h1>
                 <ReviewList reviews={reviews} setReview={setReviews} />

@@ -1,0 +1,65 @@
+#acc-container{
+    background: linear-gradient(to bottom, #fb8500, #219ebc);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 30px;
+    margin:0 auto;
+}
+.hostel-card {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 16px;
+    margin:0 auto;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    position: relative;
+  }
+  
+  .hostel-image {
+    width: 30%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .hostel-info {
+    flex: 1;
+    padding-left: 16px;
+  }
+  
+  .hostel-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .hostel-description {
+    font-size: 14px;
+    color:#023047;
+    margin: 8px 0;
+    font-weight: bold;
+  }
+  
+  .hostel-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .roomView-btn {
+    background-color: #219ebc;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .roomView-btn:hover {
+    background: #fb8500;
+    color: white;
+  }
+  

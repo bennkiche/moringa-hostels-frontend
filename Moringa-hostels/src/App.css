@@ -421,183 +421,13 @@ form {
   font-size: 0.9rem;
 }
 
-/* user accommodation css */
-
-.hostel-card {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  padding: 16px;
-  margin:0 auto;
-  margin-top: 70px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  position: relative;
-}
-
-.hostel-image {
-  width: 30%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.hostel-info {
-  flex: 1;
-  padding-left: 16px;
-}
-
-.hostel-name {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.hostel-description {
-  font-size: 14px;
-  color: #555;
-  margin: 8px 0;
-}
-
-.hostel-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.roomView-btn {
-  background-color: rgb(255, 115, 0);
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.roomView-btn:hover {
-  background: grey;
-  color: rgb(255, 115, 0);
-}
-
-/* room css */
-
-.book-btn {
-  background-color: blue;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.book-btn:hover {
-  background: grey;
-  color: blue;
-}
-
-.room-card {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  padding: 16px;
-  margin: 0 auto;
-  margin-top: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
-  position: relative;
-}
-
-.room-image {
-  width: 30%;
-  height: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.room-info {
-  flex: 1;
-  padding-left: 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-.room-type {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.room-description {
-  font-size: 14px;
-  color: #555;
-  margin: 8px 0;
-}
-
-.room-status {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.availability, 
-.room-number {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
-
-.price {
-  font-size: 16px;
-  font-weight: bold;
-  color: green;
-}
-
-.book-btn {
-  background-color: blue;
-  border: none;
-  padding: 8px 12px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 5px;
-  align-self: flex-end;
-  margin-top: auto;
-}
-.roomH{
-  font-weight: bolder;
-}
-
-.view-more {
-  color: rgb(255, 115, 0);
-  cursor: pointer;
-  font-weight: bold;
-  font-style: italic;
-}
-.view-more:hover {
-  color: grey;
-}
 
 /* booking form */
-
 .bookingLabel{
    color: blue;
    font-weight: bold;
 }
-
-/* navbar css */
-
 /* Navbar container */
-.navbar {
-  background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 50;
-}
-
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -615,49 +445,9 @@ form {
   list-style: none;
 }
 
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  transition: color 0.3s ease-in-out;
-}
-
-.nav-links a:hover {
-  color: #007bff;
-}
-
 .auth-buttons {
   display: flex;
   gap: 1rem;
-}
-
-.signup-btn, .login-btn {
-  padding: 0.5rem 1rem;
-  border: 2px solid #007bff;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease-in-out;
-}
-
-.signup-btn {
-  background-color: white;
-  color: #007bff;
-}
-
-.signup-btn:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.login-btn {
-  background-color: #007bff;
-  color: white;
-}
-
-.login-btn:hover {
-  background-color: white;
-  color: #007bff;
 }
 
 /* Mobile menu toggle */

@@ -3,7 +3,7 @@ import RoomUserItem from "./RoomUserItem";
 
 function RoomUserList({rooms,setRooms}){
     return(
-       <div id="container">
+       <div id="room-container">
           {rooms.length >0? rooms.map(accommodates => (
             <RoomUserItem 
             key={accommodates.id}

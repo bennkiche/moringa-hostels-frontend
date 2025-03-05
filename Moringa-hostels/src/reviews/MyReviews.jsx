@@ -38,7 +38,7 @@ function MyReviews() {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <div>
                 <h1>My Reviews</h1>
 
