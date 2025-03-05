@@ -3,14 +3,14 @@ import { FaSearch } from "react-icons/fa"; // Search Icon
 
 const SearchBar = ({ onSearch }) => {
   const [isOpen, setIsOpen] = useState(false); // Controls dropdown visibility
-  const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [students, setStudents] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [price, setPrice] = useState("");
+  const [roomType, setRoomType] = useState("");
+  const [accommodation, setAccommodation] = useState("");
 
   const handleSearch = () => {
     setIsOpen(false); // Close dropdown on search
-    onSearch({ location, startDate, endDate, students });
+    onSearch({ searchTerm, price, roomType, accommodation });
   };
 
   return (
@@ -21,7 +21,7 @@ const SearchBar = ({ onSearch }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="flex-1 text-gray-600">
-          {location ? location : "Search hostels..."}
+          {searchTerm ? searchTerm : "Search hostels..."}
         </span>
         <FaSearch className="text-gray-500" />
       </div>
@@ -31,28 +31,34 @@ const SearchBar = ({ onSearch }) => {
         <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg p-4">
           <input
             type="text"
-            placeholder="Enter location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            placeholder="Search by location or accommodation..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-2 border rounded mb-2"
           />
           <input
             type="number"
+            placeholder="Max Price"
             min="1"
-            value={students}
-            onChange={(e) => setStudents(e.target.value)}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full p-2 border rounded mb-2"
+          />
+          <select
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+            className="w-full p-2 border rounded mb-2"
+          >
+            <option value="">Select Room Type</option>
+            <option value="single">Single</option>
+            <option value="double">Double</option>
+            <option value="shared">Shared</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Accommodation Name"
+            value={accommodation}
+            onChange={(e) => setAccommodation(e.target.value)}
             className="w-full p-2 border rounded mb-4"
           />
           <button

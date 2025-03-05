@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -23,6 +23,26 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
   });
 
   const [showMap, setShowMap] = useState(false);
+  const [fetchedLocation, setFetchedLocation] = useState("Fetching location...");
+
+  // Fetch readable location
+  useEffect(() => {
+    if (latitude && longitude) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.address) {
+            const { suburb, village, town, city, county, state } = data.address;
+            const nearestLocation = suburb || village || town || city || "Unknown Location";
+            const countyOrState = county || state || "Unknown County"; // Handle missing county
+            setFetchedLocation(`${nearestLocation}, ${countyOrState}`);
+          } else {
+            setFetchedLocation("Unknown location");
+          }
+        })
+        .catch(err => console.error("Error fetching location:", err));
+    }
+  }, [latitude, longitude]);
 
   function handleChange(e) {
     let { name, value } = e.target;
@@ -53,8 +73,8 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
         return resp.json();
       })
       .then((updated) => {
-        let updatedAccommodations = accommodate.map(craft =>
-          craft.id === id ? { ...craft, ...updated } : craft
+        let updatedAccommodations = accommodate.map(accom =>
+          accom.id === id ? { ...accom, ...updated } : accom
         );
         setAccommodate(updatedAccommodations);
         setUpdate({ name: "", image: "", description: "", latitude: "", longitude: "" });
@@ -85,7 +105,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
         return res.json();
       })
       .then(() => {
-        let remainder = accommodate.filter(fins => fins.id !== id);
+        let remainder = accommodate.filter(accom => accom.id !== id);
         setAccommodate(remainder);
         alert(`${name} has been deleted successfully! 👋🏽`);
       })
@@ -101,7 +121,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
       <h3 className="mini">Description</h3>
       <h2 className="cont"><strong>{description}</strong></h2>
       <h3 className="mini">Location</h3>
-      <h2 className="cont"><strong>Lat: {latitude}, Lng: {longitude}</strong></h2>
+      <h2 className="cont"><strong>{fetchedLocation}</strong></h2>
       
       <form id="new" onSubmit={handleUpdate}>
         <input className="input" type="text" name="name" placeholder="Name" value={update.name} required onChange={handleChange} /><br />
