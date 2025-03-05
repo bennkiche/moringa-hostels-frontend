@@ -54,7 +54,7 @@ function SignupForm() {
 
     return (
         <div className="signupContainer">
-            <NavbarUser />
+            {/* <NavbarUser /> */}
             <div className="signupCard">
                 <div className="signupLeft">
                     <div className="signupImagePlaceholder">

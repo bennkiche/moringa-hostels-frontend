@@ -5,7 +5,7 @@ import Footer from "../comps/Footer";
 const Home = () => {
   return (
     <div className="relative w-full bg-sky-100">
-      <Navbar />
+      {/* <Navbar /> */}
       {/* Hero Section */}
       <div
         className="relative w-full bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4 min-h-screen"

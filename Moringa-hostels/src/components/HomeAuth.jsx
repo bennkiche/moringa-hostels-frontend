@@ -6,7 +6,7 @@ import NavbarUser from "./NavbarUser";
 const Home = () => {
   return (
     <div className="relative w-full bg-sky-100">
-      <NavbarUser />
+      {/* <NavbarUser /> */}
       {/* Hero Section */}
       <div
         className="relative w-full bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4 min-h-screen"

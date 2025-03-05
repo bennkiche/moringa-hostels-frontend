@@ -74,6 +74,7 @@ Fixed position at the bottom
     max-width: 600px;
     width: 100%;
     text-align: center; /* ✅ Centers text inside the review */
+    margin-top: 90px;
 }
 
 /* Review Header */

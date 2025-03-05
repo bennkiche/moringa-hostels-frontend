@@ -1,19 +1,27 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import "./Navbar.css";
 
-export default function Navbar() {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
+  // Check for user on component load & whenever localStorage updates
   useEffect(() => {
-    // Fetch user data from local storage or API
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     if (loggedInUser) {
       setUser(loggedInUser);
     }
-  }, []);
+  }, []); // Runs when `user` changes
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("access_token");
+    setUser(null);
+    navigate("/home"); // Redirect to home page after logout
+  };
 
   return (
     <nav className="navbar">
@@ -34,27 +42,40 @@ export default function Navbar() {
                 <p>Not logged in</p>
               )}
             </div>
-            <Link to="/profile" className="menu-item">Profile</Link>
-            <Link to="/bookings" className="menu-item">My Bookings</Link>
-            <Link to="/my-reviews" className="menu-item">My Reviews</Link>
+            {user && (
+              <>
+                <Link to="/profile" className="menu-item">Profile</Link>
+                <Link to="/bookings" className="menu-item">My Bookings</Link>
+                <Link to="/my-reviews" className="menu-item">My Reviews</Link>
+              </>
+            )}
           </div>
         )}
       </div>
-      
+
       {/* Center Navigation Links */}
       <div className="nav-links">
         <Link to="/home" className="nav-item">Home</Link>
         <Link to="/accommodationUsers" className="nav-item">Accommodations</Link>
         <Link to="/reviews" className="nav-item">Reviews</Link>
+        <Link to="/available-rooms" className="nav-item">Available Rooms</Link>
         <Link to="/about" className="nav-item">About</Link>
         <Link to="/contacts" className="nav-item">Contacts</Link>
       </div>
-      
-      {/* Right-Side Authentication Buttons */}
+
+      {/* Authentication Buttons (Log In & Sign Up or Log Out) */}
       <div className="auth-buttons">
-        <Link to="/signup" className="signup-button">Sign Up</Link>
-        <Link to="/login" className="login-button">Log In</Link>
+        {user ? (
+          <button onClick={handleLogout} className="logout-button">Log Out</button>
+        ) : (
+          <>
+            <Link to="/signup" className="signup-button">Sign Up</Link>
+            <Link to="/login" className="login-button">Log In</Link>
+          </>
+        )}
       </div>
     </nav>
   );
 }
+
+export default Navbar;

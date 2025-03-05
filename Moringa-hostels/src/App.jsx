@@ -14,7 +14,7 @@ import Room from './AdminRoom/Room'
 import HomeAuth from './components/HomeAuth'
 import BookingList from "./bookings/BookingList";
 import BookingDetails from "./bookings/BookingDetails";
-import AvailableRooms from "./bookings/Rooms";
+import AvailableRooms from "./bookings/AvailableRooms";
 import BookingForm from "./bookings/BookingForm";
 import './App.css'
 import "./index.css"
@@ -23,21 +23,24 @@ import NavbarUser from './components/NavbarUser'
 import Profile from './components/Profile'
 import Reviews from './reviews/Reviews'
 import MyReviews from './reviews/MyReviews'
+import Mpesa from './mpesa/Mpesa'
 
 function App() {
   return (
      <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path='/accommodationUsers' element={<AccommodationDetails />} />
         <Route path='/accommodationAdmin' element={<Accommodate />} />
         <Route path="/authentication" element={<Authentication />} />
         <Route path='/roomUsers' element={<RoomUser />} />
         <Route path="/signup" element={<SignupForm />} />
+        <Route path="/mpesa" element={<Mpesa />} />
         <Route path='/roomAdmins' element={<Room />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contacts" element={<Contact />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/my-reviews" element={<MyReviews />} />
+        <Route path="/available-rooms" element={<AvailableRooms />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
