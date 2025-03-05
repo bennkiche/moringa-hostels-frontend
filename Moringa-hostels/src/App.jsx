@@ -8,22 +8,21 @@ import SignupForm from './authentications/Signup'
 import LoginForm from './authentications/Login'
 import RoomUser from './UserRooms/RoomUser'
 import About from "./components/About"
-import Contact from './comps/Contact'
+import Contact from './components/Contact'
 import Home from "./components/Home" 
 import Room from './AdminRoom/Room'
 import HomeAuth from './components/HomeAuth'
 import BookingList from "./bookings/BookingList";
 import BookingDetails from "./bookings/BookingDetails";
-import AvailableRooms from "./bookings/AvailableRooms";
 import BookingForm from "./bookings/BookingForm";
 import './App.css'
 import "./index.css"
 import Navbar from './components/Navbar'
-import NavbarUser from './components/NavbarUser'
 import Profile from './components/Profile'
 import Reviews from './reviews/Reviews'
 import MyReviews from './reviews/MyReviews'
 import Mpesa from './mpesa/Mpesa'
+import AvailableRooms from './bookings/AvailableRooms'
 
 function App() {
   return (
@@ -46,10 +45,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path='/homeAuth' element={<HomeAuth />} />
         <Route path='/home' element={<Home />} />
-        <Route path="/bookings" element={<BookingList />} />
+        <Route path="/Userbookings" element={<BookingList />} />
         <Route path="/bookings/:id" element={<BookingDetails />} />
         <Route path="/book-room" element={<BookingForm />} />
-        <Route path="/bookings/" element={<AvailableRooms />} />
+        {/* <Route path="/real-bookings" element={<RealBookings />} /> */}
+        <Route path="/available" element={<AvailableRooms />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
     </Router>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavbarUser from "../components/NavbarUser";
+import './bookings.css'
 
-const BookingForm = ({ closeForm }) => {
+const BookingForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { room_no, room_type, accommodation_id, price } = location.state || {};
@@ -47,7 +47,6 @@ const BookingForm = ({ closeForm }) => {
         throw new Error(errorData.error || "Error booking room");
       }
 
-      // Redirect user to Mpesa page with booking price
       navigate("/mpesa", { state: { amount: price } });
 
     } catch (err) {
@@ -57,8 +56,7 @@ const BookingForm = ({ closeForm }) => {
   
 
   return (
-    <div>
-      <NavbarUser />
+    <div className="booking-form-container">
       <h2>Book Room</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
@@ -80,14 +78,21 @@ const BookingForm = ({ closeForm }) => {
         </div>
         <div>
           <label className="bookingLabel">Start Date</label><br />
-          <input type="datetime-local" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </div>
         <div>
           <label className="bookingLabel">End Date</label><br />
-          <input type="datetime-local" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </div>
         <button type="submit">Confirm Booking</button>
-        <button type="button" onClick={closeForm}>Cancel</button>
       </form>
     </div>
   );

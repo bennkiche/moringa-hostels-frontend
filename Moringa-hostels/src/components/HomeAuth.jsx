@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import Footer from "../comps/Footer";
+import Footer from "./Footer";
 import NavbarUser from "./NavbarUser";
 
 const Home = () => {

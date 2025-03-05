@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access_token");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/bookings", {
+    fetch("http://127.0.0.1:5000/Userbookings", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const BookingList = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched bookings:", data); // Debugging log
+        console.log("Fetched bookings:", data); 
         setBookings(data);
       })
       .catch((error) => {

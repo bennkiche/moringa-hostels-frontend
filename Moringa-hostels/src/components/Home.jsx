@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import Footer from "../comps/Footer";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
@@ -82,7 +82,7 @@ const Home = () => {
       <footer className="bg-gray-800 text-white text-center py-4 mt-8">
         <p>&copy; {new Date().getFullYear()} Moringa Hostel. All Rights Reserved.</p>
       </footer>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

@@ -14,7 +14,7 @@ function Navbar() {
     if (loggedInUser) {
       setUser(loggedInUser);
     }
-  }, []); // Runs when `user` changes
+  }, []); // Runs when user changes
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -22,6 +22,9 @@ function Navbar() {
     setUser(null);
     navigate("/home"); // Redirect to home page after logout
   };
+
+  // Determine the correct accommodation route based on user role
+  const accommodationRoute = user?.role === "admin" ? "/accommodationAdmin" : "/accommodationUsers";
 
   return (
     <nav className="navbar">
@@ -45,7 +48,7 @@ function Navbar() {
             {user && (
               <>
                 <Link to="/profile" className="menu-item">Profile</Link>
-                <Link to="/bookings" className="menu-item">My Bookings</Link>
+                <Link to="/Userbookings" className="menu-item">My Bookings</Link>
                 <Link to="/my-reviews" className="menu-item">My Reviews</Link>
               </>
             )}
@@ -56,9 +59,9 @@ function Navbar() {
       {/* Center Navigation Links */}
       <div className="nav-links">
         <Link to="/home" className="nav-item">Home</Link>
-        <Link to="/accommodationUsers" className="nav-item">Accommodations</Link>
+        <Link to={accommodationRoute} className="nav-item">Accommodations</Link> {/* Dynamic accommodation route */}
         <Link to="/reviews" className="nav-item">Reviews</Link>
-        <Link to="/available-rooms" className="nav-item">Available Rooms</Link>
+        <Link to="/available" className="nav-item">Available Rooms</Link>
         <Link to="/about" className="nav-item">About</Link>
         <Link to="/contacts" className="nav-item">Contacts</Link>
       </div>

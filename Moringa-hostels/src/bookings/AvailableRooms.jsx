@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import BookingForm from "./BookingForm";
 
 const AvailableRooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -13,7 +12,7 @@ const AvailableRooms = () => {
       .then((response) => response.json())
       .then((data) => {
         setRooms(data);
-        setFilteredRooms(data); // Initially, all rooms are shown
+        setFilteredRooms(data);
       })
       .catch((err) => {
         console.error("Error fetching rooms:", err);
@@ -26,38 +25,31 @@ const AvailableRooms = () => {
       setError("Please select both start and end dates.");
       return;
     }
-    setError("");
-    const filtered = rooms.filter((room) => 
-      !room.booked_dates || 
-      new Date(room.booked_dates.end) < new Date(startDate) || 
-      new Date(room.booked_dates.start) > new Date(endDate)
-    );
-    setFilteredRooms(filtered);
-  };
 
-  const cancelBooking = (roomId) => {
-    fetch(`http://127.0.0.1:5000/bookings/cancel/${roomId}`, {
-      method: "PATCH", // Updated to match backend logic
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error canceling booking");
-        }
-        return response.json();
-      })
-      .then(() => {
-        setRooms(rooms.map((room) =>
-          room.id === roomId ? { ...room, is_booked: false, booked_dates: null } : room
-        ));
-        filterRooms(); // Refresh the filtered list
-      })
-      .catch((err) => {
-        console.error("Error canceling booking:", err);
-        setError("Failed to cancel booking.");
-      });
+    if (new Date(startDate) >= new Date(endDate)) {
+      setError("Start date must be before end date.");
+      return;
+    }
+
+    setError("");
+
+    const filtered = rooms.filter((room) => {
+      if (!room.booked_dates) return true; // Room is available if it has no bookings
+
+      const bookedStart = new Date(room.booked_dates.start);
+      const bookedEnd = new Date(room.booked_dates.end);
+      const selectedStart = new Date(startDate);
+      const selectedEnd = new Date(endDate);
+
+      // Room is available if the selected range **does NOT overlap** with the booked range
+      return selectedEnd <= bookedStart || selectedStart >= bookedEnd;
+    });
+
+    setFilteredRooms(filtered);
+    
+    console.log(room.booked_dates)
+
+    console.log("button pressed")
   };
 
   return (
@@ -102,7 +94,6 @@ const AvailableRooms = () => {
               {room.is_booked && (
                 <>
                   <p><strong>Booked Dates:</strong> {room.booked_dates?.start} - {room.booked_dates?.end}</p>
-                  <button onClick={() => cancelBooking(room.id)}>Cancel Booking</button>
                 </>
               )}
             </div>
