@@ -24,10 +24,15 @@ function Accommodate() {
             return res.json();
         })
         .then((data) => {
-            setAccommodate(Array.isArray(data) ? data : []);
+            // Ensure we get an array and include latitude & longitude
+            setAccommodate(Array.isArray(data) ? data.map(acc => ({
+                ...acc,
+                latitude: acc.latitude || "", 
+                longitude: acc.longitude || ""
+            })) : []);
         })
         .catch((err) => console.error("Error fetching accommodations:", err));
-    }, [token]); // Depend on `token` so it updates if changed
+    }, [token]);
 
     return (
         <>

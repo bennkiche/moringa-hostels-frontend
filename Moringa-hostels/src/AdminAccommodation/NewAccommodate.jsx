@@ -1,54 +1,94 @@
-import { useState } from "react"
+import { useState } from "react";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
-function NewAccommodate({accommodate,setAccommodate}){
-    const [NewAccommodate,setNewAccommodate] = useState({
-        name:"",
-        image:"",
-        description:""
-    })
-    function handleChange(e){
-        e.preventDefault()
-        let name = e.target.name
-        let value = e.target.value
-
-        setNewAccommodate({
-            ...NewAccommodate,
-            [name]:value
-        })
-    }
-    function handleSubmit(e){
-       e.preventDefault()
-       const token = localStorage.getItem("access_token")
-       fetch("http://127.0.0.1:5000/accommodations", {
-        method:"POST",
-        headers:{
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+function LocationPicker({ setLatitude, setLongitude }) {
+    useMapEvents({
+        click(e) {
+            setLatitude(e.latlng.lat);
+            setLongitude(e.latlng.lng);
         },
-        body:JSON.stringify(NewAccommodate)
-       })
-       .then(resp => resp.json())
-       .then(poisson => {setAccommodate([...accommodate,poisson])
-        setNewAccommodate({
-            name:"",
-            image:"",
-            description:""
-        })
-        alert(`Poof ${NewAccommodate.name} created with success`)
-       })
-       .catch(error => console.log(error)) 
+    });
+    return null;
+}
+
+function NewAccommodate({ accommodate, setAccommodate }) {
+    const [NewAccommodate, setNewAccommodate] = useState({
+        name: "",
+        image: "",
+        description: "",
+        latitude: "",
+        longitude: ""
+    });
+    const [showMap, setShowMap] = useState(false);
+
+    function handleChange(e) {
+        let { name, value } = e.target;
+        setNewAccommodate({ ...NewAccommodate, [name]: value });
     }
-    return(
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const token = localStorage.getItem("access_token");
+        fetch("http://127.0.0.1:5000/accommodations", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(NewAccommodate)
+        })
+        .then(resp => resp.json())
+        .then(newAccommodation => {
+            setAccommodate([...accommodate, newAccommodation]);
+            setNewAccommodate({ name: "", image: "", description: "", latitude: "", longitude: "" });
+            alert(`${newAccommodation.name} created successfully!`);
+        })
+        .catch(error => console.log(error));
+    }
+
+    return (
         <div className="newness">
-          <h2 className="newer">New Accommodation</h2>
+            <h2 className="newer">New Accommodation</h2>
             <form id="new" onSubmit={handleSubmit}>
-                <input className="new" type="text" name="name" placeholder="Name" value={NewAccommodate.name} required onChange={handleChange}/>
-                <input className="new" type="text" name="image" placeholder="image" value={NewAccommodate.image} required onChange={handleChange}/>
-                <input className="new" type="text" name="description" placeholder="description" value={NewAccommodate.description} required onChange={handleChange}/>
+                <input className="new" type="text" name="name" placeholder="Name" value={NewAccommodate.name} required onChange={handleChange} />
+                <input className="new" type="text" name="image" placeholder="Image" value={NewAccommodate.image} required onChange={handleChange} />
+                <input className="new" type="text" name="description" placeholder="Description" value={NewAccommodate.description} required onChange={handleChange} />
+                <input
+                    className="new"
+                    type="text"
+                    name="location"
+                    placeholder="Click to select location"
+                    readOnly
+                    value={NewAccommodate.latitude && NewAccommodate.longitude ? `Lat: ${NewAccommodate.latitude}, Lng: ${NewAccommodate.longitude}` : ""}
+                    onClick={() => setShowMap(!showMap)}
+                />
+                {showMap && (
+                    <MapContainer
+                        center={[1.2921, 37.8219]}  // Center of Kenya
+                        zoom={6.5}  // Covers all of Kenya
+                        style={{ height: "300px", width: "100%" }}
+                        maxBounds={[[4.62, 33.5], [-4.72, 41.9]]}  // Bounding box for Kenya
+                        maxBoundsViscosity={1.0}  // Prevents dragging outside Kenya
+                    >
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        
+                        {/* Clicking on the map will update these values */}
+                        <LocationPicker
+                            setLatitude={(lat) => setNewAccommodate(prev => ({ ...prev, latitude: lat }))}
+                            setLongitude={(lng) => setNewAccommodate(prev => ({ ...prev, longitude: lng }))}
+                        />
+                        
+                        {/* Show marker at the selected location */}
+                        {NewAccommodate.latitude && NewAccommodate.longitude && (
+                            <Marker position={[NewAccommodate.latitude, NewAccommodate.longitude]} />
+                        )}
+                    </MapContainer>
+                )}
                 <button className="add" type="submit">Add</button>
-            </form> 
-        </div> 
-    )
+            </form>
+        </div>
+    );
 }
 
 export default NewAccommodate;
