@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar";
 
 const Home = () => {
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = async (filters) => {
+    const { searchTerm, price, roomType, accommodation } = filters;
+    const queryParams = new URLSearchParams();
+
+    if (searchTerm) queryParams.append("location", searchTerm);
+    if (price) queryParams.append("price", price);
+    if (roomType) queryParams.append("room_type", roomType);
+    if (accommodation) queryParams.append("accommodation", accommodation);
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/accommodations?${queryParams}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch accommodations");
+      }
+
+      const data = await response.json();
+      setSearchResults(data);
+    } catch (error) {
+      console.error("Error fetching accommodations:", error);
+    }
+  };
+
   return (
     <div className="relative w-full bg-sky-100">
+      {/* Navbar */}
       {/* <Navbar /> */}
+      
       {/* Hero Section */}
       <div
         className="relative w-full bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4 min-h-screen"
@@ -18,65 +48,43 @@ const Home = () => {
           Welcome to Moringa Hostels
         </h1>
         <p className="text-lg md:text-xl mb-6">Your home away from home.</p>
-      </div>
 
-      {/* Information Section */}
-      <div className="max-w-5xl mx-auto mt-8 px-4 text-center">
-        <h2 className="text-2xl md:text-4xl font-bold mb-4">Why Choose Us?</h2>
-        <p className="text-lg text-gray-700">
-          Moringa Hostel provides a comfortable and convenient living space for
-          students and professionals. Enjoy top-notch facilities, a great
-          community, and a safe environment.
-        </p>
-      </div>
-
-      {/* Image Cards Section */}
-      <div className="max-w-6xl mx-auto py-12 grid gap-6 md:grid-cols-3 px-4">
-        {/* Card 1 */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <img
-            src="src/assets/images/Spacious rooms.avif"
-            alt="Hostel Room"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-xl font-bold">Spacious Rooms</h3>
-            <p className="text-gray-600">
-              Enjoy comfortable, well-furnished rooms with modern amenities.
-            </p>
-          </div>
-        </div>
-
-        {/* Card 2 */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <img
-            src="src/assets/images/Common area.webp"
-            alt="Common Area"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-xl font-bold">Relaxing Common Areas</h3>
-            <p className="text-gray-600">
-              Connect with fellow residents in our cozy and stylish lounges.
-            </p>
-          </div>
-        </div>
-
-        {/* Card 3 */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <img
-            src="src/assets/images/Dinning images.jpg"
-            alt="Dining Area"
-            className="w-full h-48 object-cover"
-          />
-          <div className="p-4">
-            <h3 className="text-xl font-bold">Quality Dining</h3>
-            <p className="text-gray-600">
-              Enjoy delicious and nutritious meals prepared with care.
-            </p>
-          </div>
+        {/* Search Bar */}
+        <div className="w-full max-w-2xl">
+          <SearchBar onSearch={handleSearch} />
         </div>
       </div>
+
+      {/* Search Results */}
+      <div className="max-w-6xl mx-auto py-12 px-4">
+        {searchResults.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-3">
+            {searchResults.map((accommodation) => (
+              <div
+                key={accommodation.id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden"
+              >
+                <img
+                  src={accommodation.image_url}
+                  alt={accommodation.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-bold">{accommodation.name}</h3>
+                  <p className="text-gray-600">{accommodation.location}</p>
+                  <p className="text-gray-700 font-semibold">
+                    ${accommodation.price} per night
+                  </p>
+                  <p className="text-sm text-gray-500">{accommodation.room_type}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-700">No accommodations found.</p>
+        )}
+      </div>
+
       <Footer />
     </div>
   );
