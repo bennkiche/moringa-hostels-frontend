@@ -10,7 +10,7 @@ function LoginForm() {
     const handleLogin = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-
+    
         try {
             const response = await fetch(`${url}/login`, {
                 method: 'POST',
@@ -21,15 +21,15 @@ function LoginForm() {
                     password: formData.get('password')
                 }),
             });
-
+    
             if (!response.ok) {
                 alert("Invalid credentials");
                 throw new Error('Invalid credentials');
             }
-
+    
             const data = await response.json();
-
-            // Store in localStorage first
+    
+            // Store in localStorage
             localStorage.setItem("access_token", data.create_token);
             localStorage.setItem("user", JSON.stringify({
                 id: data.user.id,
@@ -37,17 +37,21 @@ function LoginForm() {
                 email: data.user.email,
                 role: data.role
             }));
-
+    
+            // Trigger a storage event to notify other components
+            window.dispatchEvent(new Event("storage"));
+    
             // Update state
             setToken(data.create_token);
             setUser({ name: data.user.name, role: data.role });
-
+    
             alert(`Welcome ${data.user.name}, you are logged in as a ${data.role}.`);
-
+    
         } catch (error) {
             console.error("Login error:", error);
         }
     };
+    
 
     // Redirect after login based on role
     if (token && user) {

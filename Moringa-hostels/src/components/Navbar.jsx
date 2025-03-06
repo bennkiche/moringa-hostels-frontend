@@ -10,11 +10,19 @@ function Navbar() {
 
   
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
-    if (loggedInUser) {
+    const updateUser = () => {
+      const loggedInUser = JSON.parse(localStorage.getItem("user"));
       setUser(loggedInUser);
-    }
-  }, []); 
+    };
+  
+    updateUser(); // Run on mount
+  
+    window.addEventListener("storage", updateUser); // Listen for changes in localStorage
+  
+    return () => {
+      window.removeEventListener("storage", updateUser); // Cleanup
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
