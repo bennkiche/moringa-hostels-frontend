@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'
 
 function LoginReset({ handleLogin }) {
-    const navigate = useNavigate();  // Initialize the navigate function
+    const navigate = useNavigate()  
 
     const handleForgotPassword = () => {
-        navigate("/reset-password");  // Navigate to the password reset page
-    };
+        navigate("/reset-password")
+    }
 
     return (
         <form onSubmit={handleLogin}>
@@ -19,7 +19,7 @@ function LoginReset({ handleLogin }) {
                 </button>
             </div>
         </form>
-    );
+    )
 }
 
-export default LoginReset;
+export default LoginReset

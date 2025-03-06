@@ -1,44 +1,44 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import "./profile.css"
 
 function Profile() {
-  const [user, setUser] = useState({ name: "", email: "", id: "" });
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const navigate = useNavigate();
+  const [user, setUser] = useState({ name: "", email: "", id: "" })
+  const [currentPassword, setCurrentPassword] = useState("")
+  const [newName, setNewName] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    const loggedInUser = JSON.parse(localStorage.getItem("user"))
     if (loggedInUser) {
-      setUser(loggedInUser);
-      setNewName(loggedInUser.name);
-      setNewEmail(loggedInUser.email);
+      setUser(loggedInUser)
+      setNewName(loggedInUser.name)
+      setNewEmail(loggedInUser.email)
     }
-  }, []);  
+  }, [])  
 
   const handleUpdate = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!user.id) {
-      alert("User ID is missing. Please log in again.");
-      return;
+      alert("User ID is missing. Please log in again.")
+      return
     }
 
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token")
     const requestBody = {
       name: newName,
       email: newEmail,
-    };
+    }
    
     if (newPassword.trim()) {
-      requestBody.current_password = currentPassword; // Backend requires this when changing password
-      requestBody.new_password = newPassword;
+      requestBody.current_password = currentPassword 
+      requestBody.new_password = newPassword
     }
 
-    console.log("Sending PATCH request with:", requestBody);  // Debugging
+    console.log("Sending PATCH request with:", requestBody) 
 
     fetch(`http://localhost:5000/users/${user.id}`, {
       method: "PATCH",
@@ -52,24 +52,24 @@ function Profile() {
     .then(data => {
         console.log("Server response:", data)
         if (data.error) {
-          throw new Error(data.error);
+          throw new Error(data.error)
         }
-        alert("Profile updated successfully!");
-        localStorage.setItem("user", JSON.stringify({ name: newName, email: newEmail, id: user.id }));
-        navigate("/home");
+        alert("Profile updated successfully!")
+        localStorage.setItem("user", JSON.stringify({ name: newName, email: newEmail, id: user.id }))
+        navigate("/home")
     })
     .catch(error => {
-        console.error("Update error:", error.message);
-        alert(error.message || "Something went wrong. Please try again.");
-    });
-};
+        console.error("Update error:", error.message)
+        alert(error.message || "Something went wrong. Please try again.")
+    })
+}
 
 const handleDelete = () => {
   if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
-    return;
+    return
   }
 
-  const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token")
 
   fetch(`http://127.0.0.1:5000/users/${user.id}`, {
     method: "DELETE",
@@ -80,18 +80,18 @@ const handleDelete = () => {
   .then(response => response.json())
   .then(data => {
     if (data.error) {
-      throw new Error(data.error);
+      throw new Error(data.error)
     }
     alert("Account deleted successfully!")
     localStorage.removeItem("user")
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token")
     navigate("/home")
   })
   .catch(error => {
-    console.error("Delete error:", error.message);
-    alert(error.message || "Something went wrong. Please try again.");
-  });
-};
+    console.error("Delete error:", error.message)
+    alert(error.message || "Something went wrong. Please try again.")
+  })
+}
 
   return (
     <div className="profile-container">
@@ -137,7 +137,7 @@ const handleDelete = () => {
        </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default Profile;
+export default Profile

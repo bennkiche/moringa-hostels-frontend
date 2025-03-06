@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
-import BookingForm from "./BookingForm";
+import React, { useState, useEffect } from "react"
+import BookingForm from "./BookingForm"
 
 const AvailableRooms = () => {
-  const [rooms, setRooms] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const [error, setError] = useState("");
+  const [rooms, setRooms] = useState([])
+  const [startDate, setStartDate] = useState("")
+  const [endDate, setEndDate] = useState("")
+  const [selectedRoom, setSelectedRoom] = useState(null)
+  const [error, setError] = useState("")
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/rooms")
       .then((response) => response.json())
       .then((data) => {
-        setRooms(data);
+        setRooms(data)
       })
       .catch((err) => {
-        console.error("Error fetching rooms:", err);
-        setError("Failed to load rooms.");
-      });
-  }, []);
+        console.error("Error fetching rooms:", err)
+        setError("Failed to load rooms.")
+      })
+  }, [])
 
   const cancelBooking = (roomId) => {
     fetch(`http://127.0.0.1:5000/bookings/cancel/${roomId}`, {
@@ -28,12 +28,12 @@ const AvailableRooms = () => {
       .then(() => {
         setRooms(rooms.map(room => 
           room.id === roomId ? { ...room, is_booked: false, booked_dates: null } : room
-        ));
+        ))
       })
       .catch((err) => {
-        console.error("Error canceling booking:", err);
-      });
-  };
+        console.error("Error canceling booking:", err)
+      })
+  }
 
   return (
     <div>
@@ -86,7 +86,7 @@ const AvailableRooms = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AvailableRooms;
+export default AvailableRooms

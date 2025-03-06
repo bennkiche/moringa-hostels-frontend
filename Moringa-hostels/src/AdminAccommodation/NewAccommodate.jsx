@@ -65,21 +65,19 @@ function NewAccommodate({ accommodate, setAccommodate }) {
                 />
                 {showMap && (
                     <MapContainer
-                        center={[1.2921, 37.8219]}  // Center of Kenya
-                        zoom={6.5}  // Covers all of Kenya
+                        center={[1.2921, 37.8219]} 
+                        zoom={6.5}  
                         style={{ height: "300px", width: "100%" }}
-                        maxBounds={[[4.62, 33.5], [-4.72, 41.9]]}  // Bounding box for Kenya
-                        maxBoundsViscosity={1.0}  // Prevents dragging outside Kenya
+                        maxBounds={[[4.62, 33.5], [-4.72, 41.9]]}
+                        maxBoundsViscosity={1.0} 
                     >
                         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                         
-                        {/* Clicking on the map will update these values */}
                         <LocationPicker
                             setLatitude={(lat) => setNewAccommodate(prev => ({ ...prev, latitude: lat }))}
                             setLongitude={(lng) => setNewAccommodate(prev => ({ ...prev, longitude: lng }))}
                         />
                         
-                        {/* Show marker at the selected location */}
                         {NewAccommodate.latitude && NewAccommodate.longitude && (
                             <Marker position={[NewAccommodate.latitude, NewAccommodate.longitude]} />
                         )}

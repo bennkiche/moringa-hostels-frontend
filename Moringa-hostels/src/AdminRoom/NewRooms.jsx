@@ -14,13 +14,13 @@ function NewRoom({ room, setRoom, token }) {
     function handleChange(e) {
         let { name, value } = e.target;
 
-        // Ensure correct data types
+       
         if (name === "room_no" || name === "accommodation_id" || name === "price") {
             value = parseInt(value, 10) || 0; 
         }
         
         if (name === "availability") {
-            value = value === "true"; // Convert string to boolean
+            value = value === "true"; 
         }
 
         setNewRoom((prev) => ({

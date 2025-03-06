@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./bookings.css"; // Import the CSS file
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import "./bookings.css"
 
 const BookingList = () => {
-  const [bookings, setBookings] = useState([]);
-  const navigate = useNavigate();
-  const token = localStorage.getItem("access_token");
+  const [bookings, setBookings] = useState([])
+  const navigate = useNavigate()
+  const token = localStorage.getItem("access_token")
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/Userbookings", {
@@ -17,18 +17,18 @@ const BookingList = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error fetching bookings");
+          throw new Error("Error fetching bookings")
         }
-        return response.json();
+        return response.json()
       })
       .then((data) => {
-        console.log("Fetched bookings:", data);
-        setBookings(data);
+        console.log("Fetched bookings:", data)
+        setBookings(data)
       })
       .catch((error) => {
-        console.error("Error fetching bookings:", error);
-      });
-  }, [token]);
+        console.error("Error fetching bookings:", error)
+      })
+  }, [token])
 
   const handleCancelBooking = (id) => {
     fetch(`http://127.0.0.1:5000/bookings/${id}/cancel`, {
@@ -40,21 +40,21 @@ const BookingList = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error canceling booking");
+          throw new Error("Error canceling booking")
         }
-        return response.json();
+        return response.json()
       })
       .then(() => {
         setBookings((prevBookings) =>
           prevBookings.map((booking) =>
             booking.id === id ? { ...booking, status: "canceled" } : booking
           )
-        );
+        )
       })
       .catch((error) => {
-        console.error("Error canceling booking:", error);
-      });
-  };
+        console.error("Error canceling booking:", error)
+      })
+  }
 
   return (
     <div className="booking-container">
@@ -118,7 +118,7 @@ const BookingList = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default BookingList;
+export default BookingList

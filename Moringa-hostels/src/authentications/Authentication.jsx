@@ -77,18 +77,6 @@ function Authentication() {
 
     return (
         <Router>
-            {/* <nav>
-                <Link to="/accommodationUsers">Accommodations</Link>
-                {user?.role === 'admin' && <Link to="/users">Users</Link>}
-                {user ? (
-                    <NavbarUser handleLogout={handleLogout} />
-                ) : (
-                    <>
-                        <Link to="/login">Login</Link>
-                        <Link to="/signup">Signup</Link>
-                    </>
-                )}
-            </nav> */}
             <Routes>
                 <Route path="/login" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <LoginForm setUser={setUser} />} />
                 <Route path="/signup" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <SignupForm />} />
@@ -105,7 +93,6 @@ function Authentication() {
     );
 }
 
-// Component for displaying accommodations
 function Accommodations({ accommodations }) {
     return (
         <div>

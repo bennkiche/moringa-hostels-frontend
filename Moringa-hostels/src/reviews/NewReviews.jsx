@@ -1,29 +1,28 @@
-import { useState } from "react";
+import { useState } from "react"
 
 function NewReview({ review, setReview, token, userId }) {
     const [newReview, setNewReview] = useState({
         rating: 0,
         content: ""
-    });
-
+    })
 
         function handleChange(e) {
-            const { name, value } = e.target;
+            const { name, value } = e.target
         
             setNewReview({
                 ...newReview,
                 [name]: name === "rating" 
                     ? Math.min(5, Math.max(1, parseInt(value) || 1))
                     : value
-            });
+            })
         }
 
     function handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
 
         if (!token) {
-            alert("You must be logged in to add a review!");
-            return;
+            alert("You must be logged in to add a review!")
+            return
         }
 
         fetch("http://127.0.0.1:5000/reviews", {
@@ -38,15 +37,15 @@ function NewReview({ review, setReview, token, userId }) {
             })
         })
         .then(resp => {
-            if (!resp.ok) throw new Error("Unauthorized - Invalid token");
-            return resp.json();
+            if (!resp.ok) throw new Error("Unauthorized - Invalid token")
+            return resp.json()
         })
         .then(newReviewData => {
-            setReview([...review, newReviewData]);
-            setNewReview({ rating: 0, content: "" }); 
-            alert("Review added successfully!");
+            setReview([...review, newReviewData])
+            setNewReview({ rating: 0, content: "" }) 
+            alert("Review added successfully!")
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => console.error("Error:", error))
     }
 
     return (
@@ -83,7 +82,7 @@ function NewReview({ review, setReview, token, userId }) {
             </form>
 
         </div>
-    );
+    )
 }
 
-export default NewReview;
+export default NewReview

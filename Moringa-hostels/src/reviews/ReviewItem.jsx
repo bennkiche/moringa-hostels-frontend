@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from "react"
 
 function ReviewItem({ review, setReview }) {
   function handleDelete() {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token")
 
     if (!token) {
-      alert("You must be logged in to delete a review.");
-      return;
+      alert("You must be logged in to delete a review.")
+      return
     }
 
     fetch(`http://127.0.0.1:5000/reviews/${review.id}`, {
@@ -18,15 +18,15 @@ function ReviewItem({ review, setReview }) {
     })
     .then(res => {
       if (!res.ok) {
-        throw new Error("Unauthorized: You don't have permission to delete this review.");
+        throw new Error("Unauthorized: You don't have permission to delete this review.")
       }
-      return res.json();
+      return res.json()
     })
     .then(() => {
-      setReview(prevReviews => prevReviews.filter(r => r.id !== review.id)); 
-      alert("The review has been deleted successfully");
+      setReview(prevReviews => prevReviews.filter(r => r.id !== review.id)) 
+      alert("The review has been deleted successfully")
     })
-    .catch(err => console.error("Error deleting review:", err));
+    .catch(err => console.error("Error deleting review:", err))
   }
 
   return (
@@ -43,7 +43,7 @@ function ReviewItem({ review, setReview }) {
         </div>
     </div>
 
-  );
+  )
 }
 
-export default ReviewItem;
+export default ReviewItem

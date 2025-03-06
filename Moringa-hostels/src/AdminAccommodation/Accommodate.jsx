@@ -23,7 +23,6 @@ function Accommodate() {
             return res.json();
         })
         .then((data) => {
-            // Ensure we get an array and include latitude & longitude
             setAccommodate(Array.isArray(data) ? data.map(acc => ({
                 ...acc,
                 latitude: acc.latitude || "", 

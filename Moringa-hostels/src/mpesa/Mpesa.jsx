@@ -1,53 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./mpesa.css"; 
+import React, { useState, useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import axios from "axios"
+import "./mpesa.css" 
 
 function Mpesa() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [phone, setPhone] = useState("254");
-  const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [phone, setPhone] = useState("254")
+  const [amount, setAmount] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const { accommodation_id, room_id, start_date, end_date } = location.state || {};
+  const { accommodation_id, room_id, start_date, end_date } = location.state || {}
 
   useEffect(() => {
     if (location.state?.amount) {
-      setAmount(location.state.amount);
+      setAmount(location.state.amount)
     }
-  }, [location.state]);
+  }, [location.state])
 
   const handlePhoneChange = (e) => {
-    let input = e.target.value;
+    let input = e.target.value
     if (!input.startsWith("254")) {
-      input = "254";
+      input = "254"
     } else if (input.length > 12) {
-      input = input.slice(0, 12);
+      input = input.slice(0, 12)
     }
-    setPhone(input);
-  };
+    setPhone(input)
+  }
 
   const handlePay = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
   
     if (!phone || phone.length !== 12 || !amount) {
-      alert("Please enter a valid phone number.");
-      return;
+      alert("Please enter a valid phone number.")
+      return
     }
   
-    setLoading(true);
+    setLoading(true)
   
     try {
-      // Step 1: Store the booking in the backend first
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token")
   
       const bookingData = {
         accommodation_id,
         room_id,
         start_date,
         end_date,
-      };
+      }
   
       const bookingResponse = await fetch("http://127.0.0.1:5000/bookings", {
         method: "POST",
@@ -56,18 +55,17 @@ function Mpesa() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(bookingData),
-      });
+      })
   
-      const bookingResult = await bookingResponse.json();
-      console.log("Booking Response:", bookingResult);
+      const bookingResult = await bookingResponse.json()
+      console.log("Booking Response:", bookingResult)
   
       if (!bookingResponse.ok) {
-        throw new Error(bookingResult.error || "Error booking room");
+        throw new Error(bookingResult.error || "Error booking room")
       }
   
-      alert("Booking saved successfully! Proceeding to payment...");
+      alert("Booking saved successfully! Proceeding to payment...")
   
-      // Step 2: Proceed with the Mpesa payment
       const paymentResponse = await axios.post("http://127.0.0.1:5000/mpesa/pay", {
         phone_number: phone,
         amount: amount
@@ -76,20 +74,20 @@ function Mpesa() {
           "Content-Type": "application/json",
           "Accept": "application/json"
         }
-      });
+      })
   
-      console.log("Payment Response:", paymentResponse.data);
-      alert("Payment successful! Check your phone for confirmation.");
+      console.log("Payment Response:", paymentResponse.data)
+      alert("Payment successful! Check your phone for confirmation.")
       
-      navigate("/home"); // Redirect to home page after successful payment
+      navigate("/home")
   
     } catch (error) {
-      console.error("Error:", error);
-      alert(error.response?.data?.error || "Payment failed! Booking is still recorded.");
+      console.error("Error:", error)
+      alert(error.response?.data?.error || "Payment failed! Booking is still recorded.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
   
   
 
@@ -124,7 +122,7 @@ function Mpesa() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Mpesa;
+export default Mpesa

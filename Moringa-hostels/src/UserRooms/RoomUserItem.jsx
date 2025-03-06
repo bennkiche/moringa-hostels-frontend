@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 function RoomUserItem({ room_no, room_type, id, image, description, availability, accommodation_id, price, rooms, setRooms }) {
-  const navigate = useNavigate();
-  const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate()
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const handleBookNow = () => {
     navigate("/book-room", {
@@ -16,12 +16,11 @@ function RoomUserItem({ room_no, room_type, id, image, description, availability
         description,
         image,
       }
-    });
-  };
+    })
+  }
 
-  // Splitting description into first 20 words
-  const words = description.split(" ");
-  const shortDescription = words.slice(0, 20).join(" ") + (words.length > 20 ? "..." : "");
+  const words = description.split(" ")
+  const shortDescription = words.slice(0, 20).join(" ") + (words.length > 20 ? "..." : "")
 
   return (
     <div className="room-card">
@@ -48,7 +47,7 @@ function RoomUserItem({ room_no, room_type, id, image, description, availability
         <button className="book-btn" onClick={handleBookNow}>Book Now</button>
       </div>
     </div>
-  );
+  )
 }
 
-export default RoomUserItem;
+export default RoomUserItem

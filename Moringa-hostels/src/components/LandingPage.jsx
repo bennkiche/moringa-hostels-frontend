@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
 const LandingPage = () => {
   return (
@@ -23,10 +23,10 @@ const LandingPage = () => {
 
       {/* Footer Section */}
       <footer className="footer">
-        <p>&copy; 2025 Moringa Hostel. All Rights Reserved.</p>
+        <p>&copy 2025 Moringa Hostel. All Rights Reserved.</p>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage

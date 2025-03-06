@@ -1,6 +1,6 @@
-import React from "react";
-import Footer from "./Footer";
-import './Home.css';
+import React from "react"
+import Footer from "./Footer"
+import './Home.css'
 
 const Home = () => {
   return (
@@ -71,7 +71,7 @@ const Home = () => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
+import React from "react"
+import { Link } from "react-router-dom"
+import Footer from "./Footer"
 
 const About = () => {
   return (
     <div className="w-full min-h-screen bg-gray-900 text-white flex flex-col items-center py-16 px-6">
-      {/* Main Container */}
+   
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Image Section */}
+ 
         <div className="w-full h-96 lg:h-full">
           <img
             src="src/assets/images/New Moringa.webp"
@@ -16,7 +16,6 @@ const About = () => {
           />
         </div>
 
-        {/* Text Section */}
         <div className="flex flex-col justify-center text-center lg:text-left">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-400">
             About Moringa Hostels
@@ -30,9 +29,8 @@ const About = () => {
             Experience a home away from home with top-tier facilities, fast Wi-Fi, and a welcoming community.
           </p>
           
-          {/* Call-to-Action Button */}
           <Link
-            to="/contact"
+            to="/contacts"
             className="bg-blue-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 shadow-lg"
           >
             Get in Touch
@@ -40,12 +38,11 @@ const About = () => {
         </div>
       </div>
 
-      {/* Footer Section */}
       <div className="mt-16 w-full">
         <Footer />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

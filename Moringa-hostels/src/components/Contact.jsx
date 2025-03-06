@@ -1,68 +1,64 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import React, { useState } from "react"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
-  });
+  })
 
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     message: "",
-  });
+  })
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
+    })
 
     setErrors({
       ...errors,
       [name]: "",
-    });
-  };
+    })
+  }
 
   const validateForm = () => {
-    let valid = true;
-    let newErrors = { name: "", email: "", message: "" };
+    let valid = true
+    let newErrors = { name: "", email: "", message: "" }
 
     if (formData.name === "") {
-      newErrors.name = "Please enter your name";
-      valid = false;
+      newErrors.name = "Please enter your name"
+      valid = false
     }
 
     if (formData.message === "") {
-      newErrors.message = "Please enter a message";
-      valid = false;
+      newErrors.message = "Please enter a message"
+      valid = false
     }
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-      valid = false;
+      newErrors.email = "Please enter a valid email address"
+      valid = false
     }
-    setErrors(newErrors);
-    return valid;
-    };
+    setErrors(newErrors)
+    return valid
+    }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (!validateForm()) return;
+    if (!validateForm()) return
 
-    alert("Message successfully sent");
-  };
+    alert("Message successfully sent")
+  }
 
   return (
     <div className="contact">
-      {/* <Navbar /> */}
       <div className="left">
         <h3 className="heading">Contact Us</h3>
         <p className="text">We are here for you! How can we help?</p>
@@ -152,9 +148,8 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      {/* <Footer /> */}
     </div>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact

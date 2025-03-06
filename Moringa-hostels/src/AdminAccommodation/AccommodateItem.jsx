@@ -25,7 +25,6 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
   const [showMap, setShowMap] = useState(false);
   const [fetchedLocation, setFetchedLocation] = useState("Fetching location...");
 
-  // Fetch readable location
   useEffect(() => {
     if (latitude && longitude) {
       fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
@@ -34,7 +33,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
           if (data.address) {
             const { suburb, village, town, city, county, state } = data.address;
             const nearestLocation = suburb || village || town || city || "Unknown Location";
-            const countyOrState = county || state || "Unknown County"; // Handle missing county
+            const countyOrState = county || state || "Unknown County";
             setFetchedLocation(`${nearestLocation}, ${countyOrState}`);
           } else {
             setFetchedLocation("Unknown location");

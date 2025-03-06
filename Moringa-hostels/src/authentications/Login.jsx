@@ -47,8 +47,6 @@ function LoginForm() {
         }
     };
     
-
-    // Redirect after login based on role
     if (token && user) {
         return user.role === "admin" ? <Navigate to="/accommodationAdmin" /> : <Navigate to="/accommodationUsers" />;
     }

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
-const url = "http://127.0.0.1:5000";
+const url = "http://127.0.0.1:5000"
 
 function SignupForm() {
-    const [token, setToken] = useState(localStorage.getItem('access_token'));
-    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem('access_token'))
+    const [user, setUser] = useState(null)
 
     const handleSignup = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
+        e.preventDefault()
+        const formData = new FormData(e.target)
 
         fetch(`${url}/signup`, {
             method: 'POST',
@@ -23,26 +23,26 @@ function SignupForm() {
         })
             .then((response) => {
                 if (response.ok) {
-                    return response.json();
+                    return response.json()
                 } else {
                     return response.json().then((data) => {
-                        alert(data.error || 'Error signing up');
-                        throw new Error('Error signing up');
-                    });
+                        alert(data.error || 'Error signing up')
+                        throw new Error('Error signing up')
+                    })
                 }
             })
             .then((data) => {
-                setToken(data.create_token);
-                setUser({ name: data.user.name, role: data.role });
-                localStorage.setItem("access_token", data.create_token);
+                setToken(data.create_token)
+                setUser({ name: data.user.name, role: data.role })
+                localStorage.setItem("access_token", data.create_token)
             })
             .catch((error) => {
-                console.error("Signup error:", error);
-            });
-    };
+                console.error("Signup error:", error)
+            })
+    }
 
     if (token) {
-        return <Navigate to="/accommodationUsers" />;
+        return <Navigate to="/accommodationUsers" />
     }
 
     return (
@@ -65,8 +65,8 @@ function SignupForm() {
                 </div>
             </div>
         </div>
-    );
+    )
     
 }    
 
-export default SignupForm;
+export default SignupForm

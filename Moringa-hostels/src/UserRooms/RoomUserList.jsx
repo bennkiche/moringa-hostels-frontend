@@ -1,4 +1,4 @@
-import RoomUserItem from "./RoomUserItem";
+import RoomUserItem from "./RoomUserItem"
 
 
 function RoomUserList({rooms,setRooms}){
@@ -23,4 +23,4 @@ function RoomUserList({rooms,setRooms}){
     )
 }
 
-export default RoomUserList;
+export default RoomUserList

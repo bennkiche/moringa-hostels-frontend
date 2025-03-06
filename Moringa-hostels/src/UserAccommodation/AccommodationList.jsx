@@ -1,4 +1,4 @@
-import AccommodationItem from "./AccommodationItem";
+import AccommodationItem from "./AccommodationItem"
 
 function AccommodationList({ accommodation, setAccommodation }) {
   return (
@@ -24,4 +24,4 @@ function AccommodationList({ accommodation, setAccommodation }) {
   );
 }
 
-export default AccommodationList;
+export default AccommodationList

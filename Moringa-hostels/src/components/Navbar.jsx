@@ -1,38 +1,38 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu } from "lucide-react";
-import "./Navbar.css";
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { Menu } from "lucide-react"
+import "./Navbar.css"
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false)
+  const [user, setUser] = useState(null)
+  const navigate = useNavigate()
 
   
   useEffect(() => {
     const updateUser = () => {
-      const loggedInUser = JSON.parse(localStorage.getItem("user"));
-      setUser(loggedInUser);
-    };
+      const loggedInUser = JSON.parse(localStorage.getItem("user"))
+      setUser(loggedInUser)
+    }
   
-    updateUser(); // Run on mount
+    updateUser()
   
-    window.addEventListener("storage", updateUser); // Listen for changes in localStorage
+    window.addEventListener("storage", updateUser) 
   
     return () => {
-      window.removeEventListener("storage", updateUser); // Cleanup
-    };
-  }, []);
+      window.removeEventListener("storage", updateUser) 
+    }
+  }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("access_token");
-    setUser(null);
-    navigate("/home"); 
-  };
+    localStorage.removeItem("user")
+    localStorage.removeItem("access_token")
+    setUser(null)
+    navigate("/home") 
+  }
 
   
-  const accommodationRoute = user?.role === "admin" ? "/accommodationAdmin" : "/accommodationUsers";
+  const accommodationRoute = user?.role === "admin" ? "/accommodationAdmin" : "/accommodationUsers"
 
   return (
     <nav className="navbar">
@@ -67,13 +67,12 @@ function Navbar() {
       {/* Center Navigation Links */}
       <div className="nav-links">
         <Link to="/home" className="nav-item">Home</Link>
-        <Link to={accommodationRoute} className="nav-item">Accommodations</Link> {/* Dynamic accommodation route */}
+        <Link to={accommodationRoute} className="nav-item">Accommodations</Link> 
         <Link to="/reviews" className="nav-item">Reviews</Link>
         <Link to="/about" className="nav-item">About</Link>
         <Link to="/contacts" className="nav-item">Contacts</Link>
       </div>
 
-      {/* Authentication Buttons (Log In & Sign Up or Log Out) */}
       <div className="auth-buttons">
         {user ? (
           <button onClick={handleLogout} className="logout-button">Log Out</button>
@@ -85,7 +84,7 @@ function Navbar() {
         )}
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
