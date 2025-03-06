@@ -8,6 +8,7 @@ function RoomUserItem({ room_no, room_type, id, image, description, availability
   const handleBookNow = () => {
     navigate("/book-room", {
       state: {
+        room_id: id,
         room_no,
         room_type,
         accommodation_id,

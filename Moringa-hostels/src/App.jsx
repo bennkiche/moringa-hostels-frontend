@@ -46,7 +46,7 @@ function App() {
         <Route path='/homeAuth' element={<HomeAuth />} />
         <Route path='/home' element={<Home />} />
         <Route path="/Userbookings" element={<BookingList />} />
-        <Route path="/bookings/:id" element={<BookingDetails />} />
+        {/* <Route path="/bookings/:id" element={<BookingDetails />} /> */}
         <Route path="/book-room" element={<BookingForm />} />
         {/* <Route path="/real-bookings" element={<RealBookings />} /> */}
         <Route path="/available" element={<AvailableRooms />} />
