@@ -18,68 +18,30 @@ const BookingForm = () => {
     }
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
+  const handleConfirm = (e) => {
     e.preventDefault();
 
-    // Alert if dates are missing
     if (!startDate || !endDate) {
       alert("Please fill in both Start Date and End Date.");
       return;
     }
 
-    const token = localStorage.getItem("access_token");
-
-    if (!token) {
-      alert("User is not authenticated. Please log in.");
-      return;
-    }
-
-    const bookingData = {
-      accommodation_id,
-      room_id,  // ✅ Ensure this is `room_id`
-      start_date: startDate.replace("T", " "),
-      end_date: endDate.replace("T", " "),
-    };    
-
-    console.log("Booking Data being sent:", bookingData);
-
-    try {
-      const response = await fetch("http://127.0.0.1:5000/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(bookingData),
-      });
-
-      const data = await response.json();
-      console.log("Server Response:", data);
-
-      if (!response.ok) {
-        throw new Error(data.error || "Error booking room");
-      }
-
-      // Navigate to Mpesa payment if booking is successful
-      navigate("/mpesa", { state: { amount: price } });
-
-    } catch (err) {
-      console.error("Booking Error:", err.message);
-
-      // Alert if the room is already booked
-      if (err.message.includes("Room is already booked")) {
-        alert("This room is already booked for the selected dates. Please choose another room.");
-      } else {
-        setError(err.message);
-      }
-    }
+    navigate("/mpesa", {
+      state: {
+        amount: price,
+        accommodation_id,
+        room_id,
+        start_date: startDate.replace("T", " "),
+        end_date: endDate.replace("T", " "),
+      },
+    });
   };
 
   return (
     <div className="booking-form-container">
       <h2>Book Room</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleConfirm}>
         <div>
           <label className="bookingLabel">Room Type</label><br />
           <input type="text" value={room_type || ""} readOnly />

@@ -27,7 +27,7 @@ import AvailableRooms from './bookings/AvailableRooms'
 function App() {
   return (
      <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path='/accommodationUsers' element={<AccommodationDetails />} />
         <Route path='/accommodationAdmin' element={<Accommodate />} />
@@ -47,9 +47,7 @@ function App() {
         <Route path='/homeAuth' element={<HomeAuth />} />
         <Route path='/home' element={<Home />} />
         <Route path="/Userbookings" element={<BookingList />} />
-        {/* <Route path="/bookings/:id" element={<BookingDetails />} /> */}
         <Route path="/book-room" element={<BookingForm />} />
-        {/* <Route path="/real-bookings" element={<RealBookings />} /> */}
         <Route path="/available" element={<AvailableRooms />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>

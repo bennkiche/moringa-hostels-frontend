@@ -29,7 +29,6 @@ function LoginForm() {
     
             const data = await response.json();
     
-            // Store in localStorage
             localStorage.setItem("access_token", data.create_token);
             localStorage.setItem("user", JSON.stringify({
                 id: data.user.id,
@@ -38,14 +37,10 @@ function LoginForm() {
                 role: data.role
             }));
     
-            // Trigger a storage event to notify other components
             window.dispatchEvent(new Event("storage"));
     
-            // Update state
             setToken(data.create_token);
             setUser({ name: data.user.name, role: data.role });
-    
-            alert(`Welcome ${data.user.name}, you are logged in as a ${data.role}.`);
     
         } catch (error) {
             console.error("Login error:", error);
