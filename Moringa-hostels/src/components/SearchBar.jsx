@@ -4,9 +4,9 @@ function SearchBar({onSearch}){
        onSearch(e.target.value)
     }
     return(
-        <div>
-            <h3>What accommodation are you looking for ?</h3>
-             <label htmlFor="search" >Search: </label>
+        <div className="search">
+            <h2>What accommodation are you looking for ?</h2>
+             <label className="searchL" htmlFor="search" >Search: </label>
                 <input id="search" 
                 type="text" 
                 placeholder="Search..." 
