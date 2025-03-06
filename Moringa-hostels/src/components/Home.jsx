@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
 
 const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -47,9 +47,9 @@ const Home = () => {
         <p className="text-lg md:text-xl mb-6">Your home away from home.</p>
 
         {/* Search Bar */}
-        <div className="w-full max-w-2xl">
+        {/* <div className="w-full max-w-2xl">
           <SearchBar onSearch={handleSearch} />
-        </div>
+        </div> */}
       </div>
 
       {/* Search Results */}

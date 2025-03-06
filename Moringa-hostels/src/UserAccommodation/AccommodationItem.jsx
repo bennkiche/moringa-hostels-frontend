@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function AccommodationItem({ name, image, description, latitude, longitude, locationName }) {
+function AccommodationItem({ id, name, image, description, latitude, longitude, locationName }) { 
   const [fetchedLocation, setFetchedLocation] = useState(locationName || "Fetching location...");
 
   useEffect(() => {
@@ -10,10 +10,9 @@ function AccommodationItem({ name, image, description, latitude, longitude, loca
         .then(res => res.json())
         .then(data => {
           if (data.address) {
-            // Get nearest known location and county (or state if county is missing)
             const { suburb, village, town, city, county, state } = data.address;
             const nearestLocation = suburb || village || town || city || "Unknown Location";
-            const countyOrState = county || state || "Unknown County"; // Use state if county is missing
+            const countyOrState = county || state || "Unknown County";
 
             setFetchedLocation(`${nearestLocation}, ${countyOrState}`);
           } else {
@@ -32,9 +31,10 @@ function AccommodationItem({ name, image, description, latitude, longitude, loca
         <p className="hostel-description">{description}</p>
         <h3 className="hostel-location">Location: {fetchedLocation}</h3>
         <div className="hostel-buttons">
-            <Link to="/roomUsers">
-          <button className="roomView-btn">View Rooms</button>
-            </Link>
+          {/* Pass accommodation_id in the URL */}
+          <Link to={`/roomUsers/${id}`}>
+            <button className="roomView-btn">View Rooms</button>
+          </Link>
         </div>
       </div>
     </div>

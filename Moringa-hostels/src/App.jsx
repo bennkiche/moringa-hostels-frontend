@@ -27,11 +27,12 @@ import AvailableRooms from './bookings/AvailableRooms'
 function App() {
   return (
      <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path='/accommodationUsers' element={<AccommodationDetails />} />
         <Route path='/accommodationAdmin' element={<Accommodate />} />
         <Route path="/authentication" element={<Authentication />} />
+        <Route path="/roomUsers/:accommodation_id" element={<RoomUser />} />
         <Route path='/roomUsers' element={<RoomUser />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/mpesa" element={<Mpesa />} />
