@@ -79,7 +79,7 @@ function Mpesa() {
       console.log("Payment Response:", paymentResponse.data)
       alert("Payment successful! Check your phone for confirmation.")
       
-      navigate("/home")
+      navigate("/accommodationUsers")
   
     } catch (error) {
       console.error("Error:", error)

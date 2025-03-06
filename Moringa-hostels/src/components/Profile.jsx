@@ -21,25 +21,25 @@ function Profile() {
 
   const handleUpdate = (e) => {
     e.preventDefault()
-
+  
     if (!user.id) {
       alert("User ID is missing. Please log in again.")
       return
     }
-
+  
     const token = localStorage.getItem("access_token")
     const requestBody = {
       name: newName,
       email: newEmail,
     }
-   
+  
     if (newPassword.trim()) {
-      requestBody.current_password = currentPassword 
+      requestBody.current_password = currentPassword
       requestBody.new_password = newPassword
     }
-
-    console.log("Sending PATCH request with:", requestBody) 
-
+  
+    console.log("Sending PATCH request with:", requestBody)
+  
     fetch(`http://localhost:5000/users/${user.id}`, {
       method: "PATCH",
       headers: {
@@ -48,21 +48,22 @@ function Profile() {
       },
       body: JSON.stringify(requestBody),
     })
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
         console.log("Server response:", data)
         if (data.error) {
           throw new Error(data.error)
         }
         alert("Profile updated successfully!")
         localStorage.setItem("user", JSON.stringify({ name: newName, email: newEmail, id: user.id }))
-        navigate("/home")
-    })
-    .catch(error => {
+        
+        window.location.reload()
+      })
+      .catch(error => {
         console.error("Update error:", error.message)
         alert(error.message || "Something went wrong. Please try again.")
-    })
-}
+      })
+  }  
 
 const handleDelete = () => {
   if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
