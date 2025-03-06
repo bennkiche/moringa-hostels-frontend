@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavbarUser from '../components/NavbarUser';
 import { Navigate } from 'react-router-dom';
 
 const url = "http://127.0.0.1:5000";
@@ -54,7 +53,6 @@ function SignupForm() {
 
     return (
         <div className="signupContainer">
-            {/* <NavbarUser /> */}
             <div className="signupCard">
                 <div className="signupLeft">
                     <div className="signupImagePlaceholder">

@@ -43,7 +43,7 @@
   .booking-form-container input:hover {
     box-shadow: 0 0 10px 2px #fb8500; 
   }
-  
+
   .booking-form-container input[type="text"]:read-only {
     background-color: #f1f1f1;
   }
@@ -81,3 +81,77 @@
   .booking-form-container button[type="button"]:hover {
     background-color: #c82333;
   }
+
+  /* bookinglist css */
+
+  .booking-container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .booking-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .no-bookings {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+  
+  .booking-table th,
+  .booking-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .booking-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  /* Cancel Button */
+  .cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .cancel-button:hover {
+    background-color: #cc0000;
+  }
+  
+  /* Disabled Cancelled Button */
+  .cancelled-button {
+    background-color: #ffcccc;
+    color: #a00;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  

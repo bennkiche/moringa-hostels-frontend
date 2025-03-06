@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./bookings.css"; // Import the CSS file
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
@@ -21,7 +22,7 @@ const BookingList = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched bookings:", data); 
+        console.log("Fetched bookings:", data);
         setBookings(data);
       })
       .catch((error) => {
@@ -56,60 +57,66 @@ const BookingList = () => {
   };
 
   return (
-    <div>
-      <h2>Your Bookings</h2>
-      <div>
-        {bookings.length === 0 ? (
-          <p>No bookings found!</p>
-        ) : (
-          bookings.map((booking) => (
-            <div
-              key={booking.id}
-              style={{
-                border: "1px solid #ddd",
-                padding: "10px",
-                margin: "10px",
-                borderRadius: "8px",
-                backgroundColor: "#f9f9f9",
-              }}
-            >
-              <img
-                src={booking.room_image || "https://via.placeholder.com/300"}
-                alt={`Room ${booking.room_id}`}
-                style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
-                }}
-              />
-              <p><strong>Room:</strong> {booking.room_id}</p>
-              <p><strong>Description:</strong> {booking.room_description || "No description available"}</p>
-              <p><strong>Price:</strong> ${booking.room_price} per month</p>
-              <p><strong>Status:</strong> {booking.status}</p>
-              
-              <p>
-                <strong>Start Date:</strong>{" "}
-                {booking.start_date ? new Date(booking.start_date).toLocaleString() : "N/A"}
-              </p>
-              <p>
-                <strong>End Date:</strong>{" "}
-                {booking.end_date ? new Date(booking.end_date).toLocaleString() : "N/A"}
-              </p>
+    <div className="booking-container">
+      <h2 className="booking-title">Your Bookings</h2>
 
-              <button onClick={() => navigate(`/bookings/${booking.id}`)}>
-                View Details
-              </button>
-
-              {booking.status !== "canceled" && (
-                <button onClick={() => handleCancelBooking(booking.id)}>
-                  Cancel Booking
-                </button>
-              )}
-            </div>
-          ))
-        )}
-      </div>
+      {bookings.length === 0 ? (
+        <p className="no-bookings">No bookings found!</p>
+      ) : (
+        <div className="table-container">
+          <table className="booking-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Room Type</th>
+                <th>Room ID</th>
+                <th>Accommodation ID</th>
+                <th>Price (Per Month)</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking) => (
+                <tr key={booking.id}>
+                  <td>{booking.user_id}</td>
+                  <td>{booking.room_type}</td>
+                  <td>{booking.room_id}</td>
+                  <td>{booking.accommodation_id}</td>
+                  <td>${booking.room_price}</td>
+                  <td>
+                    {booking.start_date
+                      ? new Date(booking.start_date).toLocaleDateString()
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {booking.end_date
+                      ? new Date(booking.end_date).toLocaleDateString()
+                      : "N/A"}
+                  </td>
+                  <td>{booking.status}</td>
+                  <td>
+                    {booking.status === "canceled" ? (
+                      <button className="cancelled-button" disabled>
+                        Cancelled
+                      </button>
+                    ) : (
+                      <button
+                        className="cancel-button"
+                        onClick={() => handleCancelBooking(booking.id)}
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

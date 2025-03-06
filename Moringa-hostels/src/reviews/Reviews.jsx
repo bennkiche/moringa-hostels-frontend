@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./reviews.css";
 import ReviewList from "./ReviewList";
-import Navbar from "../components/Navbar";
 
 function Reviews() {
     const [reviews, setReviews] = useState([]);
@@ -22,7 +21,6 @@ function Reviews() {
 
     return (
         <>
-            {/* <Navbar /> */}
             <div>
                 <h1>All Reviews</h1>
                 <ReviewList reviews={reviews} setReview={setReviews} />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReviewList from "./ReviewList";
 import NewReview from "./NewReviews";
-import Navbar from "../components/Navbar";
 
 function MyReviews() {
     const [reviews, setReviews] = useState([]);  
@@ -38,14 +37,11 @@ function MyReviews() {
 
     return (
         <>
-            {/* <Navbar /> */}
             <div>
                 <h1>My Reviews</h1>
 
-                {/* Conditionally Render Form Only if Logged In */}
                 {token && <NewReview review={reviews} setReview={setReviews} token={token} />}
 
-                {/* Display User's Reviews */}
                 <ReviewList reviews={reviews} setReviews={setReviews} />
             </div>
         </>

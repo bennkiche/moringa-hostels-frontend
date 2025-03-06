@@ -5,7 +5,6 @@ import LoginForm from './Login';
 import SignupForm from './Signup';
 import Accommodate from '../AdminAccommodation/Accommodate';
 import AccommodationDetails from '../UserAccommodation/AccommodationDetails';
-import NavbarUser from '../components/NavbarUser';
 
 const url = "http://127.0.0.1:5000";
 
@@ -78,7 +77,7 @@ function Authentication() {
 
     return (
         <Router>
-            <nav>
+            {/* <nav>
                 <Link to="/accommodationUsers">Accommodations</Link>
                 {user?.role === 'admin' && <Link to="/users">Users</Link>}
                 {user ? (
@@ -89,7 +88,7 @@ function Authentication() {
                         <Link to="/signup">Signup</Link>
                     </>
                 )}
-            </nav>
+            </nav> */}
             <Routes>
                 <Route path="/login" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <LoginForm setUser={setUser} />} />
                 <Route path="/signup" element={user ? <Navigate to={user?.role === 'admin' ? '/accommodationAdmin' : '/accommodationUsers'} /> : <SignupForm />} />

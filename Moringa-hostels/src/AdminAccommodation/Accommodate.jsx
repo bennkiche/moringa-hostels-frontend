@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import NewAccommodate from "./NewAccommodate";
 import AccommodateList from "./AccommodateList";
-import NavbarUser from "../components/NavbarUser";
 
 function Accommodate() { 
     const [accommodate, setAccommodate] = useState([]);
@@ -36,7 +35,6 @@ function Accommodate() {
 
     return (
         <>
-            <NavbarUser />
             <h1 className="mainH">Accommodations</h1>
             <NewAccommodate accommodate={accommodate} setAccommodate={setAccommodate} />
             <AccommodateList accommodate={accommodate} setAccommodate={setAccommodate} />

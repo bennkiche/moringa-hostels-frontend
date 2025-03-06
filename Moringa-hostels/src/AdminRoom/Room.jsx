@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css"
 import NewRoom from "./NewRooms";
 import RoomList from "./RoomList";
-import NavbarUser from "../components/NavbarUser";
 
- 
 function Room() { 
     const [room, setRoom] = useState([]);
     const token = localStorage.getItem("access_token");
@@ -32,7 +30,6 @@ function Room() {
   
   return(
     <>
-    <NavbarUser />
     <h1 className="roomH">Rooms</h1>
      <NewRoom room={room} setRoom={setRoom} token={token}/>
      <RoomList room={room} setRoom={setRoom}/>
