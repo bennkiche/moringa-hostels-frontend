@@ -1,75 +1,26 @@
-import { useState } from "react";
-import { FaSearch } from "react-icons/fa"; // Search Icon
+import React, { useState } from "react";
 
 const SearchBar = ({ onSearch }) => {
-  const [isOpen, setIsOpen] = useState(false); // Controls dropdown visibility
-  const [searchTerm, setSearchTerm] = useState("");
-  const [price, setPrice] = useState("");
-  const [roomType, setRoomType] = useState("");
-  const [accommodation, setAccommodation] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = () => {
-    setIsOpen(false); // Close dropdown on search
-    onSearch({ searchTerm, price, roomType, accommodation });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(searchQuery.trim()); // Pass search input
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto">
-      {/* Search Bar */}
-      <div
-        className="flex items-center bg-white shadow-md rounded-full p-3 cursor-pointer w-full"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className="flex-1 text-gray-600">
-          {searchTerm ? searchTerm : "Search hostels..."}
-        </span>
-        <FaSearch className="text-gray-500" />
-      </div>
-
-      {/* Dropdown (Opens when clicking search bar) */}
-      {isOpen && (
-        <div className="absolute top-12 left-0 w-full bg-white shadow-lg rounded-lg p-4">
-          <input
-            type="text"
-            placeholder="Search by location or accommodation..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <input
-            type="number"
-            placeholder="Max Price"
-            min="1"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <select
-            value={roomType}
-            onChange={(e) => setRoomType(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          >
-            <option value="">Select Room Type</option>
-            <option value="single">Single</option>
-            <option value="double">Double</option>
-            <option value="shared">Shared</option>
-          </select>
-          <input
-            type="text"
-            placeholder="Accommodation Name"
-            value={accommodation}
-            onChange={(e) => setAccommodation(e.target.value)}
-            className="w-full p-2 border rounded mb-4"
-          />
-          <button
-            onClick={handleSearch}
-            className="w-full bg-blue-500 text-white p-2 rounded"
-          >
-            Search
-          </button>
-        </div>
-      )}
-    </div>
+    <form onSubmit={handleSubmit} className="flex w-full bg-white rounded-lg shadow-md">
+      <input
+        type="text"
+        placeholder="Search by name, price, or room type..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none"
+      />
+      <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded-r-lg">
+        Search
+      </button>
+    </form>
   );
 };
 

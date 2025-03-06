@@ -6,14 +6,14 @@ import SearchBar from "./SearchBar";
 const Home = () => {
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = async (filters) => {
-    const { searchTerm, price, roomType, accommodation } = filters;
-    const queryParams = new URLSearchParams();
+  const handleSearch = async (searchQuery) => {
+    if (!searchQuery) {
+      setSearchResults([]); // Clear results if empty search
+      return;
+    }
 
-    if (searchTerm) queryParams.append("location", searchTerm);
-    if (price) queryParams.append("price", price);
-    if (roomType) queryParams.append("room_type", roomType);
-    if (accommodation) queryParams.append("accommodation", accommodation);
+    const queryParams = new URLSearchParams();
+    queryParams.append("query", searchQuery); // Send as a single query
 
     try {
       const response = await fetch(
@@ -33,9 +33,6 @@ const Home = () => {
 
   return (
     <div className="relative w-full bg-sky-100">
-      {/* Navbar */}
-      {/* <Navbar /> */}
-      
       {/* Hero Section */}
       <div
         className="relative w-full bg-cover bg-center flex flex-col items-center justify-center text-white text-center px-4 min-h-screen"
@@ -65,13 +62,12 @@ const Home = () => {
                 className="bg-white shadow-lg rounded-lg overflow-hidden"
               >
                 <img
-                  src={accommodation.image_url}
+                  src={accommodation.image}
                   alt={accommodation.name}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-xl font-bold">{accommodation.name}</h3>
-                  <p className="text-gray-600">{accommodation.location}</p>
                   <p className="text-gray-700 font-semibold">
                     ${accommodation.price} per night
                   </p>
