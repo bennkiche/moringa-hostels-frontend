@@ -1,13 +1,14 @@
 /* Container styling */
 .container {
     width: 400px;
-    margin: 50px auto;
+    margin: 0 auto;
+    margin-top: 80px;
     text-align: center;
     font-family: Arial, sans-serif;
   }
   
   /* Title & Subtitle */
-  .title {
+  .title { 
     color: green;
     font-size: 24px;
     font-style: italic;

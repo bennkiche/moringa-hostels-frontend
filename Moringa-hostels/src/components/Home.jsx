@@ -77,11 +77,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white text-center py-4 mt-8">
-        <p>&copy; {new Date().getFullYear()} Moringa Hostel. All Rights Reserved.</p>
-      </footer>
       <Footer />
     </div>
   );

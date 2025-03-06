@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./profile.css"
 
 function Profile() {
   const [user, setUser] = useState({ name: "", email: "", id: "" });
@@ -28,11 +29,14 @@ function Profile() {
 
     const token = localStorage.getItem("access_token");
     const requestBody = {
-        name: newName,
-        email: newEmail,
-        current_password: currentPassword,
-        new_password: newPassword || undefined, // Only send if changed
+      name: newName,
+      email: newEmail,
     };
+   
+    if (newPassword.trim()) {
+      requestBody.current_password = currentPassword; // Backend requires this when changing password
+      requestBody.new_password = newPassword;
+    }
 
     console.log("Sending PATCH request with:", requestBody);  // Debugging
 
@@ -46,13 +50,13 @@ function Profile() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Server response:", data); // Debugging
+        console.log("Server response:", data)
         if (data.error) {
           throw new Error(data.error);
         }
         alert("Profile updated successfully!");
         localStorage.setItem("user", JSON.stringify({ name: newName, email: newEmail, id: user.id }));
-        navigate("/homeAuth");
+        navigate("/home");
     })
     .catch(error => {
         console.error("Update error:", error.message);
@@ -60,25 +64,54 @@ function Profile() {
     });
 };
 
+const handleDelete = () => {
+  if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
+    return;
+  }
+
+  const token = localStorage.getItem("access_token");
+
+  fetch(`http://127.0.0.1:5000/users/${user.id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    alert("Account deleted successfully!")
+    localStorage.removeItem("user")
+    localStorage.removeItem("access_token");
+    navigate("/home")
+  })
+  .catch(error => {
+    console.error("Delete error:", error.message);
+    alert(error.message || "Something went wrong. Please try again.");
+  });
+};
+
   return (
     <div className="profile-container">
       <h2>My Profile</h2>
       <form onSubmit={handleUpdate}>
-        <label>Name: </label>
+        <label className="profileLabel">Name: </label><br />
         <input
           type="text"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
         />
 
-        <label>Email: </label>
+        <label className="profileLabel">Email: </label><br />
         <input
           type="email"
           value={newEmail}
           onChange={(e) => setNewEmail(e.target.value)}
         />
 
-        <label>Current Password: </label>
+        <label className="profileLabel">Current Password: </label><br />
         <input
           type="password"
           required
@@ -86,14 +119,22 @@ function Profile() {
           onChange={(e) => setCurrentPassword(e.target.value)}
         />
 
-        <label>New Password (optional): </label>
+        <label className="profileLabel">New Password (optional): </label><br />
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
+       <div className="profileButtons">
+        <button className="updateProfileBtn" type="submit">Update</button>
 
-        <button type="submit">Update Profile</button>
+        <button 
+          onClick={handleDelete} 
+          className="deleteProfileBtn"
+        >
+          Delete
+        </button>
+       </div>
       </form>
     </div>
   );

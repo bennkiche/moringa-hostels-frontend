@@ -78,7 +78,7 @@ function Mpesa() {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="input-field"
+          className="input-field" 
           placeholder="Enter amount"
           required
           readOnly // Prevent user from changing the amount

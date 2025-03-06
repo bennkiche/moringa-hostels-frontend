@@ -47,7 +47,7 @@ function Navbar() {
             </div>
             {user && (
               <>
-                <Link to="/profile" className="menu-item">Profile</Link>
+                <Link to="/profile" className="menu-item">Update Profile</Link>
                 <Link to="/Userbookings" className="menu-item">My Bookings</Link>
                 <Link to="/my-reviews" className="menu-item">My Reviews</Link>
               </>
