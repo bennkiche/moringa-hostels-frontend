@@ -6,6 +6,7 @@ import RoomList from "./RoomList";
 function Room() { 
     const [room, setRoom] = useState([]);
     const token = localStorage.getItem("access_token");
+    console.log("Retrieved Token:", token); 
 
     useEffect(() => {
         if (!token) {
