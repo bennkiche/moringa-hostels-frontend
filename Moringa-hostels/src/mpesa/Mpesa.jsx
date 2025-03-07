@@ -66,7 +66,7 @@ function Mpesa() {
   
       alert("Booking saved successfully! Proceeding to payment...")
   
-      const paymentResponse = await axios.post("https://moringa-hostels-backend.onrender.com/mpesa/pay", {
+      const paymentResponse = await axios.post("http://127.0.0.1:5000/mpesa/pay", {
         phone_number: phone,
         amount: amount
       }, {

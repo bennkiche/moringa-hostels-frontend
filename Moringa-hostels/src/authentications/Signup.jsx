@@ -11,41 +11,46 @@ function SignupForm() {
         e.preventDefault()
         const formData = new FormData(e.target)
 
+        const password = formData.get('password')
+        const confirmPassword = formData.get('confirm_password')
+
+        // ✅ Check if passwords match before sending request
+        if (password !== confirmPassword) {
+            alert("Passwords do not match! Please try again.")
+            return
+        }
+
         fetch(`${url}/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 name: formData.get('name'),
                 email: formData.get('email'),
-                password: formData.get('password'),
+                password: password,
+                confirm_password: confirmPassword, // ✅ Send confirm_password for validation
                 role: formData.get('role') || 'user' 
             }),
         })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    return response.json().then((data) => {
-                        alert(data.error || 'Error signing up')
-                        throw new Error('Error signing up')
-                    })
-                }
-            })
-            .then((data) => {
-                setToken(data.create_token)
-                setUser({ name: data.user.name, role: data.role })
-                localStorage.setItem("access_token", data.create_token)
+        .then((response) => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                return response.json().then((data) => {
+                    alert(data.error || 'Error signing up')
+                    throw new Error('Error signing up')
+                })
+            }
+        })
+        .then((data) => {
+            setToken(data.create_token)
+            setUser({ name: data.user.name, role: data.role })
+            localStorage.setItem("access_token", data.create_token)
 
-                  if (data.role) {
-                     alert(`Welcome ${data.user.name}, your account has been created as a ${data.role}.`);
-                 } else {
-                     alert(`Welcome ${data.user.name}, your account has been created.`);
-                 }
-    
-            })
-            .catch((error) => {
-                console.error("Signup error:", error)
-            })
+            alert(`Welcome ${data.user.name}, your account has been created as a ${data.role || 'user'}.`)
+        })
+        .catch((error) => {
+            console.error("Signup error:", error)
+        })
     }
 
     if (token) {
@@ -66,6 +71,7 @@ function SignupForm() {
                         <input className="signupInput" type="text" name="name" placeholder="Enter name..." required />
                         <input className="signupInput" type="email" name="email" placeholder="Enter email..." required />
                         <input className="signupInput" type="password" name="password" placeholder="Enter password..." required />
+                        <input className="signupInput" type="password" name="confirm_password" placeholder="Confirm password..." required />
                         <button className="signupButton" type="submit">Sign Up</button>
                     </form>
                     <p className="signupFooter">Already have an account? <a href="/login">Log in</a></p>
@@ -73,7 +79,6 @@ function SignupForm() {
             </div>
         </div>
     )
-    
 }    
 
 export default SignupForm
