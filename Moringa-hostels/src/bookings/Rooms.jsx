@@ -9,7 +9,7 @@ const AvailableRooms = () => {
   const [error, setError] = useState("")
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/rooms")
+    fetch("https://moringa-hostels-backend.onrender.com/rooms")
       .then((response) => response.json())
       .then((data) => {
         setRooms(data)
@@ -21,7 +21,7 @@ const AvailableRooms = () => {
   }, [])
 
   const cancelBooking = (roomId) => {
-    fetch(`http://127.0.0.1:5000/bookings/cancel/${roomId}`, {
+    fetch(`https://moringa-hostels-backend.onrender.com/bookings/cancel/${roomId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())

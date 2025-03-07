@@ -6,7 +6,7 @@ import SignupForm from './Signup';
 import Accommodate from '../AdminAccommodation/Accommodate';
 import AccommodationDetails from '../UserAccommodation/AccommodationDetails';
 
-const url = "http://127.0.0.1:5000";
+const url = "https://moringa-hostels-backend.onrender.com";
 
 function Authentication() {
     let navigate = useNavigate()

@@ -37,7 +37,7 @@ function NewRoom({ room, setRoom, token }) {
             return;
         }
 
-        fetch("http://127.0.0.1:5000/rooms", {
+        fetch("https://moringa-hostels-backend.onrender.com/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

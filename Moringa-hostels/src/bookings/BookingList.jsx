@@ -8,7 +8,7 @@ const BookingList = () => {
   const token = localStorage.getItem("access_token")
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/Userbookings", {
+    fetch("https://moringa-hostels-backend.onrender.com/Userbookings", {
       method: "GET",
       headers: {
         "Content-Type": "application/json", 
@@ -31,7 +31,7 @@ const BookingList = () => {
   }, [token])
 
   const handleCancelBooking = (id) => {
-    fetch(`http://127.0.0.1:5000/bookings/${id}/cancel`, {
+    fetch(`https://moringa-hostels-backend.onrender.com/bookings/${id}/cancel`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

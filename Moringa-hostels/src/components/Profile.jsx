@@ -40,7 +40,7 @@ function Profile() {
   
     console.log("Sending PATCH request with:", requestBody)
   
-    fetch(`http://localhost:5000/users/${user.id}`, {
+    fetch(`https://moringa-hostels-backend.onrender.com/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const handleDelete = () => {
 
   const token = localStorage.getItem("access_token")
 
-  fetch(`http://127.0.0.1:5000/users/${user.id}`, {
+  fetch(`https://moringa-hostels-backend.onrender.com/users/${user.id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,

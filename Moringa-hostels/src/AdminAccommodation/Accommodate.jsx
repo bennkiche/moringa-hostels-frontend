@@ -13,7 +13,7 @@ function Accommodate() {
             return;
         }
 
-        fetch("http://127.0.0.1:5000/accommodations", {
+        fetch("https://moringa-hostels-backend.onrender.com/accommodations", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then((res) => {
