@@ -25,7 +25,7 @@ function NewReview({ review, setReview, token, userId }) {
             return
         }
 
-        fetch("https://moringa-hostels-backend.onrender.com/reviews", {
+        fetch("http://127.0.0.1:5000/reviews", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

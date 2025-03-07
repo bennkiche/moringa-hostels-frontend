@@ -9,7 +9,7 @@ function AccommodationDetails() {
   const [searchQuery, setSearchQuery] = useState("") 
 
   useEffect(() => {
-    fetch("https://moringa-hostels-backend.onrender.com/accommodations")
+    fetch("http://127.0.0.1:5000/accommodations")
       .then(res => res.json())
       .then(data => {
         setAccommodation(Array.isArray(data) ? data : [])

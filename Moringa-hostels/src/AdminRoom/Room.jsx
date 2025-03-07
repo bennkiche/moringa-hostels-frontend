@@ -14,7 +14,7 @@ function Room() {
             return;
         }
 
-        fetch("https://moringa-hostels-backend.onrender.com/rooms", {
+        fetch("http://127.0.0.1:5000/rooms", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then((res) => {

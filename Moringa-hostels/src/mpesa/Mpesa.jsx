@@ -48,7 +48,7 @@ function Mpesa() {
         end_date,
       }
   
-      const bookingResponse = await fetch("https://moringa-hostels-backend.onrender.com/bookings", {
+      const bookingResponse = await fetch("http://127.0.0.1:5000/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

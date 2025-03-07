@@ -6,7 +6,7 @@ function Reviews() {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch("https://moringa-hostels-backend.onrender.com/reviews") 
+        fetch("http://127.0.0.1:5000/reviews") 
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Failed to fetch reviews")
