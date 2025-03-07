@@ -35,6 +35,13 @@ function SignupForm() {
                 setToken(data.create_token)
                 setUser({ name: data.user.name, role: data.role })
                 localStorage.setItem("access_token", data.create_token)
+
+                  if (data.role) {
+                     alert(`Welcome ${data.user.name}, your account has been created as a ${data.role}.`);
+                 } else {
+                     alert(`Welcome ${data.user.name}, your account has been created.`);
+                 }
+    
             })
             .catch((error) => {
                 console.error("Signup error:", error)

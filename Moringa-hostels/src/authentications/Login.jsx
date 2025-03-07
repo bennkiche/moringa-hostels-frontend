@@ -41,6 +41,8 @@ function LoginForm() {
     
             setToken(data.create_token);
             setUser({ name: data.user.name, role: data.role });
+
+            alert(`Welcome ${data.user.name}, you are logged in as a ${data.role}.`);
     
         } catch (error) {
             console.error("Login error:", error);

@@ -31,13 +31,22 @@ function NewRoom({ room, setRoom, token }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
+    
+        const minPrice = 5000;
+        const maxPrice = 30000;
+    
+        // Price validation
+        if (newRoom.price < minPrice || newRoom.price > maxPrice) {
+            alert(`Room price must be between ${minPrice} and ${maxPrice} price!`);
+            return;
+        }
+    
         if (!token) {
             alert("You must be logged in to add a room!");
             return;
         }
-
-        fetch("https://moringa-hostels-backend.onrender.com/rooms", {
+    
+        fetch("http://127.0.0.1:5000/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -64,6 +73,7 @@ function NewRoom({ room, setRoom, token }) {
         })
         .catch(error => console.error("Error:", error));
     }
+    
 
     return (
         <div className="newness">

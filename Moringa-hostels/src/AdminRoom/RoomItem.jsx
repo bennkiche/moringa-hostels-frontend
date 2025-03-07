@@ -22,6 +22,16 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
   } 
   function handleUpdate(e) {
     e.preventDefault();
+    
+    const minPrice = 5000;
+    const maxPrice = 30000;
+  
+    // Price validation before sending the request
+    if (update.price < minPrice || update.price > maxPrice) {
+      alert(`Room price must be between ${minPrice} and ${maxPrice}!`);
+      return;
+    }
+  
     const token = localStorage.getItem("access_token");
   
     if (!token) {
@@ -37,10 +47,10 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
       },
       body: JSON.stringify({
         room_type: update.room_type,
-        room_no: Number(update.room_no), 
+        room_no: Number(update.room_no),
         availability: update.availability,
-        accommodation_id: Number(update.accommodation_id), 
-        price: Number(update.price), 
+        accommodation_id: Number(update.accommodation_id),
+        price: Number(update.price),
         description: update.description,
         image: update.image
       })
@@ -52,7 +62,7 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
       return resp.json();
     })
     .then((updated) => {
-      let updatedRooms = room.map(craft => 
+      let updatedRooms = room.map(craft =>
         craft.id === id ? { ...craft, ...updated } : craft
       );
       setRoom(updatedRooms);

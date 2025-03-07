@@ -7,7 +7,7 @@
   width: 100%;
   top: 0;
   z-index: 50;
-  background-color: #007bff; 
+  background-color: #00093c; 
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -35,11 +35,20 @@
 }
 
 .menu-button {
-  background: none;
-  border: none;
+  background-color: #fb8500;
+  border-radius: 50%;  
+  padding: 8px;  
   cursor: pointer;
-  color: #fb8500;
+  color: #007bff;  
+  transition: background-color 0.3s ease-in-out;
+  border: none; 
 }
+
+.menu-button:hover {
+  background-color: #f1f1f1;  
+  color: #007bff;  
+}
+
 
 /* Dropdown menu */
 .menu-dropdown {
