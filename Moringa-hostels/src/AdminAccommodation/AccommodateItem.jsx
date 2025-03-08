@@ -23,6 +23,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
   });
 
   const [showMap, setShowMap] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [fetchedLocation, setFetchedLocation] = useState("Fetching location...");
 
   useEffect(() => {
@@ -46,6 +47,30 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
   function handleChange(e) {
     let { name, value } = e.target;
     setUpdate({ ...update, [name]: value });
+  }
+
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "react_uploads"); // Use your actual Cloudinary preset
+
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/dvjkvk71s/image/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      setUpdate((prev) => ({ ...prev, image: data.secure_url }));
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    } finally {
+      setUploading(false);
+    }
   }
 
   function handleUpdate(e) {
@@ -123,7 +148,12 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
       
       <form id="new" onSubmit={handleUpdate}>
         <input className="input" type="text" name="name" placeholder="Name" value={update.name} required onChange={handleChange} /><br />
-        <input className="input" type="text" name="image" placeholder="Image_URL" value={update.image} required onChange={handleChange} /><br />
+
+        {/* Image Upload Input */}
+        <input type="file" onChange={handleImageUpload} className="input" accept="image/*" required />
+        {uploading && <p>Uploading...</p>}
+        {update.image && <img src={update.image} alt="Uploaded Preview" className="w-32 h-32 mt-2" />}
+
         <input className="input" type="text" name="description" placeholder="Description" value={update.description} required onChange={handleChange} /><br />
 
         <input

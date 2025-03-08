@@ -1,32 +1,61 @@
-import { useState } from "react"
+import { useState } from "react";
 
-function RoomItem({room_type,room_no, availability, accommodation_id, description,id,image,price,room,setRoom}){
-  const [update,setUpdate] =useState({
-        room_type:"",
-        room_no:"",
-        availability:"",
-        accommodation_id:"",
-        price:"",
-        description:"",
-        image:""
-  })
-  function handleChange(e){
-      e.preventDefault()
-      let name = e.target.name
-      let value = e.target.value
+function RoomItem({ room_type, room_no, availability, accommodation_id, description, id, image, price, room, setRoom }) {
+  const [update, setUpdate] = useState({
+    room_type: "",
+    room_no: "",
+    availability: "",
+    accommodation_id: "",
+    price: "",
+    description: "",
+    image: ""
+  });
+  const [uploading, setUploading] = useState(false);
 
-      setUpdate({
-        ...update,
-        [name]:value
-      }) 
-  } 
+  function handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+  
+    if (name === "availability") {
+      value = value === "true" ? true : false;  // Ensure a boolean value
+    }
+  
+    setUpdate({
+      ...update,
+      [name]: value
+    });
+  }
+
+  function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "react_uploads");
+
+    fetch("https://api.cloudinary.com/v1_1/dvjkvk71s/image/upload", {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUpdate(prev => ({ ...prev, image: data.secure_url }));
+        setUploading(false);
+      })
+      .catch(err => {
+        console.error("Error uploading image:", err);
+        setUploading(false);
+      });
+  }
+
   function handleUpdate(e) {
     e.preventDefault();
     
     const minPrice = 5000;
     const maxPrice = 30000;
   
-    // Price validation before sending the request
     if (update.price < minPrice || update.price > maxPrice) {
       alert(`Room price must be between ${minPrice} and ${maxPrice}!`);
       return;
@@ -55,12 +84,7 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
         image: update.image
       })
     })
-    .then(resp => {
-      if (!resp.ok) {
-        throw new Error(`Error: ${resp.status} ${resp.statusText}`);
-      }
-      return resp.json();
-    })
+    .then(resp => resp.json())
     .then((updated) => {
       let updatedRooms = room.map(craft =>
         craft.id === id ? { ...craft, ...updated } : craft
@@ -73,16 +97,15 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
         accommodation_id: "",
         price: "",
         description: "",
-        image: "",
+        image: ""
       });
       alert("Room updated successfully!");
     })
     .catch(err => console.error("Error updating room:", err));
   }
-  
 
-  function handleDelete(){
-    const token = localStorage.getItem("access_token")
+  function handleDelete() {
+    const token = localStorage.getItem("access_token");
 
     if (!token) {
       alert("You must be logged in to delete a room.");
@@ -90,48 +113,50 @@ function RoomItem({room_type,room_no, availability, accommodation_id, descriptio
     }
 
     fetch(`http://127.0.0.1:5000/rooms/${id}`, {
-      method:"DELETE",
-      headers:{
-        "Content-Type":"application/json",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
     })
-    .then(res => {
-    if (!res.ok) {
-      throw new Error("Unauthorized: You don't have permission to delete this room.");
-    }
-    return res.json();
-  })
-  .then(() => {
-    let remainder = room.filter(fins => fins.id !== id);
-    setRoom(remainder);
-    alert('The room has been deleted successfully');
-  })
-  .catch(err => console.error("Error deleting room:", err));
-}
-    return(
-        <div id="content">
-            <img src={image} alt={room_type} />
-            <h2 className="cont"><strong>{room_type}</strong></h2>
-            <h2 className="cont"><strong>{room_no}</strong></h2>
-            <h2 className="cont"><strong>{description}</strong></h2> 
-            <h2 className="cont"><strong>{availability}</strong></h2>
-            <h2 className="mini">accommodation_id</h2>
-            <h2 className="cont"><strong>{accommodation_id}</strong></h2>
-            <h2 className="cont"><strong>ksh: {price}</strong></h2>
-              <form id="new" onSubmit={handleUpdate}>
-                <input className="input" type="text" name="room_type" placeholder="room_type" value={update.room_type} required onChange={handleChange}/><br />
-                <input className="input" type="number" name="room_no" placeholder="room_no" value={update.room_no} required onChange={handleChange}/><br />
-                <input className="input" type="text" name="availability" placeholder="availability" value={update.availability} required onChange={handleChange}/><br />
-                <input className="input" type="number" name="accommodation_id" placeholder="accommodation_id" value={update.accommodation_id} required onChange={handleChange}/><br />
-                <input className="input" type="text" name="description" placeholder="Description" value={update.description} required onChange={handleChange}/><br />
-                <input className="input" type="number" name="price" placeholder="Price" value={update.price} required onChange={handleChange}/><br />
-                <input className="input" type="text" name="image" placeholder="image" value={update.image} required onChange={handleChange}/>
-                <button className="update" type="submit">Update</button>
-              </form>
-              <button className="delete" onClick={handleDelete}>Delete</button>
-        </div>
-    )
+    .then(res => res.json())
+    .then(() => {
+      let remainder = room.filter(fins => fins.id !== id);
+      setRoom(remainder);
+      alert("The room has been deleted successfully");
+    })
+    .catch(err => console.error("Error deleting room:", err));
+  }
+
+  return (
+    <div id="content">
+      <img src={image} alt={room_type} />
+      <h2 className="cont"><strong>{room_type}</strong></h2>
+      <h2 className="cont"><strong>{room_no}</strong></h2>
+      <h2 className="cont"><strong>{description}</strong></h2>
+      <h2 className="cont"><strong>{availability ? "Available" : "Not Available"}</strong></h2>
+      <h2 className="mini">accommodation_id</h2>
+      <h2 className="cont"><strong>{accommodation_id}</strong></h2>
+      <h2 className="cont"><strong>ksh: {price}</strong></h2>
+      
+      <form id="new" onSubmit={handleUpdate}>
+        <input className="input" type="text" name="room_type" placeholder="room_type" value={update.room_type} required onChange={handleChange} /><br />
+        <input className="input" type="number" name="room_no" placeholder="room_no" value={update.room_no} required onChange={handleChange} /><br />
+        <select className="input" name="availability" value={update.availability} required onChange={handleChange}>
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select><br />
+        <input className="input" type="number" name="accommodation_id" placeholder="accommodation_id" value={update.accommodation_id} required onChange={handleChange} /><br />
+        <input className="input" type="text" name="description" placeholder="Description" value={update.description} required onChange={handleChange} /><br />
+        <input className="input" type="number" name="price" placeholder="Price" value={update.price} required onChange={handleChange} /><br />
+        <input className="input" type="file" name="image" accept="image/*" onChange={handleImageUpload} /><br />
+        {uploading && <p>Uploading...</p>}
+        {update.image && <img src={update.image} alt="Preview" style={{ width: "100px" }} />}<br />
+        <button className="update" type="submit">Update</button>
+      </form>
+      <button className="delete" onClick={handleDelete}>Delete</button>
+    </div>
+  );
 }
 
 export default RoomItem;

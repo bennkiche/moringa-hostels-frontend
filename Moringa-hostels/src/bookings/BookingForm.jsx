@@ -4,7 +4,7 @@ function NewRoom({ room, setRoom, token }) {
     const [newRoom, setNewRoom] = useState({
         room_type: "",
         room_no: 0,
-        availability: false, // Initialize as false
+        availability: true, // Set initial availability to true
         accommodation_id: "",
         price: 0,
         description: "", 
@@ -12,22 +12,22 @@ function NewRoom({ room, setRoom, token }) {
     });
 
     function handleChange(e) {
-        let { name, value } = e.target;
-
-        if (name === "room_no" || name === "accommodation_id" || name === "price") {
-            value = parseInt(value, 10) || 0; 
-        }
-        
-        if (name === "availability") {
-            // Convert the dropdown value to a boolean
-            value = value === "true"; // "true" becomes true, anything else becomes false
-        }
-
-        setNewRoom((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    }
+      let { name, value } = e.target;
+  
+      if (name === "room_no" || name === "accommodation_id" || name === "price") {
+          value = parseInt(value, 10) || 0; 
+      }
+  
+      if (name === "availability") {
+          value = value === "true"; // Ensure it's a proper boolean
+      }
+  
+      setNewRoom((prev) => ({
+          ...prev,
+          [name]: value
+      }));
+  }
+  
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -63,7 +63,7 @@ function NewRoom({ room, setRoom, token }) {
             setNewRoom({
                 room_type: "",
                 room_no: 0,
-                availability: false, // Reset availability to false
+                availability: true, // Reset availability to true
                 accommodation_id: "",
                 price: 0,
                 description: "",
@@ -120,8 +120,8 @@ function NewRoom({ room, setRoom, token }) {
                     onChange={handleChange} 
                     required
                 >
-                    <option value="true">Available</option>
-                    <option value="false">Not Available</option>
+                    <option value="true">Not Available</option>
+                    <option value="false">Available</option>
                 </select><br />
                 
                 <label>Accommodation ID: </label>
