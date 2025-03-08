@@ -37,7 +37,7 @@ function NewRoom({ room, setRoom, token }) {
 
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "react_uploads"); // Use your Cloudinary upload preset
+        formData.append("upload_preset", "react_uploads"); 
 
         try {
             const response = await fetch(`https://api.cloudinary.com/v1_1/dvjkvk71s/image/upload`, {

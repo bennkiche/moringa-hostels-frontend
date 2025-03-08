@@ -1,16 +1,17 @@
-/* Container styling */
 .container {
-    margin-top: 120px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    /* margin: 0 auto; */
-    height: 100vh;
-    position: ab;
-  }
-  
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;  
+  align-items: center;     
+  flex-direction: column; 
+  padding: 20px;           
+}
   /* Title & Subtitle */
   .title { 
-    color: green;
+    color: white;
     font-size: 24px;
     font-style: italic;
     font-weight: bold;
@@ -22,7 +23,7 @@
   
   .mpesa-text {
     font-size: 20px;
-    color: green;
+    color: white;
     font-style: italic;
     font-weight: bold;
   }
