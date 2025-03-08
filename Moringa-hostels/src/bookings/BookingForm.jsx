@@ -1,78 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const BookingForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { room_id, room_no, room_type, accommodation_id, price } = location.state || {};
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [bookedDates, setBookedDates] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+
     if (!token) {
       navigate("/login");
+      return;
     }
-  }, [navigate]);
 
-  const validateBooking = () => {
-    const token = localStorage.getItem("access_token");
-
-    return fetch("http://127.0.0.1:5000/bookings", {
-      method: "POST",
+    // Fetch booked dates for this room
+    fetch(`http://127.0.0.1:5000/rooms/${room_id}/booked-dates`, {
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
-      body: JSON.stringify({
-        accommodation_id,
-        room_id,
-        start_date: startDate.replace("T", " "),
-        end_date: endDate.replace("T", " "),
-      }),
     })
-      .then(async (response) => {
-        const result = await response.json();
-
-        if (!response.ok) {
-          alert(result.error || "Booking validation failed.");
-          return result.error; // Return error if validation fails
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.booked_dates) {
+          const disabledRanges = data.booked_dates.map(({ start_date, end_date }) => ({
+            start: new Date(start_date),
+            end: new Date(end_date),
+          }));
+          setBookedDates(disabledRanges);
         }
-
-        return null; // No errors, booking is valid
       })
-      .catch((err) => {
-        alert("An unexpected error occurred. Please try again.");
-        return err.message;
-      });
+      .catch((err) => console.error("Error fetching booked dates:", err));
+  }, [room_id, navigate]);
+
+  const isDateDisabled = (date) => {
+    return bookedDates.some(({ start, end }) => date >= start && date <= end);
   };
 
   const handleConfirm = (e) => {
     e.preventDefault();
 
     if (!startDate || !endDate) {
-      alert("Please fill in both Start Date and End Date.");
+      alert("Please select both Start Date and End Date.");
       return;
     }
 
-    validateBooking().then((validationError) => {
-      if (validationError) {
-        return; // Stop if there's an error
-      }
+    const minDuration = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+    if (new Date(endDate) - new Date(startDate) < minDuration) {
+      alert("Booking must be at least 30 days!");
+      return;
+    }
 
-      alert("✅ Booking is valid! Proceeding to Mpesa payment...");
+    alert("✅ Booking is valid! Proceeding to Mpesa payment...");
 
-      navigate("/mpesa", {
-        state: {
-          amount: price,
-          accommodation_id,
-          room_id,
-          start_date: startDate.replace("T", " "),
-          end_date: endDate.replace("T", " "),
-        },
-      });
+    navigate("/mpesa", {
+      state: {
+        amount: price,
+        accommodation_id,
+        room_id,
+        start_date: startDate.toISOString().slice(0, 16).replace("T", " "),
+        end_date: endDate.toISOString().slice(0, 16).replace("T", " "),
+      },
     });
   };
 
@@ -98,18 +93,30 @@ const BookingForm = () => {
         </div>
         <div>
           <label className="bookingLabel">Start Date</label><br />
-          <input
-            type="datetime-local"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            minDate={new Date()}
+            filterDate={(date) => !isDateDisabled(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select start date"
           />
         </div>
         <div>
           <label className="bookingLabel">End Date</label><br />
-          <input
-            type="datetime-local"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate ? new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000) : null}
+            filterDate={(date) => !isDateDisabled(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select end date"
           />
         </div>
         <button type="submit">Confirm Booking</button>
