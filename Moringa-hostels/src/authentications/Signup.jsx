@@ -54,7 +54,7 @@ function SignupForm() {
     }
 
     if (token) {
-        return <Navigate to="/accommodationUsers" />
+        return <Navigate to="/login" />
     }
 
     return (
