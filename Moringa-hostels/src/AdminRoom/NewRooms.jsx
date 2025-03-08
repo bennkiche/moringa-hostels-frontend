@@ -4,7 +4,7 @@ function NewRoom({ room, setRoom, token }) {
     const [newRoom, setNewRoom] = useState({
         room_type: "",
         room_no: 0,
-        availability: "",
+        availability: false,
         accommodation_id: "",
         price: 0,
         description: "", 
@@ -20,8 +20,8 @@ function NewRoom({ room, setRoom, token }) {
         }
         
         if (name === "availability") {
-            value = value === "true"; 
-        }
+            value = e.target.checked;
+        } 
 
         setNewRoom((prev) => ({
             ...prev,
@@ -63,7 +63,7 @@ function NewRoom({ room, setRoom, token }) {
             setNewRoom({
                 room_type: "",
                 room_no: 0,
-                availability: "",
+                availability: false,
                 accommodation_id: "",
                 price: 0,
                 description: "",
@@ -85,8 +85,9 @@ function NewRoom({ room, setRoom, token }) {
                 <input className="new" type="number" name="room_no" placeholder="Room Number" value={newRoom.room_no} required onChange={handleChange}/><br />
                 <label >Description: </label>
                 <input className="new" type="text" name="description" placeholder="Description" value={newRoom.description} required onChange={handleChange}/><br />
-                <label >Availability: </label>
-                <input className="new" type="text" name="availability" placeholder="Availability" value={newRoom.availability} required onChange={handleChange}/><br />
+                      
+                <label>Availability: </label>
+                <select className="new" name="availability" value={newRoom.availability ? "true" : "false"} onChange={handleChange} required><option value="true">Available</option><option value="false">Not Available</option></select><br />
                 <label >Accommodation_id: </label>
                 <input className="new" type="number" name="accommodation_id" placeholder="Accommodation ID" value={newRoom.accommodation_id} required onChange={handleChange}/><br />
                 <label >Price: </label>
