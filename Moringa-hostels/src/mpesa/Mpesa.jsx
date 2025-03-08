@@ -29,43 +29,19 @@ function Mpesa() {
   }
 
   const handlePay = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
   
     if (!phone || phone.length !== 12 || !amount) {
-      alert("Please enter a valid phone number.")
-      return
+      alert("Please enter a valid phone number.");
+      return;
     }
   
-    setLoading(true)
+    setLoading(true);
   
     try {
-      const token = localStorage.getItem("access_token")
+      const token = localStorage.getItem("access_token");
   
-      const bookingData = {
-        accommodation_id,
-        room_id,
-        start_date,
-        end_date,
-      }
-  
-      const bookingResponse = await fetch("http://127.0.0.1:5000/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(bookingData),
-      })
-  
-      const bookingResult = await bookingResponse.json()
-      console.log("Booking Response:", bookingResult)
-  
-      if (!bookingResponse.ok) {
-        throw new Error(bookingResult.error || "Error booking room")
-      }
-  
-      alert("Booking saved successfully! Proceeding to payment...")
-  
+      // First, make the payment request
       const paymentResponse = await axios.post("http://127.0.0.1:5000/mpesa/pay", {
         phone_number: phone,
         amount: amount
@@ -74,22 +50,46 @@ function Mpesa() {
           "Content-Type": "application/json",
           "Accept": "application/json"
         }
-      })
+      });
   
-      console.log("Payment Response:", paymentResponse.data)
-      alert("Payment successful! Check your phone for confirmation.")
-      
-      navigate("/accommodationUsers")
+      console.log("Payment Response:", paymentResponse.data);
+      alert("Payment successful! Booking will now be saved.");
+  
+      // If payment is successful, create the booking
+      const bookingData = {
+        accommodation_id,
+        room_id,
+        start_date,
+        end_date,
+      };
+  
+      const bookingResponse = await fetch("http://127.0.0.1:5000/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(bookingData),
+      });
+  
+      const bookingResult = await bookingResponse.json();
+      console.log("Booking Response:", bookingResult);
+  
+      if (!bookingResponse.ok) {
+        throw new Error(bookingResult.error || "Error booking room");
+      }
+  
+      alert("🎉 Booking confirmed successfully!");
+  
+      navigate("/accommodationUsers");
   
     } catch (error) {
-      console.error("Error:", error)
-      alert(error.response?.data?.error || "Payment failed! Booking is still recorded.")
+      console.error("Error:", error);
+      alert(error.response?.data?.error || "Payment failed! Booking was not completed.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-  
-  
+  };  
 
   return (
     <div className="container">

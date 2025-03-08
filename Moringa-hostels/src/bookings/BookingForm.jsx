@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./bookings.css";
 
 const BookingForm = () => {
   const location = useLocation();
@@ -9,7 +8,6 @@ const BookingForm = () => {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -18,8 +16,40 @@ const BookingForm = () => {
     }
   }, [navigate]);
 
+  const validateBooking = () => {
+    const token = localStorage.getItem("access_token");
 
-  const handleConfirm = async (e) => {
+    return fetch("http://127.0.0.1:5000/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        accommodation_id,
+        room_id,
+        start_date: startDate.replace("T", " "),
+        end_date: endDate.replace("T", " "),
+      }),
+    })
+      .then(async (response) => {
+        const result = await response.json();
+
+        if (!response.ok) {
+          alert(result.error || "Booking validation failed.");
+          return result.error; // Return error if validation fails
+        }
+
+        return null; // No errors, booking is valid
+      })
+      .catch((err) => {
+        alert("An unexpected error occurred. Please try again.");
+        return err.message;
+      });
+  };
+
+  const handleConfirm = (e) => {
     e.preventDefault();
 
     if (!startDate || !endDate) {
@@ -27,21 +57,28 @@ const BookingForm = () => {
       return;
     }
 
-    navigate("/mpesa", {
-      state: {
-        amount: price,
-        accommodation_id,
-        room_id,
-        start_date: startDate.replace("T", " "),
-        end_date: endDate.replace("T", " "),
-      },
+    validateBooking().then((validationError) => {
+      if (validationError) {
+        return; // Stop if there's an error
+      }
+
+      alert("✅ Booking is valid! Proceeding to Mpesa payment...");
+
+      navigate("/mpesa", {
+        state: {
+          amount: price,
+          accommodation_id,
+          room_id,
+          start_date: startDate.replace("T", " "),
+          end_date: endDate.replace("T", " "),
+        },
+      });
     });
   };
 
   return (
     <div className="booking-form-container">
       <h2>Book Room</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleConfirm}>
         <div>
           <label className="bookingLabel">Room Type</label><br />
