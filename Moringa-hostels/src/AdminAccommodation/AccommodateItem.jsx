@@ -57,7 +57,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "react_uploads"); // Use your actual Cloudinary preset
+    formData.append("upload_preset", "react_uploads"); 
 
     try {
       const response = await fetch(`https://api.cloudinary.com/v1_1/dvjkvk71s/image/upload`, {
@@ -185,11 +185,13 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
       </form>
       
       <button className="delete" onClick={handleDelete}>Delete</button><br />
-      <Link to='/roomAdmins'>
+      <Link to={`/roomAdmins`} state={{ accommodation_id: id }}>
         <button className="mini">View rooms</button>
       </Link>
+
     </div>
   );
 }
 
 export default AccommodateItem;
+ 

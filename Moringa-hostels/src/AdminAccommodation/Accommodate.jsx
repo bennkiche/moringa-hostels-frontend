@@ -25,7 +25,7 @@ function Accommodate() {
         .then((data) => {
             setAccommodate(Array.isArray(data) ? data.map(acc => ({
                 ...acc,
-                latitude: acc.latitude || "", 
+                latitude: acc.latitude || "",  
                 longitude: acc.longitude || ""
             })) : []);
         })

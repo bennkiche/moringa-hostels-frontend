@@ -18,7 +18,7 @@ function RoomUser() {
   
   return (
     <>
-      <h1 className="roomH">Hostel Rooms</h1>
+      <h1 className="roomH">Hostel Rooms</h1> 
       <RoomUserList rooms={rooms} setRooms={setRooms} />
     </>
   )

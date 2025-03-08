@@ -2,13 +2,13 @@ import { useState } from "react";
 
 function RoomItem({ room_type, room_no, availability, accommodation_id, description, id, image, price, room, setRoom }) {
   const [update, setUpdate] = useState({
-    room_type: "",
-    room_no: "",
-    availability: "",
-    accommodation_id: "",
-    price: "",
-    description: "",
-    image: ""
+    room_type: room_type,  // Set initial values from props
+    room_no: room_no,
+    availability: availability,
+    accommodation_id: accommodation_id, // Auto-fill accommodation_id
+    price: price,
+    description: description,
+    image: image
   });
   const [uploading, setUploading] = useState(false);
 
@@ -68,6 +68,7 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
       return;
     }
   
+    // Here, accommodation_id is already auto-filled from props, so no need to add it manually
     fetch(`http://127.0.0.1:5000/rooms/${id}`, {
       method: "PATCH",
       headers: {
@@ -78,7 +79,7 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
         room_type: update.room_type,
         room_no: Number(update.room_no),
         availability: update.availability,
-        accommodation_id: Number(update.accommodation_id),
+        accommodation_id: update.accommodation_id,  // Use auto-filled accommodation_id
         price: Number(update.price),
         description: update.description,
         image: update.image
@@ -91,13 +92,13 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
       );
       setRoom(updatedRooms);
       setUpdate({
-        room_type: "",
-        room_no: "",
-        availability: "",
-        accommodation_id: "",
-        price: "",
-        description: "",
-        image: ""
+        room_type: updated.room_type,
+        room_no: updated.room_no,
+        availability: updated.availability,
+        accommodation_id: updated.accommodation_id,
+        price: updated.price,
+        description: updated.description,
+        image: updated.image
       });
       alert("Room updated successfully!");
     })
@@ -135,8 +136,7 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
       <h2 className="cont"><strong>{room_no}</strong></h2>
       <h2 className="cont"><strong>{description}</strong></h2>
       <h2 className="cont"><strong>{availability ? "Available" : "Not Available"}</strong></h2>
-      <h2 className="mini">accommodation_id</h2>
-      <h2 className="cont"><strong>{accommodation_id}</strong></h2>
+      {/* <h2 className="cont"><strong>{accommodation_id}</strong></h2> */}
       <h2 className="cont"><strong>ksh: {price}</strong></h2>
       
       <form id="new" onSubmit={handleUpdate}>
@@ -146,7 +146,8 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
           <option value="true">Available</option>
           <option value="false">Not Available</option>
         </select><br />
-        <input className="input" type="number" name="accommodation_id" placeholder="accommodation_id" value={update.accommodation_id} required onChange={handleChange} /><br />
+        {/* Hidden auto-filled accommodation_id */}
+        <input className="input" type="hidden" name="accommodation_id" value={update.accommodation_id} /> {/* Hidden field for accommodation_id */}
         <input className="input" type="text" name="description" placeholder="Description" value={update.description} required onChange={handleChange} /><br />
         <input className="input" type="number" name="price" placeholder="Price" value={update.price} required onChange={handleChange} /><br />
         <input className="input" type="file" name="image" accept="image/*" onChange={handleImageUpload} /><br />

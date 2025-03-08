@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-function NewRoom({ room, setRoom, token }) {
+function NewRoom({ room, setRoom, token, accommodationId }) { // Receive accommodationId
     const [newRoom, setNewRoom] = useState({
         room_type: "",
         room_no: 0,
         availability: false,
-        accommodation_id: "",
         price: 0,
         description: "", 
         image: "",
@@ -15,7 +14,7 @@ function NewRoom({ room, setRoom, token }) {
     function handleChange(e) {
         let { name, value } = e.target;
         
-        if (name === "room_no" || name === "accommodation_id" || name === "price") {
+        if (name === "room_no" || name === "price") {
             value = parseInt(value, 10) || 0; 
         }
         
@@ -69,13 +68,16 @@ function NewRoom({ room, setRoom, token }) {
             return;
         }
     
+        // Automatically include accommodation_id before sending data
+        const roomData = { ...newRoom, accommodation_id: accommodationId };
+
         fetch("http://127.0.0.1:5000/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify(newRoom)
+            body: JSON.stringify(roomData)
         })
         .then(resp => {
             if (!resp.ok) throw new Error("Unauthorized - Invalid token");
@@ -87,7 +89,6 @@ function NewRoom({ room, setRoom, token }) {
                 room_type: "",
                 room_no: 0,
                 availability: false,
-                accommodation_id: "",
                 price: 0,
                 description: "",
                 image: "",
@@ -115,9 +116,6 @@ function NewRoom({ room, setRoom, token }) {
                     <option value="true">Available</option>
                     <option value="false">Not Available</option>
                 </select><br />
-                
-                <label>Accommodation ID: </label>
-                <input className="new" type="number" name="accommodation_id" placeholder="Accommodation ID" value={newRoom.accommodation_id} required onChange={handleChange} /><br />
                 
                 <label>Price: </label>
                 <input className="new" type="number" name="price" placeholder="Price" value={newRoom.price} required onChange={handleChange} /><br />
