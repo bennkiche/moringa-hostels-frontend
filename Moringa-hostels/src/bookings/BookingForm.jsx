@@ -11,6 +11,7 @@ const BookingForm = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [bookedDates, setBookedDates] = useState([]);
+  const [calculatedPrice, setCalculatedPrice] = useState(price);
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
@@ -20,7 +21,6 @@ const BookingForm = () => {
       return;
     }
 
-    // Fetch booked dates for this room
     fetch(`http://127.0.0.1:5000/rooms/${room_id}/booked-dates`, {
       method: "GET",
       headers: {
@@ -44,6 +44,14 @@ const BookingForm = () => {
     return bookedDates.some(({ start, end }) => date >= start && date <= end);
   };
 
+  useEffect(() => {
+    if (startDate && endDate) {
+      const daysBooked = (endDate - startDate) / (1000 * 60 * 60 * 24);
+      const factor = Math.ceil(daysBooked / 30); // 1 for 30 days, 2 for 60 days, etc.
+      setCalculatedPrice(price * factor);
+    }
+  }, [startDate, endDate, price]);
+
   const handleConfirm = (e) => {
     e.preventDefault();
 
@@ -52,7 +60,7 @@ const BookingForm = () => {
       return;
     }
 
-    const minDuration = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+    const minDuration = 30 * 24 * 60 * 60 * 1000;
     if (new Date(endDate) - new Date(startDate) < minDuration) {
       alert("Booking must be at least 30 days!");
       return;
@@ -62,7 +70,7 @@ const BookingForm = () => {
 
     navigate("/mpesa", {
       state: {
-        amount: price,
+        amount: calculatedPrice,
         accommodation_id,
         room_id,
         start_date: startDate.toISOString().slice(0, 16).replace("T", " "),
@@ -84,12 +92,11 @@ const BookingForm = () => {
           <input type="text" value={room_no || ""} readOnly />
         </div>
         <div>
-          {/* <label className="bookingLabel">Accommodation ID</label><br /> */}
           <input type="hidden" value={accommodation_id || ""} readOnly />
         </div>
         <div>
           <label className="bookingLabel">Price (KSH)</label><br />
-          <input type="text" value={price || ""} readOnly />
+          <input type="text" value={calculatedPrice} readOnly />
         </div>
         <div>
           <label className="bookingLabel">Start Date</label><br />
