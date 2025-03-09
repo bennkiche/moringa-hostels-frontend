@@ -84,8 +84,8 @@ const BookingForm = () => {
           <input type="text" value={room_no || ""} readOnly />
         </div>
         <div>
-          <label className="bookingLabel">Accommodation ID</label><br />
-          <input type="text" value={accommodation_id || ""} readOnly />
+          {/* <label className="bookingLabel">Accommodation ID</label><br /> */}
+          <input type="hidden" value={accommodation_id || ""} readOnly />
         </div>
         <div>
           <label className="bookingLabel">Price (KSH)</label><br />

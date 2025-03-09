@@ -11,24 +11,17 @@ const BookingList = () => {
     fetch("http://127.0.0.1:5000/Userbookings", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json", 
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error fetching bookings")
-        }
-        return response.json()
-      })
+      .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched bookings:", data)
-        setBookings(data)
+        console.log("Fetched bookings:", data);  
+        setBookings(data);
       })
-      .catch((error) => {
-        console.error("Error fetching bookings:", error)
-      })
-  }, [token])
+      .catch((error) => console.error("Error fetching bookings:", error));
+  }, [token]);  
 
   const handleCancelBooking = (id) => {
     fetch(`http://127.0.0.1:5000/bookings/${id}/cancel`, {
@@ -65,55 +58,58 @@ const BookingList = () => {
       ) : (
         <div className="table-container">
           <table className="booking-table">
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Room Type</th>
-                <th>Room ID</th>
-                <th>Accommodation ID</th>
-                <th>Price (Per Month)</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking) => (
-                <tr key={booking.id}>
-                  <td>{booking.user_id}</td>
-                  <td>{booking.room_type}</td>
-                  <td>{booking.room_id}</td>
-                  <td>{booking.accommodation_id}</td>
-                  <td>${booking.room_price}</td>
-                  <td>
-                    {booking.start_date
-                      ? new Date(booking.start_date).toLocaleDateString()
-                      : "N/A"}
-                  </td>
-                  <td>
-                    {booking.end_date
-                      ? new Date(booking.end_date).toLocaleDateString()
-                      : "N/A"}
-                  </td>
-                  <td>{booking.status}</td>
-                  <td>
-                    {booking.status === "canceled" ? (
-                      <button className="cancelled-button" disabled>
-                        Cancelled
-                      </button>
-                    ) : (
-                      <button
-                        className="cancel-button"
-                        onClick={() => handleCancelBooking(booking.id)}
-                      >
-                        Cancel
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+          <thead>
+  <tr>
+    <th>User Name</th>
+    <th>User Email</th>
+    <th>Room Type</th>
+    <th>Room Number</th>
+    <th>Accommodation ID</th>
+    <th>Price (Per Month)</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+  {bookings.map((booking) => (
+    <tr key={booking.id}>
+      <td>{booking.user_name || "N/A"}</td>
+      <td>{booking.user_email || "N/A"}</td>
+      <td>{booking.room_type}</td>
+      <td>{booking.room_no}</td>
+      <td>{booking.accommodation_id}</td>
+      <td>${booking.room_price}</td>
+      <td>
+        {booking.start_date
+          ? new Date(booking.start_date).toLocaleDateString()
+          : "N/A"}
+      </td>
+      <td>
+        {booking.end_date
+          ? new Date(booking.end_date).toLocaleDateString()
+          : "N/A"}
+      </td>
+      <td>{booking.status}</td>
+      <td>
+        {booking.status === "canceled" ? (
+          <button className="cancelled-button" disabled>
+            Cancelled
+          </button>
+        ) : (
+          <button
+            className="cancel-button"
+            onClick={() => handleCancelBooking(booking.id)}
+          >
+            Cancel
+          </button>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
           </table>
         </div>
       )}
