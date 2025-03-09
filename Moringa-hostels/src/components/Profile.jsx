@@ -65,34 +65,37 @@ function Profile() {
       })
   }  
 
-const handleDelete = () => {
-  if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
-    return
-  }
-
-  const token = localStorage.getItem("access_token")
-
-  fetch(`http://127.0.0.1:5000/users/${user.id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.error) {
-      throw new Error(data.error)
+  const handleDelete = () => {
+    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone!")) {
+      return
     }
-    alert("Account deleted successfully!")
-    localStorage.removeItem("user")
-    localStorage.removeItem("access_token")
-    navigate("/home")
-  })
-  .catch(error => {
-    console.error("Delete error:", error.message)
-    alert(error.message || "Something went wrong. Please try again.")
-  })
-}
+  
+    const token = localStorage.getItem("access_token")
+  
+    fetch(`http://127.0.0.1:5000/delete`, {  // Updated URL to match backend route
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ user_id: user.id }), // Sending user_id in the body
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error)
+      }
+      alert("Account deleted successfully!")
+      localStorage.removeItem("user")
+      localStorage.removeItem("access_token")
+      navigate("/home")
+    })
+    .catch(error => {
+      console.error("Delete error:", error.message)
+      alert(error.message || "Something went wrong. Please try again.")
+    })
+  }
+  
 
   return (
     <div className="profile-container">
