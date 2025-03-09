@@ -123,21 +123,21 @@ function Profile() {
           onChange={(e) => setCurrentPassword(e.target.value)}
         />
 
-        <label className="profileLabel">New Password (optional): </label><br />
+        {/* <label className="profileLabel">New Password (optional): </label><br />
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-        />
+        /> */}
        <div className="profileButtons">
         <button className="updateProfileBtn" type="submit">Update</button>
 
-        <button 
+        {/* <button 
           onClick={handleDelete} 
           className="deleteProfileBtn"
         >
           Delete
-        </button>
+        </button> */}
        </div>
       </form>
     </div>

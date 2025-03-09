@@ -49,10 +49,11 @@ function NewReview({ review, setReview, token, userId }) {
     }
 
     return (
-        <div className="newness">
-            <form id="new" onSubmit={handleSubmit} className="review-form">
+        <div className="new-review">
+            <form id="new" onSubmit={handleSubmit}>
+                <h1 classname="reviewH">New Reviews</h1>
                 <div className="form-group">
-                    <label className="form-label">Rating:</label>
+                    <label className="form-label">Rating:</label><br />
                     <input
                         className="form-input"
                         type="number"
@@ -67,7 +68,7 @@ function NewReview({ review, setReview, token, userId }) {
                 </div>
 
                 <div className="form-group">
-                    <label className="form-label">Review:</label>
+                    <label className="form-label">Review:</label><br />
                     <textarea
                         className="form-textarea"
                         name="content"
