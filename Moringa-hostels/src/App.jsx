@@ -2,10 +2,10 @@ import AccommodationDetails from './UserAccommodation/AccommodationDetails'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Authentication from './authentications/Authentication'
 import Accommodate from './AdminAccommodation/Accommodate'
-import BookingList from "./bookings/BookingList";
-import BookingForm from "./bookings/BookingForm";
 import LandingPage from './components/LandingPage'
 import SignupForm from './authentications/Signup'
+import BookingList from "./bookings/BookingList"
+import BookingForm from "./bookings/BookingForm"
 import LoginForm from './authentications/Login'
 import MyReviews from './reviews/MyReviews'
 import RoomUser from './UserRooms/RoomUser'

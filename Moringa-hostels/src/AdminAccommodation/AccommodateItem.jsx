@@ -82,7 +82,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
       return;
     }
 
-    fetch(`http://127.0.0.1:5000/accommodations/${id}`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/accommodations/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ function AccommodateItem({ name, image, id, description, latitude, longitude, se
       return;
     }
 
-    fetch(`http://127.0.0.1:5000/accommodations/${id}`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/accommodations/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

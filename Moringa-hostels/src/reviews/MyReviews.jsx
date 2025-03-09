@@ -12,7 +12,7 @@ function MyReviews() {
             return
         }
 
-        fetch("http://127.0.0.1:5000/my-reviews", {
+        fetch("https://moringa-hostels-backend-ebzd.onrender.com/my-reviews", {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then((res) => {

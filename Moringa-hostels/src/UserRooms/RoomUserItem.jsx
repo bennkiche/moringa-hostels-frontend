@@ -12,7 +12,7 @@ function RoomUserItem({ room_no, room_type, id, image, description, availability
         room_no,
         room_type,
         accommodation_id,
-        price,
+        price, 
         description,
         image,
       }

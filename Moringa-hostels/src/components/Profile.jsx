@@ -40,7 +40,7 @@ function Profile() {
   
     console.log("Sending PATCH request with:", requestBody)
   
-    fetch(`http://127.0.0.1:5000/users/${user.id}`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ function Profile() {
   
     const token = localStorage.getItem("access_token")
   
-    fetch(`http://127.0.0.1:5000/delete`, {  // Updated URL to match backend route
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/delete`, {  // Updated URL to match backend route
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

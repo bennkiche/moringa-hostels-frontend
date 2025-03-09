@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from "react-router-dom";
 
-const url = "http://127.0.0.1:5000";
+const url = "https://moringa-hostels-backend-ebzd.onrender.com";
 
 function LoginForm() {
     const [token, setToken] = useState(localStorage.getItem('access_token'));

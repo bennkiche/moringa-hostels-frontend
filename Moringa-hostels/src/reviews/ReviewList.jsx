@@ -6,7 +6,7 @@ function ReviewList({ reviews, setReview }) {
     const handleDelete = (reviewId) => {
         if (!window.confirm("Are you sure you want to delete this review?")) return
 
-        fetch(`http://127.0.0.1:5000reviews/${reviewId}`, {
+        fetch(`https://moringa-hostels-backend-ebzd.onrender.com/${reviewId}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })

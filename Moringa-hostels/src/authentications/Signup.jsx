@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
-const url = "http://127.0.0.1:5000"
+const url = "https://moringa-hostels-backend-ebzd.onrender.com"
 
 function SignupForm() {
     const [token, setToken] = useState(localStorage.getItem('access_token'))
@@ -70,6 +70,7 @@ function SignupForm() {
                     <form className="signupForm" onSubmit={handleSignup}>
                         <input className="signupInput" type="text" name="name" placeholder="Enter name..." required />
                         <input className="signupInput" type="email" name="email" placeholder="Enter email..." required />
+                        {/* <input className="signupInput" type="text" name="role" placeholder="Enter role..." required /> */}
                         <input className="signupInput" type="password" name="password" placeholder="Enter password..." required />
                         <input className="signupInput" type="password" name="confirm_password" placeholder="Confirm password..." required />
                         <button className="signupButton" type="submit">Sign Up</button>

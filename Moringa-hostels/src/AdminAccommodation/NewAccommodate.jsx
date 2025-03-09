@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "./AdminForm.css"
 
 function LocationPicker({ setLatitude, setLongitude }) {
     useMapEvents({
@@ -57,7 +58,7 @@ function NewAccommodate({ accommodate, setAccommodate }) {
         e.preventDefault();
         const token = localStorage.getItem("access_token");
 
-        fetch("http://127.0.0.1:5000/accommodations", {
+        fetch("https://moringa-hostels-backend-ebzd.onrender.com/accommodations", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -75,21 +76,19 @@ function NewAccommodate({ accommodate, setAccommodate }) {
     }
 
     return (
-        <div className="newness">
-            <h2 className="newer">New Accommodation</h2>
-            <form id="new" onSubmit={handleSubmit}>
-                <input className="new" type="text" name="name" placeholder="Name" value={NewAccommodate.name} required onChange={handleChange} />
+        <div className="admin-form-container">
+            <h2 className="admin-form-title">Add New Accommodation</h2>
+            <form id="new-accommodation" onSubmit={handleSubmit} className="admin-form">
+                <input className="admin-input" type="text" name="name" placeholder="Accommodation Name" value={NewAccommodate.name} required onChange={handleChange} />
 
-                {/* Image Upload Input */}
-                <input type="file" onChange={handleImageUpload} className="new" accept="image/*" required />
-                {uploading && <p>Uploading...</p>}
-                {NewAccommodate.image && <img src={NewAccommodate.image} alt="Uploaded Preview" className="w-32 h-32 mt-2" />}
+                <input type="file" onChange={handleImageUpload} className="admin-input" accept="image/*" required />
+                {uploading && <p className="uploading-text">Uploading...</p>}
+                {NewAccommodate.image && <img src={NewAccommodate.image} alt="Uploaded Preview" className="preview-image" />}
 
-                <input className="new" type="text" name="description" placeholder="Description" value={NewAccommodate.description} required onChange={handleChange} />
+                <input className="admin-input" type="text" name="description" placeholder="Description" value={NewAccommodate.description} required onChange={handleChange} />
 
-                {/* Location Picker */}
                 <input
-                    className="new"
+                    className="admin-input"
                     type="text"
                     name="location"
                     placeholder="Click to select location"
@@ -115,10 +114,10 @@ function NewAccommodate({ accommodate, setAccommodate }) {
                     </MapContainer>
                 )}
 
-                <button className="add" type="submit">Add</button>
+                <button className="admin-submit-btn" type="submit">Add Accommodation</button>
             </form>
         </div>
     );
 }
 
-export default NewAccommodate;
+export default NewAccommodate

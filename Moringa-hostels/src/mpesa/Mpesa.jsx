@@ -42,7 +42,7 @@ function Mpesa() {
       const token = localStorage.getItem("access_token");
   
       // First, make the payment request
-      const paymentResponse = await axios.post("http://127.0.0.1:5000/mpesa/pay", {
+      const paymentResponse = await axios.post("https://moringa-hostels-backend-ebzd.onrender.com/mpesa/pay", {
         phone_number: phone,
         amount: amount
       }, {
@@ -63,7 +63,7 @@ function Mpesa() {
         end_date,
       };
   
-      const bookingResponse = await fetch("http://127.0.0.1:5000/bookings", {
+      const bookingResponse = await fetch("https://moringa-hostels-backend-ebzd.onrender.com/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

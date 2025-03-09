@@ -54,39 +54,47 @@ function NewRoom({ room, setRoom, token, accommodationId }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-
+    
         const minPrice = 5000;
         const maxPrice = 30000;
-
+    
         if (newRoom.price < minPrice || newRoom.price > maxPrice) {
             alert(`Room price must be between ${minPrice} and ${maxPrice}!`);
             return;
         }
-
+    
         if (!token) {
             alert("You must be logged in to add a room!");
             return;
         }
-
+    
+        let rooms = [];
+    
         try {
-            // Fetch existing rooms to check if the room number is already in use
-            const response = await fetch(`http://127.0.0.1:5000/rooms?accommodation_id=${accommodationId}`);
-            const rooms = await response.json();
-
-            if (rooms.some(room => room.room_no === newRoom.room_no)) {
-                alert("A room with this number already exists in this accommodation!");
-                return;
+            const response = await fetch(`https://moringa-hostels-backend-ebzd.onrender.com/rooms?accommodation_id=${accommodationId}`);
+    
+            if (response.ok) {
+                rooms = await response.json();
+            } else if (response.status === 404) {
+                console.warn("No rooms found for this accommodation. Proceeding with room creation.");
+            } else {
+                throw new Error("Failed to fetch existing rooms.");
             }
         } catch (error) {
             console.error("Error checking existing rooms:", error);
             alert("Could not verify room number uniqueness. Please try again.");
             return;
         }
-
-        // If room number is unique, proceed with submission
+    
+        if (rooms.some(room => room.room_no === newRoom.room_no)) {
+            alert("A room with this number already exists in this accommodation!");
+            return;
+        }
+    
+        // Proceed with room creation
         const roomData = { ...newRoom, accommodation_id: accommodationId };
-
-        fetch("http://127.0.0.1:5000/rooms", {
+    
+        fetch("https://moringa-hostels-backend-ebzd.onrender.com/rooms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -112,7 +120,7 @@ function NewRoom({ room, setRoom, token, accommodationId }) {
         })
         .catch(error => console.error("Error:", error));
     }
-
+      
     return (
         <div className="newness">
             <h2 className="newer">New Room</h2>

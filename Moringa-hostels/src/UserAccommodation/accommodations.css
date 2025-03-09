@@ -1,5 +1,5 @@
 #acc-container {
-  background: linear-gradient(to bottom, #fb8500, #219ebc);
+  /* background: linear-gradient(to bottom, #fb8500, #219ebc); */
   display: flex;
   min-height: 100vh;
   align-items: center;
@@ -12,7 +12,7 @@
 .hostel-card {
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(to left, #fb8500, #219ebc); 
   border-radius: 12px;
   padding: 20px;
   margin: 20px;

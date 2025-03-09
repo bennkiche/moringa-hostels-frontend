@@ -21,7 +21,7 @@ const BookingForm = () => {
       return;
     }
 
-    fetch(`http://127.0.0.1:5000/rooms/${room_id}/booked-dates`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/rooms/${room_id}/booked-dates`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

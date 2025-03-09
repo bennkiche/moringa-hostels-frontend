@@ -1,6 +1,6 @@
 /* Room Container */
 #room-container {
-  background: linear-gradient(to bottom, #219ebc, #fb8500);
+  /* background: linear-gradient(to bottom, #219ebc, #fb8500); */
   min-height: 100vh; /* Ensures the background covers the full viewport height */
   display: flex;
   justify-content: center; /* Centers content horizontally */
@@ -8,11 +8,12 @@
   flex-wrap: wrap;
   padding: 30px;
 }
-
+ 
 /* Room Card */
 .room-card {
+  background: linear-gradient(to top, #fb8500, #219ebc);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   flex-wrap: wrap;
   align-items: center;
   background-color: white;

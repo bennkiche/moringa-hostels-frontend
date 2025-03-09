@@ -77,7 +77,7 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
       return;
     }
 
-    fetch(`http://127.0.0.1:5000/rooms/${id}`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/rooms/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +113,7 @@ function RoomItem({ room_type, room_no, availability, accommodation_id, descript
       return;
     }
 
-    fetch(`http://127.0.0.1:5000/rooms/${id}`, {
+    fetch(`https://moringa-hostels-backend-ebzd.onrender.com/rooms/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

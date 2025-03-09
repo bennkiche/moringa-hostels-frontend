@@ -15,7 +15,7 @@ function Room() {
       return;
     }
 
-    let url = "http://127.0.0.1:5000/rooms";
+    let url = "https://moringa-hostels-backend-ebzd.onrender.com/rooms";
     if (accommodationId) {
       url += `?accommodation_id=${accommodationId}`;
     }
